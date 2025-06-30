@@ -1,0 +1,14 @@
+-- CREATE TABLE user_quiz_results (
+--     resultid UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+--     userid BIGINT,
+--     quizid 
+-- );
+
+-- CREATE TABLE quizzes (
+--     quizid UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+--     categoryid INT NOT NULL,
+--     subcategoryid INT NOT NULL,
+--     created_at TIMESTAMP DEFAULT NOW(),
+--     FOREIGN KEY(categoryid) REFERENCES categories(categoryid) ON DELETE CASCADE,
+--     FOREIGN KEY(subcategoryid) REFERENCES subcategories(subcategoryid) ON DELETE CASCADE
+-- );
