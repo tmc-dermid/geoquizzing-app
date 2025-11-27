@@ -10,7 +10,7 @@ const StatCard = ({ stat, value }) => {
 
   return (
     <>
-      <div className="stats-card" data-tooltip-id="global-tooltip" data-tooltip-content={stat.description || ""}>
+      <div className="stats-card" data-tooltip-id="global-tooltip" data-tooltip-html={stat.description || ""}>
         {stat.icon && <div className="stats-icon">{stat.icon}</div>}
         <p className="stats-label">{stat.label}</p>
         <p className="stats-value">{displayValue}</p>

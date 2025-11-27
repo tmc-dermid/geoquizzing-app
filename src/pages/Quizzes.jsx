@@ -294,18 +294,7 @@ export default function Quizzes() {
         </div>
       )}
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss={true}
-        draggable={true}
-        pauseOnHover={true}
-        transition={Slide}
-      />
+      <ToastContainer />
     </div>
   );
 }

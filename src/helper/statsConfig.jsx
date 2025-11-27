@@ -13,13 +13,13 @@ export const generalStatsConfig = [
     key: "total_quizzes_taken",
     label: "Total Quizzes Taken",
     icon: <MdAssignmentTurnedIn />,
-    description: "Total number of quizzes you have attempted"
+    description: "Total number of quizzes attempted"
   },
   {
     key: "total_questions_answered",
     label: "Total Questions Answered",
     icon: <FaQuestion />,
-    description: "Total number of questions you have answered in all quizzes"
+    description: "Total number of questions answered in all quizzes"
   },
   {
     key: "avg_questions_per_quiz",
