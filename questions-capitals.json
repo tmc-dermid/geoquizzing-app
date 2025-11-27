@@ -1,0 +1,1237 @@
+[
+    {
+        "country_id": 1,
+        "question_text": "What is the capital of Afghanistan?",
+        "correct_answer": "Kabul"
+    },
+    {
+        "country_id": 2,
+        "question_text": "What is the capital of Albania?",
+        "correct_answer": "Tirana"
+    },
+    {
+        "country_id": 3,
+        "question_text": "What is the capital of Algeria?",
+        "correct_answer": "Algiers"
+    },
+    {
+        "country_id": 4,
+        "question_text": "What is the capital of American Samoa?",
+        "correct_answer": "Pago Pago"
+    },
+    {
+        "country_id": 5,
+        "question_text": "What is the capital of Andorra?",
+        "correct_answer": "Andorra la Vella"
+    },
+    {
+        "country_id": 6,
+        "question_text": "What is the capital of Angola?",
+        "correct_answer": "Luanda"
+    },
+    {
+        "country_id": 7,
+        "question_text": "What is the capital of Anguilla?",
+        "correct_answer": "The Valley"
+    },
+    {
+        "country_id": 8,
+        "question_text": "What is the capital of Antigua and Barbuda?",
+        "correct_answer": "Saint John's"
+    },
+    {
+        "country_id": 9,
+        "question_text": "What is the capital of Argentina?",
+        "correct_answer": "Buenos Aires"
+    },
+    {
+        "country_id": 10,
+        "question_text": "What is the capital of Armenia?",
+        "correct_answer": "Yerevan"
+    },
+    {
+        "country_id": 11,
+        "question_text": "What is the capital of Aruba?",
+        "correct_answer": "Oranjestad"
+    },
+    {
+        "country_id": 12,
+        "question_text": "What is the capital of Ascension Island?",
+        "correct_answer": "Georgetown"
+    },
+    {
+        "country_id": 13,
+        "question_text": "What is the capital of Australia?",
+        "correct_answer": "Canberra"
+    },
+    {
+        "country_id": 14,
+        "question_text": "What is the capital of Austria?",
+        "correct_answer": "Vienna"
+    },
+    {
+        "country_id": 15,
+        "question_text": "What is the capital of Azerbaijan?",
+        "correct_answer": "Baku"
+    },
+    {
+        "country_id": 16,
+        "question_text": "What is the capital of The Bahamas?",
+        "correct_answer": "Nassau"
+    },
+    {
+        "country_id": 17,
+        "question_text": "What is the capital of Bahrain?",
+        "correct_answer": "Manama"
+    },
+    {
+        "country_id": 18,
+        "question_text": "What is the capital of Bangladesh?",
+        "correct_answer": "Dhaka"
+    },
+    {
+        "country_id": 19,
+        "question_text": "What is the capital of Barbados?",
+        "correct_answer": "Bridgetown"
+    },
+    {
+        "country_id": 20,
+        "question_text": "What is the capital of Belarus?",
+        "correct_answer": "Minsk"
+    },
+    {
+        "country_id": 21,
+        "question_text": "What is the capital of Belgium?",
+        "correct_answer": "Brussels"
+    },
+    {
+        "country_id": 22,
+        "question_text": "What is the capital of Belize?",
+        "correct_answer": "Belmopan"
+    },
+    {
+        "country_id": 23,
+        "question_text": "What is the capital of Benin?",
+        "correct_answer": "Porto-Novo"
+    },
+    {
+        "country_id": 24,
+        "question_text": "What is the capital of Bermuda?",
+        "correct_answer": "Hamilton"
+    },
+    {
+        "country_id": 25,
+        "question_text": "What is the capital of Bhutan?",
+        "correct_answer": "Thimphu"
+    },
+    {
+        "country_id": 26,
+        "question_text": "What are the capitals of Bolivia?",
+        "correct_answer": ["Sucre", "La Paz"]
+    },
+    {
+        "country_id": 27,
+        "question_text": "What is the capital of Bonaire?",
+        "correct_answer": "Kralendijk"
+    },
+    {
+        "country_id": 28,
+        "question_text": "What is the capital of Bosnia and Herzegovina?",
+        "correct_answer": "Sarajevo"
+    },
+    {
+        "country_id": 29,
+        "question_text": "What is the capital of Botswana?",
+        "correct_answer": "Gaborone"
+    },
+    {
+        "country_id": 30,
+        "question_text": "What is the capital of Brazil?",
+        "correct_answer": "Brasília"
+    },
+    {
+        "country_id": 31,
+        "question_text": "What is the capital of British Indian Ocean Territory?",
+        "correct_answer": "Diego Garcia"
+    },
+    {
+        "country_id": 32,
+        "question_text": "What is the capital of the British Virgin Islands?",
+        "correct_answer": "Road Town"
+    },
+    {
+        "country_id": 33,
+        "question_text": "What is the capital of Brunei?",
+        "correct_answer": "Bandar Seri Begawan"
+    },
+    {
+        "country_id": 34,
+        "question_text": "What is the capital of Bulgaria?",
+        "correct_answer": "Sofia"
+    },
+    {
+        "country_id": 35,
+        "question_text": "What is the capital of Burkina Faso?",
+        "correct_answer": "Ouagadougou"
+    },
+    {
+        "country_id": 36,
+        "question_text": "What is the capital of Burundi?",
+        "correct_answer": "Gitega"
+    },
+    {
+        "country_id": 37,
+        "question_text": "What is the capital of Cambodia?",
+        "correct_answer": "Phnom Penh"
+    },
+    {
+        "country_id": 38,
+        "question_text": "What is the capital of Cameroon?",
+        "correct_answer": "Yaoundé"
+    },
+    {
+        "country_id": 39,
+        "question_text": "What is the capital of Canada?",
+        "correct_answer": "Ottawa"
+    },
+    {
+        "country_id": 40,
+        "question_text": "What is the capital of Cape Verde?",
+        "correct_answer": "Praia"
+    },
+    {
+        "country_id": 41,
+        "question_text": "What is the capital of the Cayman Islands?",
+        "correct_answer": "George Town"
+    },
+    {
+        "country_id": 42,
+        "question_text": "What is the capital of the Central African Republic?",
+        "correct_answer": "Bangui"
+    },
+    {
+        "country_id": 43,
+        "question_text": "What is the capital of Chad?",
+        "correct_answer": "N'Djamena"
+    },
+    {
+        "country_id": 44,
+        "question_text": "What is the capital of Chile?",
+        "correct_answer": "Santiago"
+    },
+    {
+        "country_id": 45,
+        "question_text": "What is the capital of China?",
+        "correct_answer": "Beijing"
+    },
+    {
+        "country_id": 46,
+        "question_text": "What is the capital of Christmas Island?",
+        "correct_answer": "Flying Fish Cove"
+    },
+    {
+        "country_id": 47,
+        "question_text": "What is the capital of Cocos (Keeling) Islands?",
+        "correct_answer": "West Island"
+    },
+    {
+        "country_id": 48,
+        "question_text": "What is the capital of Colombia?",
+        "correct_answer": "Bogotá"
+    },
+    {
+        "country_id": 49,
+        "question_text": "What is the capital of Comoros?",
+        "correct_answer": "Moroni"
+    },
+    {
+        "country_id": 50,
+        "question_text": "What is the capital of Cook Islands?",
+        "correct_answer": "Avarua"
+    },
+    {
+        "country_id": 51,
+        "question_text": "What is the capital of Costa Rica?",
+        "correct_answer": "San José"
+    },
+    {
+        "country_id": 52,
+        "question_text": "What is the capital of Croatia?",
+        "correct_answer": "Zagreb"
+    },
+    {
+        "country_id": 53,
+        "question_text": "What is the capital of Cuba?",
+        "correct_answer": "Havana"
+    },
+    {
+        "country_id": 54,
+        "question_text": "What is the capital of Curaçao?",
+        "correct_answer": "Willemstad"
+    },
+    {
+        "country_id": 55,
+        "question_text": "What is the capital of Cyprus?",
+        "correct_answer": "Nicosia"
+    },
+    {
+        "country_id": 56,
+        "question_text": "What is the capital of Czechia?",
+        "correct_answer": "Prague"
+    },
+    {
+        "country_id": 57,
+        "question_text": "What is the capital of Denmark?",
+        "correct_answer": "Copenhagen"
+    },
+    {
+        "country_id": 58,
+        "question_text": "What is the capital of Djibouti?",
+        "correct_answer": "Djibouti"
+    },
+    {
+        "country_id": 59,
+        "question_text": "What is the capital of Dominica?",
+        "correct_answer": "Roseau"
+    },
+    {
+        "country_id": 60,
+        "question_text": "What is the capital of the Dominican Republic?",
+        "correct_answer": "Santo Domingo"
+    },
+    {
+        "country_id": 61,
+        "question_text": "What is the capital of the Democratic Republic of Congo?",
+        "correct_answer": "Kinshasa"
+    },
+    {
+        "country_id": 62,
+        "question_text": "What is the capital of Ecuador?",
+        "correct_answer": "Quito"
+    },
+    {
+        "country_id": 63,
+        "question_text": "What is the capital of Egypt?",
+        "correct_answer": "Cairo"
+    },
+    {
+        "country_id": 64,
+        "question_text": "What is the capital of El Salvador?",
+        "correct_answer": "San Salvador"
+    },
+    {
+        "country_id": 65,
+        "question_text": "What is the capital of Equatorial Guinea?",
+        "correct_answer": "Malabo"
+    },
+    {
+        "country_id": 66,
+        "question_text": "What is the capital of Eritrea?",
+        "correct_answer": "Asmara"
+    },
+    {
+        "country_id": 67,
+        "question_text": "What is the capital of Estonia?",
+        "correct_answer": "Tallinn"
+    },
+    {
+        "country_id": 68,
+        "question_text": "What is the capital of Eswatini?",
+        "correct_answer": "Mbabane"
+    },
+    {
+        "country_id": 69,
+        "question_text": "What is the capital of Ethiopia?",
+        "correct_answer": "Addis Ababa"
+    },
+    {
+        "country_id": 70,
+        "question_text": "What is the capital of the Falkland Islands?",
+        "correct_answer": "Stanley"
+    },
+    {
+        "country_id": 71,
+        "question_text": "What is the capital of the Faroe Islands?",
+        "correct_answer": "Tórshavn"
+    },
+    {
+        "country_id": 72,
+        "question_text": "What is the capital of Fiji?",
+        "correct_answer": "Suva"
+    },
+    {
+        "country_id": 73,
+        "question_text": "What is the capital of Finland?",
+        "correct_answer": "Helsinki"
+    },
+    {
+        "country_id": 74,
+        "question_text": "What is the capital of France?",
+        "correct_answer": "Paris"
+    },
+    {
+        "country_id": 75,
+        "question_text": "What is the capital of French Guiana?",
+        "correct_answer": "Cayenne"
+    },
+    {
+        "country_id": 76,
+        "question_text": "What is the capital of French Polynesia?",
+        "correct_answer": "Papeetē"
+    },
+    {
+        "country_id": 77,
+        "question_text": "What is the capital of the French Southern and Antarctic Lands?",
+        "correct_answer": "Port-aux-Français"
+    },
+    {
+        "country_id": 78,
+        "question_text": "What is the capital of Gabon?",
+        "correct_answer": "Libreville"
+    },
+    {
+        "country_id": 79,
+        "question_text": "What is the capital of Gambia?",
+        "correct_answer": "Banjul"
+    },
+    {
+        "country_id": 80,
+        "question_text": "What is the capital of Georgia?",
+        "correct_answer": "Tbilisi"
+    },
+    {
+        "country_id": 81,
+        "question_text": "What is the capital of Germany?",
+        "correct_answer": "Berlin"
+    },
+    {
+        "country_id": 82,
+        "question_text": "What is the capital of Ghana?",
+        "correct_answer": "Accra"
+    },
+    {
+        "country_id": 83,
+        "question_text": "What is the capital of Greece?",
+        "correct_answer": "Athens"
+    },
+    {
+        "country_id": 84,
+        "question_text": "What is the capital of Greenland?",
+        "correct_answer": "Nuuk"
+    },
+    {
+        "country_id": 85,
+        "question_text": "What is the capital of Grenada?",
+        "correct_answer": "Saint George's"
+    },
+    {
+        "country_id": 86,
+        "question_text": "What is the capital of Guadeloupe?",
+        "correct_answer": "Basse-Terre"
+    },
+    {
+        "country_id": 87,
+        "question_text": "What is the capital of Guam?",
+        "correct_answer": "Hagåtña"
+    },
+    {
+        "country_id": 88,
+        "question_text": "What is the capital of Guatemala?",
+        "correct_answer": "Guatemala City"
+    },
+    {
+        "country_id": 89,
+        "question_text": "What is the capital of Guernsey?",
+        "correct_answer": "Saint Peter Port"
+    },
+    {
+        "country_id": 90,
+        "question_text": "What is the capital of Guinea?",
+        "correct_answer": "Conakry"
+    },
+    {
+        "country_id": 91,
+        "question_text": "What is the capital of Guinea-Bissau?",
+        "correct_answer": "Bissau"
+    },
+    {
+        "country_id": 92,
+        "question_text": "What is the capital of Guyana?",
+        "correct_answer": "Georgetown"
+    },
+    {
+        "country_id": 93,
+        "question_text": "What is the capital of Haiti?",
+        "correct_answer": "Port-au-Prince"
+    },
+    {
+        "country_id": 94,
+        "question_text": "What is the capital of Honduras?",
+        "correct_answer": "Tegucigalpa"
+    },
+    {
+        "country_id": 95,
+        "question_text": "What is the capital of Hungary?",
+        "correct_answer": "Budapest"
+    },
+    {
+        "country_id": 96,
+        "question_text": "What is the capital of Iceland?",
+        "correct_answer": "Reykjavik"
+    },
+    {
+        "country_id": 97,
+        "question_text": "What is the capital of India?",
+        "correct_answer": "New Delhi"
+    },
+    {
+        "country_id": 98,
+        "question_text": "What is the capital of Indonesia?",
+        "correct_answer": "Jakarta"
+    },
+    {
+        "country_id": 99,
+        "question_text": "What is the capital of Iran?",
+        "correct_answer": "Tehran"
+    },
+    {
+        "country_id": 100,
+        "question_text": "What is the capital of Iraq?",
+        "correct_answer": "Baghdad"
+    },
+    {
+        "country_id": 101,
+        "question_text": "What is the capital of Ireland?",
+        "correct_answer": "Dublin"
+    },
+    {
+        "country_id": 102,
+        "question_text": "What is the capital of Israel?",
+        "correct_answer": "Jerusalem"
+    },
+    {
+        "country_id": 103,
+        "question_text": "What is the capital of Italy?",
+        "correct_answer": "Rome"
+    },
+    {
+        "country_id": 104,
+        "question_text": "What is the capital of Ivory Coast?",
+        "correct_answer": "Yamoussoukro"
+    },
+    {
+        "country_id": 105,
+        "question_text": "What is the capital of Jamaica?",
+        "correct_answer": "Kingston"
+    },
+    {
+        "country_id": 106,
+        "question_text": "What is the capital of Japan?",
+        "correct_answer": "Tokyo"
+    },
+    {
+        "country_id": 107,
+        "question_text": "What is the capital of Jersey?",
+        "correct_answer": "Saint Helier"
+    },
+    {
+        "country_id": 108,
+        "question_text": "What is the capital of Jordan?",
+        "correct_answer": "Amman"
+    },
+    {
+        "country_id": 109,
+        "question_text": "What is the capital of Kazakhstan?",
+        "correct_answer": "Astana"
+    },
+    {
+        "country_id": 110,
+        "question_text": "What is the capital of Kenya?",
+        "correct_answer": "Nairobi"
+    },
+    {
+        "country_id": 111,
+        "question_text": "What is the capital of Kiribati?",
+        "correct_answer": "Tarawa"
+    },
+    {
+        "country_id": 112,
+        "question_text": "What is the capital of Kosovo?",
+        "correct_answer": "Pristina"
+    },
+    {
+        "country_id": 113,
+        "question_text": "What is the capital of Kuwait?",
+        "correct_answer": "Kuwait City"
+    },
+    {
+        "country_id": 114,
+        "question_text": "What is the capital of Kyrgyzstan?",
+        "correct_answer": "Bishkek"
+    },
+    {
+        "country_id": 115,
+        "question_text": "What is the capital of Laos?",
+        "correct_answer": "Vientiane"
+    },
+    {
+        "country_id": 116,
+        "question_text": "What is the capital of Latvia?",
+        "correct_answer": "Riga"
+    },
+    {
+        "country_id": 117,
+        "question_text": "What is the capital of Lebanon?",
+        "correct_answer": "Beirut"
+    },
+    {
+        "country_id": 118,
+        "question_text": "What is the capital of Lesotho?",
+        "correct_answer": "Maseru"
+    },
+    {
+        "country_id": 119,
+        "question_text": "What is the capital of Liberia?",
+        "correct_answer": "Monrovia"
+    },
+    {
+        "country_id": 120,
+        "question_text": "What is the capital of Libya?",
+        "correct_answer": "Tripoli"
+    },
+    {
+        "country_id": 121,
+        "question_text": "What is the capital of Liechtenstein?",
+        "correct_answer": "Vaduz"
+    },
+    {
+        "country_id": 122,
+        "question_text": "What is the capital of Lithuania?",
+        "correct_answer": "Vilnius"
+    },
+    {
+        "country_id": 123,
+        "question_text": "What is the capital of Luxembourg?",
+        "correct_answer": "Luxembourg"
+    },
+    {
+        "country_id": 124,
+        "question_text": "What is the capital of Madagascar?",
+        "correct_answer": "Antananarivo"
+    },
+    {
+        "country_id": 125,
+        "question_text": "What is the capital of Malawi?",
+        "correct_answer": "Lilongwe"
+    },
+    {
+        "country_id": 126,
+        "question_text": "What is the capital of Malaysia?",
+        "correct_answer": "Kuala Lumpur"
+    },
+    {
+        "country_id": 127,
+        "question_text": "What is the capital of the Maldives?",
+        "correct_answer": "Malé"
+    },
+    {
+        "country_id": 128,
+        "question_text": "What is the capital of Mali?",
+        "correct_answer": "Bamako"
+    },
+    {
+        "country_id": 129,
+        "question_text": "What is the capital of Malta?",
+        "correct_answer": "Valletta"
+    },
+    {
+        "country_id": 130,
+        "question_text": "What is the capital of the Marshall Islands?",
+        "correct_answer": "Majuro"
+    },
+    {
+        "country_id": 131,
+        "question_text": "What is the capital of Martinique?",
+        "correct_answer": "Fort-de-France"
+    },
+    {
+        "country_id": 132,
+        "question_text": "What is the capital of Mauritania?",
+        "correct_answer": "Nouakchott"
+    },
+    {
+        "country_id": 133,
+        "question_text": "What is the capital of Mauritius?",
+        "correct_answer": "Port Louis"
+    },
+    {
+        "country_id": 134,
+        "question_text": "What is the capital of Mayotte?",
+        "correct_answer": "Mamoudzou"
+    },
+    {
+        "country_id": 135,
+        "question_text": "What is the capital of Mexico?",
+        "correct_answer": "Mexico City"
+    },
+    {
+        "country_id": 136,
+        "question_text": "What is the capital of Micronesia?",
+        "correct_answer": "Palikir"
+    },
+    {
+        "country_id": 137,
+        "question_text": "What is the capital of Moldova?",
+        "correct_answer": "Chisinau"
+    },
+    {
+        "country_id": 138,
+        "question_text": "What is the capital of Monaco?",
+        "correct_answer": "Monaco"
+    },
+    {
+        "country_id": 139,
+        "question_text": "What is the capital of Mongolia?",
+        "correct_answer": "Ulaanbaatar"
+    },
+    {
+        "country_id": 140,
+        "question_text": "What is the capital of Montenegro?",
+        "correct_answer": "Podgorica"
+    },
+    {
+        "country_id": 141,
+        "question_text": "What is the capital of Montserrat?",
+        "correct_answer": "Plymouth"
+    },
+    {
+        "country_id": 142,
+        "question_text": "What is the capital of Morocco?",
+        "correct_answer": "Rabat"
+    },
+    {
+        "country_id": 143,
+        "question_text": "What is the capital of Mozambique?",
+        "correct_answer": "Maputo"
+    },
+    {
+        "country_id": 144,
+        "question_text": "What is the capital of Myanmar?",
+        "correct_answer": "Naypyidaw"
+    },
+    {
+        "country_id": 145,
+        "question_text": "What is the capital of Namibia?",
+        "correct_answer": "Windhoek"
+    },
+    {
+        "country_id": 146,
+        "question_text": "What is the capital of Nauru?",
+        "correct_answer": "Yaren"
+    },
+    {
+        "country_id": 147,
+        "question_text": "What is the capital of Nepal?",
+        "correct_answer": "Kathmandu"
+    },
+    {
+        "country_id": 148,
+        "question_text": "What is the capital of the Netherlands?",
+        "correct_answer": "Amsterdam"
+    },
+    {
+        "country_id": 149,
+        "question_text": "What is the capital of New Caledonia?",
+        "correct_answer": "Nouméa"
+    },
+    {
+        "country_id": 150,
+        "question_text": "What is the capital of New Zealand?",
+        "correct_answer": "Wellington"
+    },
+    {
+        "country_id": 151,
+        "question_text": "What is the capital of Nicaragua?",
+        "correct_answer": "Managua"
+    },
+    {
+        "country_id": 152,
+        "question_text": "What is the capital of Niger?",
+        "correct_answer": "Niamey"
+    },
+    {
+        "country_id": 153,
+        "question_text": "What is the capital of Nigeria?",
+        "correct_answer": "Abuja"
+    },
+    {
+        "country_id": 154,
+        "question_text": "What is the capital of Niue?",
+        "correct_answer": "Alofi"
+    },
+    {
+        "country_id": 155,
+        "question_text": "What is the capital of Norfolk Island?",
+        "correct_answer": "Kingston"
+    },
+    {
+        "country_id": 156,
+        "question_text": "What is the capital of North Korea?",
+        "correct_answer": "Pyongyang"
+    },
+    {
+        "country_id": 157,
+        "question_text": "What is the capital of North Macedonia?",
+        "correct_answer": "Skopje"
+    },
+    {
+        "country_id": 158,
+        "question_text": "What is the capital of the Northern Mariana Islands?",
+        "correct_answer": "Saipan"
+    },
+    {
+        "country_id": 159,
+        "question_text": "What is the capital of Norway?",
+        "correct_answer": "Oslo"
+    },
+    {
+        "country_id": 160,
+        "question_text": "What is the capital of Oman?",
+        "correct_answer": "Muscat"
+    },
+    {
+        "country_id": 161,
+        "question_text": "What is the capital of Pakistan?",
+        "correct_answer": "Islamabad"
+    },
+    {
+        "country_id": 162,
+        "question_text": "What is the capital of Palau?",
+        "correct_answer": "Ngerulmud"
+    },
+    {
+        "country_id": 163,
+        "question_text": "What are the capitals of Palestine?",
+        "correct_answer": ["Jerusalem", "Ramallah"]
+    },
+    {
+        "country_id": 164,
+        "question_text": "What is the capital of Panama?",
+        "correct_answer": "Panama City"
+    },
+    {
+        "country_id": 165,
+        "question_text": "What is the capital of Papua New Guinea?",
+        "correct_answer": "Port Moresby"
+    },
+    {
+        "country_id": 166,
+        "question_text": "What is the capital of Paraguay?",
+        "correct_answer": "Asunción"
+    },
+    {
+        "country_id": 167,
+        "question_text": "What is the capital of Peru?",
+        "correct_answer": "Lima"
+    },
+    {
+        "country_id": 168,
+        "question_text": "What is the capital of the Philippines?",
+        "correct_answer": "Manila"
+    },
+    {
+        "country_id": 169,
+        "question_text": "What is the capital of the Pitcairn Islands?",
+        "correct_answer": "Adamstown"
+    },
+    {
+        "country_id": 170,
+        "question_text": "What is the capital of Poland?",
+        "correct_answer": "Warsaw"
+    },
+    {
+        "country_id": 171,
+        "question_text": "What is the capital of Portugal?",
+        "correct_answer": "Lisbon"
+    },
+    {
+        "country_id": 172,
+        "question_text": "What is the capital of Puerto Rico?",
+        "correct_answer": "San Juan"
+    },
+    {
+        "country_id": 173,
+        "question_text": "What is the capital of Qatar?",
+        "correct_answer": "Doha"
+    },
+    {
+        "country_id": 174,
+        "question_text": "What is the capital of the Republic of the Congo?",
+        "correct_answer": "Brazzaville"
+    },
+    {
+        "country_id": 175,
+        "question_text": "What is the capital of Réunion?",
+        "correct_answer": "Saint-Denis"
+    },
+    {
+        "country_id": 176,
+        "question_text": "What is the capital of Romania?",
+        "correct_answer": "Bucharest"
+    },
+    {
+        "country_id": 177,
+        "question_text": "What is the capital of Russia?",
+        "correct_answer": "Moscow"
+    },
+    {
+        "country_id": 178,
+        "question_text": "What is the capital of Rwanda?",
+        "correct_answer": "Kigali"
+    },
+    {
+        "country_id": 179,
+        "question_text": "What is the capital of Saba?",
+        "correct_answer": "The Bottom"
+    },
+    {
+        "country_id": 180,
+        "question_text": "What is the capital of Saint Barthélemy?",
+        "correct_answer": "Gustavia"
+    },
+    {
+        "country_id": 181,
+        "question_text": "What is the capital of Saint Helena Island?",
+        "correct_answer": "Jamestown"
+    },
+    {
+        "country_id": 182,
+        "question_text": "What is the capital of Saint Kitts and Nevis?",
+        "correct_answer": "Basseterre"
+    },
+    {
+        "country_id": 183,
+        "question_text": "What is the capital of Saint Lucia?",
+        "correct_answer": "Castries"
+    },
+    {
+        "country_id": 184,
+        "question_text": "What is the capital of Saint-Martin?",
+        "correct_answer": "Marigot"
+    },
+    {
+        "country_id": 185,
+        "question_text": "What is the capital of Saint Pierre and Miquelon?",
+        "correct_answer": "Saint-Pierre"
+    },
+    {
+        "country_id": 186,
+        "question_text": "What is the capital of the Saint Vincent and the Grenadines?",
+        "correct_answer": "Kingstown"
+    },
+    {
+        "country_id": 187,
+        "question_text": "What is the capital of Samoa?",
+        "correct_answer": "Apia"
+    },
+    {
+        "country_id": 188,
+        "question_text": "What is the capital of San Marino?",
+        "correct_answer": "San Marino"
+    },
+    {
+        "country_id": 189,
+        "question_text": "What is the capital of São Tomé and Príncipe?",
+        "correct_answer": "São Tomé"
+    },
+    {
+        "country_id": 190,
+        "question_text": "What is the capital of Saudi Arabia?",
+        "correct_answer": "Riyadh"
+    },
+    {
+        "country_id": 191,
+        "question_text": "What is the capital of Senegal?",
+        "correct_answer": "Dakar"
+    },
+    {
+        "country_id": 192,
+        "question_text": "What is the capital of Serbia?",
+        "correct_answer": "Belgrade"
+    },
+    {
+        "country_id": 193,
+        "question_text": "What is the capital of Seychelles?",
+        "correct_answer": "Victoria"
+    },
+    {
+        "country_id": 194,
+        "question_text": "What is the capital of Sierra Leone?",
+        "correct_answer": "Freetown"
+    },
+    {
+        "country_id": 195,
+        "question_text": "What is the capital of Singapore?",
+        "correct_answer": "Singapore"
+    },
+    {
+        "country_id": 196,
+        "question_text": "What is the capital of Sint Eustatius?",
+        "correct_answer": "Oranjestad"
+    },
+    {
+        "country_id": 197,
+        "question_text": "What is the capital of Sint Maarten?",
+        "correct_answer": "Philipsburg"
+    },
+    {
+        "country_id": 198,
+        "question_text": "What is the capital of Slovakia?",
+        "correct_answer": "Bratislava"
+    },
+    {
+        "country_id": 199,
+        "question_text": "What is the capital of Slovenia?",
+        "correct_answer": "Ljubljana"
+    },
+    {
+        "country_id": 200,
+        "question_text": "What is the capital of the Solomon Islands?",
+        "correct_answer": "Honiara"
+    },
+    {
+        "country_id": 201,
+        "question_text": "What is the capital of Somalia?",
+        "correct_answer": "Mogadishu"
+    },
+    {
+        "country_id": 202,
+        "question_text": "What are the capitals of South Africa?",
+        "correct_answer": ["Pretoria", "Bloemfontein", "Cape Town"]
+    },
+    {
+        "country_id": 203,
+        "question_text": "What is the capital of the South Georgia and the South Sandwich Islands?",
+        "correct_answer": "King Edward Point"
+    },
+    {
+        "country_id": 204,
+        "question_text": "What is the capital of South Korea?",
+        "correct_answer": "Seoul"
+    },
+    {
+        "country_id": 205,
+        "question_text": "What is the capital of South Sudan?",
+        "correct_answer": "Juba"
+    },
+    {
+        "country_id": 206,
+        "question_text": "What is the capital of Spain?",
+        "correct_answer": "Madrid"
+    },
+    {
+        "country_id": 207,
+        "question_text": "What is the capital of Sri Lanka?",
+        "correct_answer": "Sri Jayawardenepura Kotte"
+    },
+    {
+        "country_id": 208,
+        "question_text": "What is the capital of Sudan?",
+        "correct_answer": "Khartoum"
+    },
+    {
+        "country_id": 209,
+        "question_text": "What is the capital of Suriname?",
+        "correct_answer": "Paramaribo"
+    },
+    {
+        "country_id": 210,
+        "question_text": "What is the capital of the Svalbard and Jan Mayen?",
+        "correct_answer": "Longyearbyen"
+    },
+    {
+        "country_id": 211,
+        "question_text": "What is the capital of Sweden?",
+        "correct_answer": "Stockholm"
+    },
+    {
+        "country_id": 212,
+        "question_text": "What is the capital of Switzerland?",
+        "correct_answer": "Bern"
+    },
+    {
+        "country_id": 213,
+        "question_text": "What is the capital of Syria?",
+        "correct_answer": "Damascus"
+    },
+    {
+        "country_id": 214,
+        "question_text": "What is the capital of Taiwan?",
+        "correct_answer": "Taipei"
+    },
+    {
+        "country_id": 215,
+        "question_text": "What is the capital of Tajikistan?",
+        "correct_answer": "Dushanbe"
+    },
+    {
+        "country_id": 216,
+        "question_text": "What is the capital of Tanzania?",
+        "correct_answer": "Dodoma"
+    },
+    {
+        "country_id": 217,
+        "question_text": "What is the capital of Thailand?",
+        "correct_answer": "Bangkok"
+    },
+    {
+        "country_id": 218,
+        "question_text": "What is the capital of Timor-Leste?",
+        "correct_answer": "Dili"
+    },
+    {
+        "country_id": 219,
+        "question_text": "What is the capital of Togo?",
+        "correct_answer": "Lomé"
+    },
+    {
+        "country_id": 220,
+        "question_text": "What is the capital of Tokelau?",
+        "correct_answer": "Fakaofo"
+    },
+    {
+        "country_id": 221,
+        "question_text": "What is the capital of Tonga?",
+        "correct_answer": "Nuku'alofa"
+    },
+    {
+        "country_id": 222,
+        "question_text": "What is the capital of Trinidad and Tobago?",
+        "correct_answer": "Port of Spain"
+    },
+    {
+        "country_id": 223,
+        "question_text": "What is the capital of Tristan da Cunha?",
+        "correct_answer": "Edinburgh of the Seven Seas"
+    },
+    {
+        "country_id": 224,
+        "question_text": "What is the capital of Tunisia?",
+        "correct_answer": "Tunis"
+    },
+    {
+        "country_id": 225,
+        "question_text": "What is the capital of Turkey?",
+        "correct_answer": "Ankara"
+    },
+    {
+        "country_id": 226,
+        "question_text": "What is the capital of Turkmenistan?",
+        "correct_answer": "Ashgabat"
+    },
+    {
+        "country_id": 227,
+        "question_text": "What is the capital of the Turks and Caicos Islands?",
+        "correct_answer": "Cockburn Town"
+    },
+    {
+        "country_id": 228,
+        "question_text": "What is the capital of Tuvalu?",
+        "correct_answer": "Funafuti"
+    },
+    {
+        "country_id": 229,
+        "question_text": "What is the capital of Uganda?",
+        "correct_answer": "Kampala"
+    },
+    {
+        "country_id": 230,
+        "question_text": "What is the capital of Ukraine?",
+        "correct_answer": "Kyiv"
+    },
+    {
+        "country_id": 231,
+        "question_text": "What is the capital of the United Arab Emirates?",
+        "correct_answer": "Abu Dhabi"
+    },
+    {
+        "country_id": 232,
+        "question_text": "What is the capital of the United Kingdom?",
+        "correct_answer": "London"
+    },
+    {
+        "country_id": 233,
+        "question_text": "What is the capital of the United States?",
+        "correct_answer": "Washington, D.C."
+    },
+    {
+        "country_id": 234,
+        "question_text": "What is the capital of the United States Virgin Islands?",
+        "correct_answer": "Charlotte Amalie"
+    },
+    {
+        "country_id": 235,
+        "question_text": "What is the capital of Uruguay?",
+        "correct_answer": "Montevideo"
+    },
+    {
+        "country_id": 236,
+        "question_text": "What is the capital of Uzbekistan?",
+        "correct_answer": "Tashkent"
+    },
+    {
+        "country_id": 237,
+        "question_text": "What is the capital of Vanuatu?",
+        "correct_answer": "Port Vila"
+    },
+    {
+        "country_id": 238,
+        "question_text": "What is the capital of Vatican City?",
+        "correct_answer": "Vatican City"
+    },
+    {
+        "country_id": 239,
+        "question_text": "What is the capital of Venezuela?",
+        "correct_answer": "Caracas"
+    },
+    {
+        "country_id": 240,
+        "question_text": "What is the capital of Vietnam?",
+        "correct_answer": "Hanoi"
+    },
+    {
+        "country_id": 241,
+        "question_text": "What is the capital of Wallis and Futuna?",
+        "correct_answer": "Mata-Utu"
+    },
+    {
+        "country_id": 242,
+        "question_text": "What is the capital of Western Sahara?",
+        "correct_answer": "El Aaiún"
+    },
+    {
+        "country_id": 243,
+        "question_text": "What is the capital of Yemen?",
+        "correct_answer": "Sana'a"
+    },
+    {
+        "country_id": 244,
+        "question_text": "What is the capital of Zambia?",
+        "correct_answer": "Lusaka"
+    },
+    {
+        "country_id": 245,
+        "question_text": "What is the capital of Zimbabwe?",
+        "correct_answer": "Harare"
+    },
+    {
+        "country_id": 246,
+        "question_text": "What is the capital of the Åland Islands?",
+        "correct_answer": "Mariehamn"
+    },
+    {
+        "country_id": 247,
+        "question_text": "What is the capital of Gibraltar?",
+        "correct_answer": "Gibraltar"
+    }
+]

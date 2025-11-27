@@ -1,0 +1,2188 @@
+[
+    {
+        "country_id": 1,
+        "question_text": "What is the highest point in Afghanistan?",
+        "correct_answer": ["Noshaq"]
+    },
+    {
+        "country_id": 2,
+        "question_text": "What is the highest point in Albania?",
+        "correct_answer": [
+            "Mount Korab",
+            "Mt Korab",
+            "Golem Korab",
+            "Korab"
+        ]
+    },
+    {
+        "country_id": 3,
+        "question_text": "What is the highest point in Algeria?",
+        "correct_answer": [
+            "Mount Tahat",
+            "Mt Tahat",
+            "Tahat"
+        ]
+    },
+    {
+        "country_id": 4,
+        "question_text": "What is the highest point in American Samoa?",
+        "correct_answer": [
+            "Lata Mountain",
+            "Lata"
+        ]
+    },
+    {
+        "country_id": 5,
+        "question_text": "What is the highest point in Andorra?",
+        "correct_answer": [
+            "Coma Pedrossa",
+            "Pic de Coma Pedrossa"
+        ]
+    },
+    {
+        "country_id": 6,
+        "question_text": "What is the highest point in Angola?",
+        "correct_answer": [
+            "Morro de Môco",
+            "Morro de Moco",
+            "Mount Moco",
+            "Mount Môco",
+            "Mt Moco",
+            "Mt Môco",
+            "Moco",
+            "Môco"
+        ]
+    },
+    {
+        "country_id": 7,
+        "question_text": "What is the highest point in Anguilla?",
+        "correct_answer": ["Crocus Hill"]
+    },
+    {
+        "country_id": 8,
+        "question_text": "What is the highest point in Antigua and Barbuda?",
+        "correct_answer": [
+            "Boggy Peak",
+            "Mount Obama",
+            "Mt Obama"
+        ]
+    },
+    {
+        "country_id": 9,
+        "question_text": "What is the highest point in Argentina?",
+        "correct_answer": [
+            "Aconcagua",
+            "Mount Aconcagua",
+            "Mt Aconcagua"
+        ]
+    },
+    {
+        "country_id": 10,
+        "question_text": "What is the highest point in Armenia?",
+        "correct_answer": [
+            "Mount Aragats",
+            "Mt Aragats",
+            "Aragats"
+        ]
+    },
+    {
+        "country_id": 11,
+        "question_text": "What is the highest point in Aruba?",
+        "correct_answer": [
+            "Mount Jamanota",
+            "Mt Jamanota",
+            "Jamanota"
+        ]
+    },
+    {
+        "country_id": 12,
+        "question_text": "What is the highest point in Ascension Island?",
+        "correct_answer": [
+            "Green Mountain",
+            "Green Mt",
+            "The Peak"
+        ]
+    },
+    {
+        "country_id": 13,
+        "question_text": "What is the highest point in Australia?",
+        "correct_answer": [
+            "Mount Kosciuszko",
+            "Mt Kosciuszko",
+            "Kosciuszko"
+        ]
+    },
+    {
+        "country_id": 14,
+        "question_text": "What is the highest point in Austria?",
+        "correct_answer": [
+            "Großglockner",
+            "Grossglockner"
+        ]
+    },
+    {
+        "country_id": 15,
+        "question_text": "What is the highest point in Azerbaijan?",
+        "correct_answer": [
+            "Mount Bazardüzü",
+            "Mt Bazardüzü",
+            "Mount Bazarduzu",
+            "Mt Bazarduzu",
+            "Bazardüzü",
+            "Bazarduzu"
+        ]
+    },
+    {
+        "country_id": 16,
+        "question_text": "What is the highest point in the Bahamas?",
+        "correct_answer": [
+            "Mount Alvernia",
+            "Mt Alvernia",
+            "Alvernia"
+        ]
+    },
+    {
+        "country_id": 17,
+        "question_text": "What is the highest point in Bahrain?",
+        "correct_answer": [
+            "Jabal ad Dukhan",
+            "Mountain of Smoke",
+            "Mt of Smoke"
+        ]
+    },
+    {
+        "country_id": 18,
+        "question_text": "What is the highest point in Bangladesh?",
+        "correct_answer": [
+            "Saka Haphong",
+            "Mowdok Mual"
+        ]
+    },
+    {
+        "country_id": 19,
+        "question_text": "What is the highest point in Barbados?",
+        "correct_answer": [
+            "Mount Hillaby",
+            "Mt Hillaby",
+            "Hillaby"
+        ]
+    },
+    {
+        "country_id": 20,
+        "question_text": "What is the highest point in Belarus?",
+        "correct_answer": [
+            "Dzyarzhynskaya Hara",
+            "Dzyarzhynskaya Hill"
+        ]
+    },
+    {
+        "country_id": 21,
+        "question_text": "What is the highest point in Belgium?",
+        "correct_answer": ["Signal de Botrange"]
+    },
+    {
+        "country_id": 22,
+        "question_text": "What is the highest point in Belize?",
+        "correct_answer": [
+            "Doyle's Delight",
+            "Doyles Delight"
+        ]
+    },
+    {
+        "country_id": 23,
+        "question_text": "What is the highest point in Benin?",
+        "correct_answer": [
+            "Mont Sokbaro",
+            "Mt Sokbaro",
+            "Sokbaro",
+            "Mont Sagbarao",
+            "Mt Sagbarao",
+            "Sagbarao"
+        ]
+    },
+    {
+        "country_id": 24,
+        "question_text": "What is the highest point in Bermuda?",
+        "correct_answer": ["Town Hill"]
+    },
+    {
+        "country_id": 25,
+        "question_text": "What is the highest point in Bhutan?",
+        "correct_answer": [
+            "Gangkhar Puensum",
+            "Gangkar Punsum"
+        ]
+    },
+    {
+        "country_id": 26,
+        "question_text": "What is the highest point in Bolivia?",
+        "correct_answer": [
+            "Nevado Sajama",
+            "Sajama"
+        ]
+    },
+    {
+        "country_id": 27,
+        "question_text": "What is the highest point in Bonaire?",
+        "correct_answer": [
+            "Mount Brandaris",
+            "Mt Brandaris",
+            "Brandaris"
+        ]
+    },
+    {
+        "country_id": 28,
+        "question_text": "What is the highest point in Bosnia and Herzegovina?",
+        "correct_answer": [
+            "Maglić",
+            "Maglic"
+        ]
+    },
+    {
+        "country_id": 29,
+        "question_text": "What is the highest point in Botswana?",
+        "correct_answer": [
+            "Monalanong Hill",
+            "Monalanong",
+            "Otse Hill"
+        ]
+    },
+    {
+        "country_id": 30,
+        "question_text": "What is the highest point in Brazil?",
+        "correct_answer": [
+            "Pico da Neblina",
+            "Neblina"
+        ]
+    },
+    {
+        "country_id": 31,
+        "question_text": "What is the highest point in the British Indian Ocean Territory?",
+        "correct_answer": [
+            "Diego Garcia High Point",
+            "Diego Garcia"
+        ]
+    },
+    {
+        "country_id": 32,
+        "question_text": "What is the highest point in the British Virgin Islands?",
+        "correct_answer": [
+            "Mount Sage",
+            "Mt Sage",
+            "Sage"
+        ]
+    },
+    {
+        "country_id": 33,
+        "question_text": "What is the highest point in Brunei?",
+        "correct_answer": [
+            "Bukit Pagon",
+            "Pagon Hill"
+        ]
+    },
+    {
+        "country_id": 34,
+        "question_text": "What is the highest point in Bulgaria?",
+        "correct_answer": ["Musala"]
+    },
+    {
+        "country_id": 35,
+        "question_text": "What is the highest point in Burkina Faso?",
+        "correct_answer": [
+            "Mount Tenakourou",
+            "Mt Tenakourou",
+            "Tenakourou"
+        ]
+    },
+    {
+        "country_id": 36,
+        "question_text": "What is the highest point in Burundi?",
+        "correct_answer": [
+            "Mount Heha",
+            "Mt Heha",
+            "Heha"
+        ]
+    },
+    {
+        "country_id": 37,
+        "question_text": "What is the highest point in Cambodia?",
+        "correct_answer": [
+            "Phnom Aural",
+            "Phnom Aoral"
+        ]
+    },
+    {
+        "country_id": 38,
+        "question_text": "What is the highest point in Cameroon?",
+        "correct_answer": [
+            "Mount Cameroon",
+            "Mt Cameroon",
+            "Cameroon"
+        ]
+    },
+    {
+        "country_id": 39,
+        "question_text": "What is the highest point in Canada?",
+        "correct_answer": [
+            "Mount Logan",
+            "Mt Logan",
+            "Logan"
+        ]
+    },
+    {
+        "country_id": 40,
+        "question_text": "What is the highest point in Cape Verde?",
+        "correct_answer": [
+            "Pico do Fogo",
+            "Fogo"
+        ]
+    },
+    {
+        "country_id": 41,
+        "question_text": "What is the highest point in the Cayman Islands?",
+        "correct_answer": ["The Bluff"]
+    },
+    {
+        "country_id": 42,
+        "question_text": "What is the highest point in the Central African Republic?",
+        "correct_answer": [
+            "Mont Ngaoui",
+            "Mt Ngaoui",
+            "Ngaoui"
+        ]
+    },
+    {
+        "country_id": 43,
+        "question_text": "What is the highest point in Chad?",
+        "correct_answer": ["Emi Koussi"]
+    },
+    {
+        "country_id": 44,
+        "question_text": "What is the highest point in Chile?",
+        "correct_answer": ["Ojos del Salado"]
+    },
+    {
+        "country_id": 45,
+        "question_text": "What is the highest point in China?",
+        "correct_answer": [
+            "Mount Everest",
+            "Mt Everest",
+            "Everest"
+        ]
+    },
+    {
+        "country_id": 46,
+        "question_text": "What is the highest point in Christmas Island?",
+        "correct_answer": ["Murray Hill"]
+    },
+    {
+        "country_id": 47,
+        "question_text": "What is the highest point in the Cocos (Keeling) Islands?",
+        "correct_answer": ["South Island"]
+    },
+    {
+        "country_id": 48,
+        "question_text": "What is the highest point in Colombia?",
+        "correct_answer": [
+            "Pico Cristóbal Colón",
+            "Pico Cristobal Colon",
+            "Cristóbal Colón",
+            "Cristobal Colon"
+        ]
+    },
+    {
+        "country_id": 49,
+        "question_text": "What is the highest point in the Comoros?",
+        "correct_answer": [
+            "Mount Karthala",
+            "Mt Karthala",
+            "Karthala",
+            "Karthola"
+        ]
+    },
+    {
+        "country_id": 50,
+        "question_text": "What is the highest point in the Cook Islands?",
+        "correct_answer": ["Te Manga"]
+    },
+    {
+        "country_id": 51,
+        "question_text": "What is the highest point in Costa Rica?",
+        "correct_answer": [
+            "Cerro Chirripó",
+            "Cerro Chirripo",
+            "Chirripó",
+            "Chirripo"
+        ]
+    },
+    {
+        "country_id": 52,
+        "question_text": "What is the highest point in Croatia?",
+        "correct_answer": ["Dinara"]
+    },
+    {
+        "country_id": 53,
+        "question_text": "What is the highest point in Cuba?",
+        "correct_answer": [
+            "Pico Turquino",
+            "Turquino"
+        ]
+    },
+    {
+        "country_id": 54,
+        "question_text": "What is the highest point in Curaçao?",
+        "correct_answer": [
+            "The Christoffelberg",
+            "Christoffelberg",
+            "Mount Christoffel",
+            "Mt Christoffel",
+            "Christoffel"
+        ]
+    },
+    {
+        "country_id": 55,
+        "question_text": "What is the highest point in Cyprus?",
+        "correct_answer": [
+            "Mount Olympus",
+            "Mt Olympus",
+            "Olympus"
+        ]
+    },
+    {
+        "country_id": 56,
+        "question_text": "What is the highest point in Czechia?",
+        "correct_answer": [
+            "Sněžka",
+            "Snezka"
+        ]
+    },
+    {
+        "country_id": 57,
+        "question_text": "What is the highest point in Denmark?",
+        "correct_answer": [
+            "Møllehøj",
+            "Mollehoj"
+        ]
+    },
+    {
+        "country_id": 58,
+        "question_text": "What is the highest point in Djibouti?",
+        "correct_answer": [
+            "Mousa Ali",
+            "Moussa Ali"
+        ]
+    },
+    {
+        "country_id": 59,
+        "question_text": "What is the highest point in Dominica?",
+        "correct_answer": ["Morne Diablotins"]
+    },
+    {
+        "country_id": 60,
+        "question_text": "What is the highest point in the Dominican Republic?",
+        "correct_answer": [
+            "Pico Duarte",
+            "Duarte"
+        ]
+    },
+    {
+        "country_id": 61,
+        "question_text": "What is the highest point in the Democratic Republic of the Congo?",
+        "correct_answer": [
+            "Mount Stanley",
+            "Mt Stanley",
+            "Stanley",
+            "Margherita Peak"
+        ]
+    },
+    {
+        "country_id": 62,
+        "question_text": "What is the highest point in Ecuador?",
+        "correct_answer": [
+            "Chimborazo",
+            "Mount Chimborazo",
+            "Mt Chimborazo"
+        ]
+    },
+    {
+        "country_id": 63,
+        "question_text": "What is the highest point in Egypt?",
+        "correct_answer": [
+            "Mount Catherine",
+            "Mt Catherine",
+            "Catherine"
+        ]
+    },
+    {
+        "country_id": 64,
+        "question_text": "What is the highest point in El Salvador?",
+        "correct_answer": [
+            "Cerro El Pital",
+            "El Pital"
+        ]
+    },
+    {
+        "country_id": 65,
+        "question_text": "What is the highest point in Equatorial Guinea?",
+        "correct_answer": [
+            "Pico Basilé",
+            "Pico Basile",
+            "Basilé",
+            "Basile"
+        ]
+    },
+    {
+        "country_id": 66,
+        "question_text": "What is the highest point in Eritrea?",
+        "correct_answer": [
+            "Emba Soira",
+            "Soira"
+        ]
+    },
+    {
+        "country_id": 67,
+        "question_text": "What is the highest point in Estonia?",
+        "correct_answer": [
+            "Suur Munamägi",
+            "Suur Munamagi"
+        ]
+    },
+    {
+        "country_id": 68,
+        "question_text": "What is the highest point in Eswatini?",
+        "correct_answer": ["Emlembe"]
+    },
+    {
+        "country_id": 69,
+        "question_text": "What is the highest point in Ethiopia?",
+        "correct_answer": [
+            "Ras Dashen",
+            "Ras Dejen"
+        ]
+    },
+    {
+        "country_id": 70,
+        "question_text": "What is the highest point in the Falkland Islands?",
+        "correct_answer": [
+            "Mount Usborne",
+            "Mt Usborne",
+            "Usborne"
+        ]
+    },
+    {
+        "country_id": 71,
+        "question_text": "What is the highest point in the Faroe Islands?",
+        "correct_answer": [
+            "Slættaratindur",
+            "Slattaratindur",
+            "Slettaratindur",
+            "Slaettaratindur"
+        ]
+    },
+    {
+        "country_id": 72,
+        "question_text": "What is the highest point in Fiji?",
+        "correct_answer": [
+            "Mount Tomanivi",
+            "Mt Tomanivi",
+            "Tomanivi"
+        ]
+    },
+    {
+        "country_id": 73,
+        "question_text": "What is the highest point in Finland?",
+        "correct_answer": [
+            "Halti",
+            "Haltiatunturi"
+        ]
+    },
+    {
+        "country_id": 74,
+        "question_text": "What is the highest point in France?",
+        "correct_answer": [
+            "Mont Blanc",
+            "Mt Blanc",
+            "Monte Bianco",
+            "Mt Bianco",
+            "Monte Bianco di Courmayeur"
+        ]
+    },
+    {
+        "country_id": 75,
+        "question_text": "What is the highest point in French Guiana?",
+        "correct_answer": [
+            "Bellevue de l'Inini",
+            "Bellevue de LInini",
+            "Mont Bellevue",
+            "Mt Bellevue",
+            "Montagne Bellevue",
+            "Montagne Bellevue de l'Inini",
+            "Bellevue"
+        ]
+    },
+    {
+        "country_id": 76,
+        "question_text": "What is the highest point in French Polynesia?",
+        "correct_answer": [
+            "Mont Orohena",
+            "Mt Orohena",
+            "Orohena"
+        ]
+    },
+    {
+        "country_id": 77,
+        "question_text": "What is the highest point in the French Southern and Antarctic Lands?",
+        "correct_answer": [
+            "Mont Ross",
+            "Mt Ross",
+            "Ross"
+        ]
+    },
+    {
+        "country_id": 78,
+        "question_text": "What is the highest point in Gabon?",
+        "correct_answer": [
+            "Mont Bengoué",
+            "Mont Bengoue",
+            "Mt Bengoué",
+            "Mt Bengoue",
+            "Bengoué",
+            "Bengoue"
+        ]
+    },
+    {
+        "country_id": 79,
+        "question_text": "What is the highest point in Gambia?",
+        "correct_answer": [
+            "Sare Firasu Hill",
+            "Sare Firasu"
+        ]
+    },
+    {
+        "country_id": 80,
+        "question_text": "What is the highest point in Georgia?",
+        "correct_answer": [
+            "Shkhara",
+            "Mount Shkhara",
+            "Mt Shkhara"
+        ]
+    },
+    {
+        "country_id": 81,
+        "question_text": "What is the highest point in Germany?",
+        "correct_answer": ["Zugspitze"]
+    },
+    {
+        "country_id": 82,
+        "question_text": "What is the highest point in Ghana?",
+        "correct_answer": ["Leklata"]
+    },
+    {
+        "country_id": 83,
+        "question_text": "What is the highest point in Greece?",
+        "correct_answer": [
+            "Mount Olympus",
+            "Mt Olympus",
+            "Olympus"
+        ]
+    },
+    {
+        "country_id": 84,
+        "question_text": "What is the highest point in Greenland?",
+        "correct_answer": [
+            "Gunnbjørn Fjeld",
+            "Gunnbjorn Fjeld",
+            "Gunnbjørn",
+            "Gunnbjorn"
+        ]
+    },
+    {
+        "country_id": 85,
+        "question_text": "What is the highest point in Grenada?",
+        "correct_answer": [
+            "Mount Saint Catherine",
+            "Mt Saint Catherine",
+            "Saint Catherine"
+        ]
+    },
+    {
+        "country_id": 86,
+        "question_text": "What is the highest point in Guadeloupe?",
+        "correct_answer": [
+            "La Soufrière",
+            "La Soufriere"
+        ]
+    },
+    {
+        "country_id": 87,
+        "question_text": "What is the highest point in Guam?",
+        "correct_answer": [
+            "Mount Lamlam",
+            "Mt Lamlam",
+            "Lamlam"
+        ]
+    },
+    {
+        "country_id": 88,
+        "question_text": "What is the highest point in Guatemala?",
+        "correct_answer": [
+            "Volcán Tajumulco",
+            "Volcan Tajumulco",
+            "Tajumulco"
+        ]
+    },
+    {
+        "country_id": 89,
+        "question_text": "What is the highest point in Guernsey?",
+        "correct_answer": ["Le Moulin"]
+    },
+    {
+        "country_id": 90,
+        "question_text": "What is the highest point in Guinea?",
+        "correct_answer": [
+            "Mount Richard-Molard",
+            "Mt Richard-Molard",
+            "Richard-Molard",
+            "Mount Nimba",
+            "Mt Nimba",
+            "Nimba"
+        ]
+    },
+    {
+        "country_id": 91,
+        "question_text": "What is the highest point in Guinea-Bissau?",
+        "correct_answer": [
+            "Dongol Rondè",
+            "Dongol Ronde"
+        ]
+    },
+    {
+        "country_id": 92,
+        "question_text": "What is the highest point in Guyana?",
+        "correct_answer": [
+            "Mount Roraima",
+            "Mt Roraima",
+            "Roraima"
+        ]
+    },
+    {
+        "country_id": 93,
+        "question_text": "What is the highest point in Haiti?",
+        "correct_answer": [
+            "Pic la Selle",
+            "la Selle"
+        ]
+    },
+    {
+        "country_id": 94,
+        "question_text": "What is the highest point in Honduras?",
+        "correct_answer": [
+            "Cerro Las Minas",
+            "Las Minas"
+        ]
+    },
+    {
+        "country_id": 95,
+        "question_text": "What is the highest point in Hungary?",
+        "correct_answer": [
+            "Kékes",
+            "Kekes"
+        ]
+    },
+    {
+        "country_id": 96,
+        "question_text": "What is the highest point in Iceland?",
+        "correct_answer": [
+            "Hvannadalshnúkur",
+            "Hvannadalshnukur"
+        ]
+    },
+    {
+        "country_id": 97,
+        "question_text": "What is the highest point in India?",
+        "correct_answer": ["Kangchenjunga"]
+    },
+    {
+        "country_id": 98,
+        "question_text": "What is the highest point in Indonesia?",
+        "correct_answer": [
+            "Puncak Jaya",
+            "Carstensz Pyramid"
+            ]
+    },
+    {
+        "country_id": 99,
+        "question_text": "What is the highest point in Iran?",
+        "correct_answer": [
+            "Mount Damavand",
+            "Mt Damavand",
+            "Damavand"
+        ]
+    },
+    {
+        "country_id": 100,
+        "question_text": "What is the highest point in Iraq?",
+        "correct_answer": ["Cheekha Dar"]
+    },
+    {
+        "country_id": 101,
+        "question_text": "What is the highest point in Ireland?",
+        "correct_answer": [
+            "Carrauntoohil",
+            "Carrantuohill",
+            "Carrauntoohill"
+        ]
+    },
+    {
+        "country_id": 102,
+        "question_text": "What is the highest point in Israel?",
+        "correct_answer": [
+            "Mount Meron",
+            "Mt Meron",
+            "Har Meron",
+            "Meron"
+        ]
+    },
+    {
+        "country_id": 103,
+        "question_text": "What is the highest point in Italy?",
+        "correct_answer": [
+            "Monte Bianco",
+            "Mt Bianco",
+            "Mont Blanc",
+            "Mt Blanc"
+        ]
+    },
+    {
+        "country_id": 104,
+        "question_text": "What is the highest point in Ivory Coast?",
+        "correct_answer": [
+            "Mount Richard-Molard",
+            "Mt Richard-Molard",
+            "Richard-Molard",
+            "Mount Nimba",
+            "Mt Nimba",
+            "Nimba"
+        ]
+    },
+    {
+        "country_id": 105,
+        "question_text": "What is the highest point in Jamaica?",
+        "correct_answer": ["Blue Mountain Peak"]
+    },
+    {
+        "country_id": 106,
+        "question_text": "What is the highest point in Japan?",
+        "correct_answer": [
+            "Mount Fuji",
+            "Mt Fuji",
+            "Fuji"
+        ]
+    },
+    {
+        "country_id": 107,
+        "question_text": "What is the highest point in Jersey?",
+        "correct_answer": ["Les Platons"]
+    },
+    {
+        "country_id": 108,
+        "question_text": "What is the highest point in Jordan?",
+        "correct_answer": ["Jabal umm ad Dami"]
+    },
+    {
+        "country_id": 109,
+        "question_text": "What is the highest point in Kazakhstan?",
+        "correct_answer": ["Khan Tengri"]
+    },
+    {
+        "country_id": 110,
+        "question_text": "What is the highest point in Kenya?",
+        "correct_answer": [
+            "Mount Kenya",
+            "Mt Kenya",
+            "Kenya"
+        ]
+    },
+    {
+        "country_id": 111,
+        "question_text": "What is the highest point in Kiribati?",
+        "correct_answer": ["Banaba"]
+    },
+    {
+        "country_id": 112,
+        "question_text": "What is the highest point in Kosovo?",
+        "correct_answer": ["Velika Rudoka"]
+    },
+    {
+        "country_id": 113,
+        "question_text": "What is the highest point in Kuwait?",
+        "correct_answer": ["Mutla Ridge"]
+    },
+    {
+        "country_id": 114,
+        "question_text": "What is the highest point in Kyrgyzstan?",
+        "correct_answer": [
+            "Jengish Chokusu",
+            "Victory Peak",
+            "Pik Pobedy",
+            "Pobeda Peak"
+        ]
+    },
+    {
+        "country_id": 115,
+        "question_text": "What is the highest point in Laos?",
+        "correct_answer": ["Phou Bia"]
+    },
+    {
+        "country_id": 116,
+        "question_text": "What is the highest point in Latvia?",
+        "correct_answer": [
+            "Gaiziņkalns Hill",
+            "Gaizinkalns Hill",
+            "Gaiziņkalns",
+            "Gaizinkalns"
+        ]
+    },
+    {
+        "country_id": 117,
+        "question_text": "What is the highest point in Lebanon?",
+        "correct_answer": [
+            "Qurnat as Sawda'",
+            "Qurnat as Sawda"
+        ]
+    },
+    {
+        "country_id": 118,
+        "question_text": "What is the highest point in Lesotho?",
+        "correct_answer": ["Thabana Ntlenyana"]
+    },
+    {
+        "country_id": 119,
+        "question_text": "What is the highest point in Liberia?",
+        "correct_answer": [
+            "Mount Wuteve",
+            "Mt Wuteve",
+            "Wuteve"
+        ]
+    },
+    {
+        "country_id": 120,
+        "question_text": "What is the highest point in Libya?",
+        "correct_answer": [
+            "Bikku Bitti",
+            "Bette Peak"
+        ]
+    },
+    {
+        "country_id": 121,
+        "question_text": "What is the highest point in Liechtenstein?",
+        "correct_answer": ["Grauspitz"]
+    },
+    {
+        "country_id": 122,
+        "question_text": "What is the highest point in Lithuania?",
+        "correct_answer": [
+            "Aukštojas Hill",
+            "Aukstojas Hill",
+            "Aukštojas",
+            "Aukstojas"
+        ]
+    },
+    {
+        "country_id": 123,
+        "question_text": "What is the highest point in Luxembourg?",
+        "correct_answer": ["Kneiff"]
+    },
+    {
+        "country_id": 124,
+        "question_text": "What is the highest point in Madagascar?",
+        "correct_answer": [
+            "Maromokotro",
+            "Maromokotra"
+        ]
+    },
+    {
+        "country_id": 125,
+        "question_text": "What is the highest point in Malawi?",
+        "correct_answer": [
+            "Sapitwa Peak",
+            "Sapitwa",
+            "Mount Mulanje",
+            "Mt Mulanje",
+            "Mulanje"
+        ]
+    },
+    {
+        "country_id": 126,
+        "question_text": "What is the highest point in Malaysia?",
+        "correct_answer": [
+            "Mount Kinabalu",
+            "Mt Kinabalu",
+            "Kinabalu",
+            "Gunung Kinabalu"
+        ]
+    },
+    {
+        "country_id": 127,
+        "question_text": "What is the highest point in the Maldives?",
+        "correct_answer": [
+            "Mount Villingili",
+            "Mt Villingili",
+            "Villingili",
+            "Mount Vilingili",
+            "Mt Vilingili",
+            "Vilingili"
+        ]
+    },
+    {
+        "country_id": 128,
+        "question_text": "What is the highest point in Mali?",
+        "correct_answer": [
+            "Hombori Tondo",
+            "Mount Hombori Tondo",
+            "Mt Hombori Todo",
+            "Mount Hombori",
+            "Mt Hombori"
+        ]
+    },
+    {
+        "country_id": 129,
+        "question_text": "What is the highest point in Malta?",
+        "correct_answer": [
+            "Ta' Dmejrek",
+            "Ta Dmejrek"
+        ]
+    },
+    {
+        "country_id": 130,
+        "question_text": "What is the highest point in the Marshall Islands?",
+        "correct_answer": [
+            "Likiep Atoll",
+            "Likiep High Point",
+            "Likiep"
+        ]
+    },
+    {
+        "country_id": 131,
+        "question_text": "What is the highest point in Martinique?",
+        "correct_answer": [
+            "Montagne Pelée",
+            "Montagne Pelee",
+            "Mount Pelée",
+            "Mount Pelee",
+            "Mt Pelée",
+            "Mt Pelee",
+            "Pelée",
+            "Pelee"
+        ]
+    },
+    {
+        "country_id": 132,
+        "question_text": "What is the highest point in Mauritania?",
+        "correct_answer": [
+            "Kediet ej Jill",
+            "Kdeyyat ej Joul"
+        ]
+    },
+    {
+        "country_id": 133,
+        "question_text": "What is the highest point in Mauritius?",
+        "correct_answer": [
+            "Piton de la Petite Rivière Noire",
+            "Piton de la Petite Riviere Noire",
+            "Petite Rivière Noire",
+            "Petite Riviere Noire"
+        ]
+    },
+    {
+        "country_id": 134,
+        "question_text": "What is the highest point in Mayotte?",
+        "correct_answer": [
+            "Mlima Bénara",
+            "Mlima Benara",
+            "Bénara",
+            "Benara"
+        ]
+    },
+    {
+        "country_id": 135,
+        "question_text": "What is the highest point in Mexico?",
+        "correct_answer": [
+            "Pico de Orizaba",
+            "Orizaba",
+            "Citlaltépetl",
+            "Citlaltepetl"
+            ]
+    },
+    {
+        "country_id": 136,
+        "question_text": "What is the highest point in Micronesia?",
+        "correct_answer": [
+            "Mount Nanlaud",
+            "Mt Nanlaud",
+            "Nanlaud",
+            "Mount Ngihlenni",
+            "Mt Ngihlenni",
+            "Ngihlenni"
+        ]
+    },
+    {
+        "country_id": 137,
+        "question_text": "What is the highest point in Moldova?",
+        "correct_answer": [
+            "Bălănești Hill",
+            "Bălănești",
+            "Balanesti Hill",
+            "Balanesti",
+            "Dealul Bălănești",
+            "Dealul Balanesti"
+        ]
+    },
+    {
+        "country_id": 138,
+        "question_text": "What is the highest point in Monaco?",
+        "correct_answer": [
+            "Chemin des Révoires",
+            "Chemin des Revoires"
+        ]
+    },
+    {
+        "country_id": 139,
+        "question_text": "What is the highest point in Mongolia?",
+        "correct_answer": [
+            "Khüiten Peak",
+            "Khuiten Peak",
+            "Khüiten",
+            "Khuiten",
+            "Mount Khüiten",
+            "Mount Khuiten",
+            "Mt Khüiten",
+            "Mt Khuiten"
+            ]
+    },
+    {
+        "country_id": 140,
+        "question_text": "What is the highest point in Montenegro?",
+        "correct_answer": ["Zla Kolata"]
+    },
+    {
+        "country_id": 141,
+        "question_text": "What is the highest point in Montserrat?",
+        "correct_answer": [
+            "Soufrière Hills",
+            "Soufriere Hills",
+            "Chances Peak"
+        ]
+    },
+    {
+        "country_id": 142,
+        "question_text": "What is the highest point in Morocco?",
+        "correct_answer": [
+            "Jebel Toubkal",
+            "Jbel Toubkal",
+            "Toubkal",
+            "Mount Toubkal",
+            "Mt Toubkal"
+        ]
+    },
+    {
+        "country_id": 143,
+        "question_text": "What is the highest point in Mozambique?",
+        "correct_answer": [
+            "Mount Binga",
+            "Mt Binga",
+            "Binga",
+            "Monte Binga"
+        ]
+    },
+    {
+        "country_id": 144,
+        "question_text": "What is the highest point in Myanmar?",
+        "correct_answer": [
+            "Hkakabo Razi",
+            "Mount Hkakabo Razi",
+            "Mt Hkakabo Razi",
+            "Mount Hkakabo",
+            "Mt Hkakabo"
+        ]
+    },
+    {
+        "country_id": 145,
+        "question_text": "What is the highest point in Namibia?",
+        "correct_answer": [
+            "Königstein",
+            "Konigstein",
+            "Mount Brand",
+            "Mt Brand",
+            "Brand",
+            "Brandberg"
+        ]
+    },
+    {
+        "country_id": 146,
+        "question_text": "What is the highest point in Nauru?",
+        "correct_answer": ["Command Ridge"]
+    },
+    {
+        "country_id": 147,
+        "question_text": "What is the highest point in Nepal?",
+        "correct_answer": [
+            "Mount Everest",
+            "Mt Everest",
+            "Everest"
+        ]
+    },
+    {
+        "country_id": 148,
+        "question_text": "What is the highest point in the Netherlands?",
+        "correct_answer": ["Vaalserberg"]
+    },
+    {
+        "country_id": 149,
+        "question_text": "What is the highest point in New Caledonia?",
+        "correct_answer": [
+            "Mont Panié",
+            "Mont Panie",
+            "Panié",
+            "Panie"
+        ]
+    },
+    {
+        "country_id": 150,
+        "question_text": "What is the highest point in New Zealand?",
+        "correct_answer": [
+            "Aoraki / Mount Cook",
+            "Aoraki / Mt Cook",
+            "Mount Cook / Aoraki",
+            "Mt Cook / Aoraki",
+            "Aoraki",
+            "Mount Cook",
+            "Mt Cook"
+        ]
+    },
+    {
+        "country_id": 151,
+        "question_text": "What is the highest point in Nicaragua?",
+        "correct_answer": [
+            "Mogotón",
+            "Mogoton",
+            "Cerro Mogotón",
+            "Cerro Mogoton",
+            "Pico Mogotón",
+            "Pico Mogoton"
+        ]
+    },
+    {
+        "country_id": 152,
+        "question_text": "What is the highest point in Niger?",
+        "correct_answer": [
+            "Mont Idoukal-n-Taghès",
+            "Mont Idoukal-n-Taghes",
+            "Mt Idoukal-n-Taghès",
+            "Mt Idoukal-n-Taghes",
+            "Idoukal-n-Taghès",
+            "Idoukal-n-Taghes",
+            "Mont Bagzane",
+            "Mt Bagzane",
+            "Bagzane",
+            "Mont Bagzan",
+            "Mt Bagzan",
+            "Bagzan"
+        ]
+    },
+    {
+        "country_id": 153,
+        "question_text": "What is the highest point in Nigeria?",
+        "correct_answer": ["Chappal Waddi"]
+    },
+    {
+        "country_id": 154,
+        "question_text": "What is the highest point in Niue?",
+        "correct_answer": [
+            "Niue High Point",
+            "unnamed",
+            "Mutalau"
+        ]
+    },
+    {
+        "country_id": 155,
+        "question_text": "What is the highest point in Norfolk Island?",
+        "correct_answer": [
+            "Mount Bates",
+            "Mt Bates",
+            "Bates"
+        ]
+    },
+    {
+        "country_id": 156,
+        "question_text": "What is the highest point in North Korea?",
+        "correct_answer": [
+            "Paektu-san",
+            "Paektusan",
+            "Mount Paektu",
+            "Mt Paektu",
+            "Paektu",
+            "Paektu Mountain"
+        ]
+    },
+    {
+        "country_id": 157,
+        "question_text": "What is the highest point in North Macedonia?",
+        "correct_answer": [
+            "Mount Korab",
+            "Mt Korab",
+            "Golem Korab",
+            "Korab"
+        ]
+    },
+    {
+        "country_id": 158,
+        "question_text": "What is the highest point in the Northern Mariana Islands?",
+        "correct_answer": [
+            "Mount Agrihan",
+            "Mt Agrihan",
+            "Agrihan"
+        ]
+    },
+    {
+        "country_id": 159,
+        "question_text": "What is the highest point in Norway?",
+        "correct_answer": [
+            "Galdhøpiggen",
+            "Galdhopiggen"
+        ]
+    },
+    {
+        "country_id": 160,
+        "question_text": "What is the highest point in Oman?",
+        "correct_answer": [
+            "Jebel Shams",
+            "Jabal Shams"
+        ]
+    },
+    {
+        "country_id": 161,
+        "question_text": "What is the highest point in Pakistan?",
+        "correct_answer": [
+            "K2",
+            "Mount K2",
+            "Mt K2",
+            "Chogori",
+            "Chhogori"
+        ]
+    },
+    {
+        "country_id": 162,
+        "question_text": "What is the highest point in Palau?",
+        "correct_answer": [
+            "Mount Ngerchelchuus",
+            "Mt Ngerchelchuus",
+            "Ngerchelchuus"
+        ]
+    },
+    {
+        "country_id": 163,
+        "question_text": "What is the highest point in Palestine?",
+        "correct_answer": [
+            "Mount Nabi Yunis",
+            "Mt Nabi Yunis",
+            "Nabi Yunis"
+        ]
+    },
+    {
+        "country_id": 164,
+        "question_text": "What is the highest point in Panama?",
+        "correct_answer": [
+            "Volcán Barú",
+            "Volcan Baru",
+            "Barú",
+            "Baru",
+            "Volcán de Chiriqui",
+            "Volcan de Chiriqui",
+            "Chiriqui"
+        ]
+    },
+    {
+        "country_id": 165,
+        "question_text": "What is the highest point in Papua New Guinea?",
+        "correct_answer": [
+            "Mount Wilhelm",
+            "Mt Wilhelm",
+            "Wilhelm"
+        ]
+    },
+    {
+        "country_id": 166,
+        "question_text": "What is the highest point in Paraguay?",
+        "correct_answer": [
+            "Cerro Tres Kandú",
+            "Cerro Tres Kandu",
+            "Tres Kandú",
+            "Tres Kandu",
+            "Cerro Peró",
+            "Cerro Pero"
+        ]
+    },
+    {
+        "country_id": 167,
+        "question_text": "What is the highest point in Peru?",
+        "correct_answer": [
+            "Huascarán",
+            "Huascaran",
+            "Mount Huascarán",
+            "Mt Huascarán",
+            "Mount Huascaran",
+            "Mt Huascaran",
+            "Nevado Huascarán",
+            "Nevado Huascaran"
+        ]
+    },
+    {
+        "country_id": 168,
+        "question_text": "What is the highest point in the Philippines?",
+        "correct_answer": [
+            "Mount Apo",
+            "Mt Apo",
+            "Apo"
+        ]
+    },
+    {
+        "country_id": 169,
+        "question_text": "What is the highest point in the Pitcairn Islands?",
+        "correct_answer": ["Pawala Valley Ridge"]
+    },
+    {
+        "country_id": 170,
+        "question_text": "What is the highest point in Poland?",
+        "correct_answer": [
+            "Rysy",
+            "Mount Rysy",
+            "Mt Rysy",
+            "Rysy Peak",
+            "Rysy Mountain"
+        ]
+    },
+    {
+        "country_id": 171,
+        "question_text": "What is the highest point in Portugal?",
+        "correct_answer": [
+            "Montanha do Pico",
+            "Pico Mountain",
+            "Mount Pico",
+            "Mt Pico",
+            "Pico"
+        ]
+    },
+    {
+        "country_id": 172,
+        "question_text": "What is the highest point in Puerto Rico?",
+        "correct_answer": [
+            "Cerro de Punta",
+            "Cerro Punta"
+        ]
+    },
+    {
+        "country_id": 173,
+        "question_text": "What is the highest point in Qatar?",
+        "correct_answer": [
+            "Qurayn Abu al-Bawl",
+            "Qurain Abu al-Bawl",
+            "Gurain al Balbul",
+            "Al Galail"
+        ]
+    },
+    {
+        "country_id": 174,
+        "question_text": "What is the highest point in the Republic of the Congo?",
+        "correct_answer": [
+            "Mont Nabemba",
+            "Mt Nabemba",
+            "Nabemba",
+            "Mont Nabeba",
+            "Mt Nabeba",
+            "Nabeba"
+        ]
+    },
+    {
+        "country_id": 175,
+        "question_text": "What is the highest point in Réunion?",
+        "correct_answer": ["Piton des Neiges"]
+    },
+    {
+        "country_id": 176,
+        "question_text": "What is the highest point in Romania?",
+        "correct_answer": [
+            "Moldoveanu",
+            "Moldoveanu Peak",
+            "Vârful Moldoveanu",
+            "Varful Moldoveanu"
+        ]
+    },
+    {
+        "country_id": 177,
+        "question_text": "What is the highest point in Russia?",
+        "correct_answer": [
+            "Mount Elbrus",
+            "Mt Elbrus",
+            "Elbrus"
+        ]
+    },
+    {
+        "country_id": 178,
+        "question_text": "What is the highest point in Rwanda?",
+        "correct_answer": [
+            "Mount Karisimbi",
+            "Mt Karisimbi",
+            "Karisimbi"
+        ]
+    },
+    {
+        "country_id": 179,
+        "question_text": "What is the highest point in Saba?",
+        "correct_answer": [
+            "Mount Scenery",
+            "Mt Scenery",
+            "Scenery"
+        ]
+    },
+    {
+        "country_id": 180,
+        "question_text": "What is the highest point in Saint Barthélemy?",
+        "correct_answer": [
+            "Morne du Vitet",
+            "Morne de Vitet",
+            "Vitet"
+        ]
+    },
+    {
+        "country_id": 181,
+        "question_text": "What is the highest point in Saint Helena Island?",
+        "correct_answer": [
+            "Diana's Peak",
+            "Dianas Peak"
+        ]
+    },
+    {
+        "country_id": 182,
+        "question_text": "What is the highest point in Saint Kitts and Nevis?",
+        "correct_answer": [
+            "Mount Liamuiga",
+            "Mt Liamuiga",
+            "Liamuiga"
+        ]
+    },
+    {
+        "country_id": 183,
+        "question_text": "What is the highest point in Saint Lucia?",
+        "correct_answer": [
+            "Mount Gimie",
+            "Mt Gimie",
+            "Gimie"
+        ]
+    },
+    {
+        "country_id": 184,
+        "question_text": "What is the highest point in Saint-Martin?",
+        "correct_answer": [
+            "Pic Paradis",
+            "Paradise Peak"
+        ]
+    },
+    {
+        "country_id": 185,
+        "question_text": "What is the highest point in Saint Pierre and Miquelon?",
+        "correct_answer": ["Morne de la Grande Montagne"]
+    },
+    {
+        "country_id": 186,
+        "question_text": "What is the highest point in Saint Vincent and the Grenadines?",
+        "correct_answer": [
+            "La Soufrière",
+            "La Soufriere"
+        ]
+    },
+    {
+        "country_id": 187,
+        "question_text": "What is the highest point in Samoa?",
+        "correct_answer": [
+            "Mauga Silisili",
+            "Silisili"
+        ]
+    },
+    {
+        "country_id": 188,
+        "question_text": "What is the highest point in San Marino?",
+        "correct_answer": [
+            "Monte Titano",
+            "Mt Titano",
+            "Titano"
+        ]
+    },
+    {
+        "country_id": 189,
+        "question_text": "What is the highest point in São Tomé and Príncipe?",
+        "correct_answer": [
+            "Pico de São Tomé",
+            "Pico de Sao Tome"
+        ]
+    },
+    {
+        "country_id": 190,
+        "question_text": "What is the highest point in Saudi Arabia?",
+        "correct_answer": [
+            "Jabal Ferwa",
+            "Jebel Ferwa"
+        ]
+    },
+    {
+        "country_id": 191,
+        "question_text": "What is the highest point in Senegal?",
+        "correct_answer": ["Felo Barkere"]
+    },
+    {
+        "country_id": 192,
+        "question_text": "What is the highest point in Serbia?",
+        "correct_answer": [
+            "Midžor",
+            "Midzor",
+            "Midzhur"
+        ]
+    },
+    {
+        "country_id": 193,
+        "question_text": "What is the highest point in Seychelles?",
+        "correct_answer": [
+            "Morne Seychellois",
+            "Seychellois"
+        ]
+    },
+    {
+        "country_id": 194,
+        "question_text": "What is the highest point in Sierra Leone?",
+        "correct_answer": [
+            "Mount Bintumani",
+            "Mt Bintumani",
+            "Bintumani",
+            "Mount Loma Mansa",
+            "Mt Loma Mansa",
+            "Loma Mansa"
+        ]
+    },
+    {
+        "country_id": 195,
+        "question_text": "What is the highest point in Singapore?",
+        "correct_answer": [
+            "Bukit Timah",
+            "Bukit Timah Hill"
+        ]
+    },
+    {
+        "country_id": 196,
+        "question_text": "What is the highest point in Sint Eustatius?",
+        "correct_answer": [
+            "The Quill",
+            "Quill",
+            "Mount Mazinga",
+            "Mt Mazinga",
+            "Mazinga"
+        ]
+    },
+    {
+        "country_id": 197,
+        "question_text": "What is the highest point in Sint Maarten?",
+        "correct_answer": [
+            "Mount Flagstaff",
+            "Mt Flagstaff",
+            "Flagstaff"
+        ]
+    },
+    {
+        "country_id": 198,
+        "question_text": "What is the highest point in Slovakia?",
+        "correct_answer": [
+            "Gerlachovský štít",
+            "Gerlachovsky stit",
+            "Gerlachovský Peak",
+            "Gerlachovsky Peak"
+        ]
+    },
+    {
+        "country_id": 199,
+        "question_text": "What is the highest point in Slovenia?",
+        "correct_answer": [
+            "Triglav",
+            "Mount Triglav",
+            "Mt Triglav"
+        ]
+    },
+    {
+        "country_id": 200,
+        "question_text": "What is the highest point in Solomon Islands?",
+        "correct_answer": [
+            "Mount Popomanaseu",
+            "Mt Popomanaseu",
+            "Popomanaseu"
+        ]
+    },
+    {
+        "country_id": 201,
+        "question_text": "What is the highest point in Somalia?",
+        "correct_answer": [
+            "Mount Shimbiris",
+            "Mt Shimbiris",
+            "Shimbiris"
+        ]
+    },
+    {
+        "country_id": 202,
+        "question_text": "What is the highest point in South Africa?",
+        "correct_answer": [
+            "Mafadi",
+            "Mafadi Peak"
+        ]
+    },
+    {
+        "country_id": 203,
+        "question_text": "What is the highest point in South Georgia and the South Sandwich Islands?",
+        "correct_answer": [
+            "Mount Paget",
+            "Mt Paget",
+            "Paget"
+        ]
+    },
+    {
+        "country_id": 204,
+        "question_text": "What is the highest point in South Korea?",
+        "correct_answer": [
+            "Halla-san",
+            "Hallasan",
+            "Mount Halla",
+            "Mt Halla",
+            "Halla"
+        ]
+    },
+    {
+        "country_id": 205,
+        "question_text": "What is the highest point in South Sudan?",
+        "correct_answer": [
+            "Mount Kinyeti",
+            "Mt Kinyeti",
+            "Kinyeti"
+        ]
+    },
+    {
+        "country_id": 206,
+        "question_text": "What is the highest point in Spain?",
+        "correct_answer": [
+            "Teide",
+            "Pico del Teide",
+            "Mount Teide",
+            "Mt Teide",
+            "El Teide"
+        ]
+    },
+    {
+        "country_id": 207,
+        "question_text": "What is the highest point in Sri Lanka?",
+        "correct_answer": [
+            "Pidurutalagala",
+            "Mount Pedro",
+            "Mt Pedro",
+            "Pedro"
+        ]
+    },
+    {
+        "country_id": 208,
+        "question_text": "What is the highest point in Sudan?",
+        "correct_answer": [
+            "Deriba Caldera",
+            "Deriba",
+            "Jebel Marra",
+            "Jabal Marra",
+            "Mount Marra",
+            "Mt Marra",
+            "Marra",
+            "Jebel Marrah",
+            "Jabal Marrah",
+            "Mount Marrah",
+            "Mt Marrah",
+            "Marrah"
+        ]
+    },
+    {
+        "country_id": 209,
+        "question_text": "What is the highest point in Suriname?",
+        "correct_answer": ["Julianatop"]
+    },
+    {
+        "country_id": 210,
+        "question_text": "What is the highest point in Svalbard and Jan Mayen?",
+        "correct_answer": [
+            "Haakon VII Toppen",
+            "Haakon VII Top",
+            "Beerenberg"
+        ]
+    },
+    {
+        "country_id": 211,
+        "question_text": "What is the highest point in Sweden?",
+        "correct_answer": [
+            "Kebnekaise",
+            "Mount Kebne",
+            "Mt Kebne",
+            "Kebne"
+        ]
+    },
+    {
+        "country_id": 212,
+        "question_text": "What is the highest point in Switzerland?",
+        "correct_answer": [
+            "Dufourspitze",
+            "Monte Rosa",
+            "Mt Rosa",
+            "Rosa",
+            "Mont Rose",
+            "Mt Rose",
+            "Rose"
+        ]
+    },
+    {
+        "country_id": 213,
+        "question_text": "What is the highest point in Syria?",
+        "correct_answer": [
+            "Mount Hermon",
+            "Mt Hermon",
+            "Hermon"
+        ]
+    },
+    {
+        "country_id": 214,
+        "question_text": "What is the highest point in Taiwan?",
+        "correct_answer": [
+            "Yu Shan",
+            "Yushan",
+            "Mount Jade",
+            "Mt Jade",
+            "Jade",
+            "Tongku Saveq",
+            "Mount Niitaka",
+            "Mt Niitaka",
+            "Niitaka"
+        ]
+    },
+    {
+        "country_id": 215,
+        "question_text": "What is the highest point in Tajikistan?",
+        "correct_answer": [
+            "Ismoil Somoni Peak",
+            "Ismoil Somoni",
+            "Ismail Samani Peak",
+            "Ismail Samani"
+            ]
+    },
+    {
+        "country_id": 216,
+        "question_text": "What is the highest point in Tanzania?",
+        "correct_answer": [
+            "Mount Kilimanjaro",
+            "Mt Kilimanjaro",
+            "Kilimanjaro"
+        ]
+    },
+    {
+        "country_id": 217,
+        "question_text": "What is the highest point in Thailand?",
+        "correct_answer": ["Doi Inthanon"]
+    },
+    {
+        "country_id": 218,
+        "question_text": "What is the highest point in Timor-Leste?",
+        "correct_answer": [
+            "Foho Tatamailau",
+            "Tatamailau",
+            "Mount Ramelau",
+            "Mt Ramelau",
+            "Ramelau"
+        ]
+    },
+    {
+        "country_id": 219,
+        "question_text": "What is the highest point in Togo?",
+        "correct_answer": [
+            "Mont Agou",
+            "Mount Agou",
+            "Mt Agou",
+            "Agou",
+            "Baumann Peak"
+        ]
+    },
+    {
+        "country_id": 220,
+        "question_text": "What is the highest point in Tokelau?",
+        "correct_answer": [
+            "Tokelau High Point",
+            "unnamed"
+        ]
+    },
+    {
+        "country_id": 221,
+        "question_text": "What is the highest point in Tonga?",
+        "correct_answer": [
+            "Kao",
+            "Mount Kao",
+            "Mt Kao",
+            "Kao Volcano",
+            "Volcano Kao"
+        ]
+    },
+    {
+        "country_id": 222,
+        "question_text": "What is the highest point in Trinidad and Tobago?",
+        "correct_answer": [
+            "El Cerro del Aripo",
+            "Cerro del Aripo",
+            "Mount Aripo",
+            "Mt Aripo",
+            "Aripo"
+        ]
+    },
+    {
+        "country_id": 223,
+        "question_text": "What is the highest point in Tristan da Cunha?",
+        "correct_answer": [
+            "Queen Mary's Peak",
+            "Queen Marys Peak"
+        ]
+    },
+    {
+        "country_id": 224,
+        "question_text": "What is the highest point in Tunisia?",
+        "correct_answer": [
+            "Jebel ech Chambi",
+            "Jabal ash-Sha'ānabī",
+            "Jabal ash-Sha'anabi",
+            "Jabal ash Shaanabi",
+            "Mount Ash-Sha'nabī",
+            "Mount Ash-Sha'nabi",
+            "Mount Ash Shanabi",
+            "Mt Ash-Sha'nabī",
+            "Mt Ash-Sha'nabi",
+            "Mt Ash Shanabi"
+        ]
+    },
+    {
+        "country_id": 225,
+        "question_text": "What is the highest point in Turkey?",
+        "correct_answer": [
+            "Mount Ararat",
+            "Mt Ararat",
+            "Ararat",
+            "Ağrı Dağı",
+            "Agri Dagi"
+        ]
+    },
+    {
+        "country_id": 226,
+        "question_text": "What is the highest point in Turkmenistan?",
+        "correct_answer": [
+            "Aýrybaba",
+            "Ayrybaba",
+            "Airybaba",
+            "Mount Aýrybaba",
+            "Mount Ayrybaba",
+            "Mount Airybaba",
+            "Mt Aýrybaba",
+            "Mt Ayrybaba",
+            "Mt Airybaba"
+        ]
+    },
+    {
+        "country_id": 227,
+        "question_text": "What is the highest point in the Turks and Caicos Islands?",
+        "correct_answer": [
+            "Blue Hills",
+            "Blue Mountain",
+            "Blue Mt",
+            "Flamingo Hill"
+        ]
+    },
+    {
+        "country_id": 228,
+        "question_text": "What is the highest point in Tuvalu?",
+        "correct_answer": [
+            "Niulakita High Point",
+            "Niulakita"
+        ]
+    },
+    {
+        "country_id": 229,
+        "question_text": "What is the highest point in Uganda?",
+        "correct_answer": [
+            "Mount Stanley",
+            "Mt Stanley",
+            "Stanley",
+            "Margherita Peak"
+        ]
+    },
+    {
+        "country_id": 230,
+        "question_text": "What is the highest point in Ukraine?",
+        "correct_answer": [
+            "Hoverla",
+            "Mount Hoverla",
+            "Mt Hoverla",
+            "Gora Goverla",
+            "Goverla"
+        ]
+    },
+    {
+        "country_id": 231,
+        "question_text": "What is the highest point in the United Arab Emirates?",
+        "correct_answer": [
+            "Jebel Jais",
+            "Jebel al Jais",
+            "Jabal Al Jais",
+            "Jabal Bil Ays"
+        ]
+    },
+    {
+        "country_id": 232,
+        "question_text": "What is the highest point in the United Kingdom?",
+        "correct_answer": ["Ben Nevis"]
+    },
+    {
+        "country_id": 233,
+        "question_text": "What is the highest point in the United States?",
+        "correct_answer": [
+            "Denali",
+            "Mount McKinley",
+            "Mt McKinley",
+            "McKinley"
+        ]
+    },
+    {
+        "country_id": 234,
+        "question_text": "What is the highest point in the United States Virgin Islands?",
+        "correct_answer": [
+            "Crown Mountain",
+            "Crown Mt"
+        ]
+    },
+    {
+        "country_id": 235,
+        "question_text": "What is the highest point in Uruguay?",
+        "correct_answer": [
+            "Cerro Catedral",
+            "Catedral",
+            "Cerro Cordillera"
+        ]
+    },
+    {
+        "country_id": 236,
+        "question_text": "What is the highest point in Uzbekistan?",
+        "correct_answer": [
+            "Khazret Sultan",
+            "Hazrati Sulton cho'qqisi",
+            "Hazrati Sulton choqqisi",
+            "Hazrati Sulton"
+        ]
+    },
+    {
+        "country_id": 237,
+        "question_text": "What is the highest point in Vanuatu?",
+        "correct_answer": [
+            "Tabwémasana",
+            "Tabwemasana",
+            "Mount Tabwémasana",
+            "Mount Tabwemasana",
+            "Mt Tabwémasana",
+            "Mt Tabwemasana"
+        ]
+    },
+    {
+        "country_id": 238,
+        "question_text": "What is the highest point in Vatican City?",
+        "correct_answer": [
+            "Vatican Hill",
+            "Vatican High Point"
+            ]
+    },
+    {
+        "country_id": 239,
+        "question_text": "What is the highest point in Venezuela?",
+        "correct_answer": [
+            "Pico Bolí­var",
+            "Pico Bolivar",
+            "Bolí­var",
+            "Bolivar"
+        ]
+    },
+    {
+        "country_id": 240,
+        "question_text": "What is the highest point in Vietnam?",
+        "correct_answer": [
+            "Fan Si Pan",
+            "Fan Si Pan Mountain",
+            "Fan Si Pan Mt",
+            "Fansipan",
+            "Fansipan Mountain",
+            "Fansipan Mt"
+        ]
+    },
+    {
+        "country_id": 241,
+        "question_text": "What is the highest point in Wallis and Futuna?",
+        "correct_answer": [
+            "Mont Puke",
+            "Mt Puke",
+            "Puke",
+            "Mont Singavi",
+            "Mt Singavi",
+            "Singavi"
+        ]
+    },
+    {
+        "country_id": 242,
+        "question_text": "What is the highest point in Western Sahara?",
+        "correct_answer": [
+            "Western Sahara High Point",
+            "unnamed"
+        ]
+    },
+    {
+        "country_id": 243,
+        "question_text": "What is the highest point in Yemen?",
+        "correct_answer": [
+            "Jabal An-Nabi Shu'ayb",
+            "Jabal an Nabi Shuayb"
+        ]
+    },
+    {
+        "country_id": 244,
+        "question_text": "What is the highest point in Zambia?",
+        "correct_answer": [
+            "Mafinga Central",
+            "Mafinga Hills",
+            "Mafinga"
+        ]
+    },
+    {
+        "country_id": 245,
+        "question_text": "What is the highest point in Zimbabwe?",
+        "correct_answer": [
+            "Mount Nyangani",
+            "Mt Nyangani",
+            "Nyangani"
+        ]
+    },
+    {
+        "country_id": 246,
+        "question_text": "What is the highest point in the Åland Islands?",
+        "correct_answer": ["Orrdalsklint"]
+    },
+    {
+        "country_id": 247,
+        "question_text": "What is the highest point in Gibraltar?",
+        "correct_answer": ["Rock of Gibraltar"]
+    }
+]

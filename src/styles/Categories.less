@@ -1,0 +1,29 @@
+@import './mixins.less';
+
+.category-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: darken(#f6f7f9, 2%);
+    padding-bottom: 10vh;
+
+    h1 {
+        text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+        font-size: 2rem;
+    }
+
+    .search-info {
+      .search-info-mixin();
+    }
+
+    .search-bar {
+      .search-bar-mixin();
+      width: 50%;
+    }
+
+    .result-container {
+      .result-container-mixin();
+    }
+}

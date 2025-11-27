@@ -1,0 +1,30 @@
+// REST Countries -> Alpha2 code
+
+export const countryCodeMap = {
+  "Brunei": "BN",
+  "Caribbean Netherlands": "BQ",
+  "Republic of the Congo": "CG",
+  "DR Congo": "CD",
+  "Czechia": "CZ",
+  "Falkland Islands": "FK",
+  "Micronesia": "FM",
+  "South Georgia": "GS",
+  "Iran": "IR",
+  "North Korea": "KP",
+  "South Korea": "KR",
+  "North Macedonia": "MK",
+  "Palestine": "PS",
+  "Russia": "RU",
+  "Saint Helena, Ascension and Tristan da Cunha": "SH",
+  "Syria": "SY",
+  "Eswatini": "SZ",
+  "French Southern and Antarctic Lands": "TF",
+  "Taiwan": "TW",
+  "Tanzania": "TZ",
+  "Vatican City": "VA",
+  "Venezuela": "VE",
+  "British Virgin Islands": "VG",
+  "United States Virgin Islands": "VI",
+  "São Tomé and Príncipe": "ST",
+  "Saint Martin": "MF"
+};

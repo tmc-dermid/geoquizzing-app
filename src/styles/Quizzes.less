@@ -1,0 +1,94 @@
+@import './mixins.less';
+
+.quizzes-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: darken(#f6f7f9, 2%);
+  padding-bottom: 10vh;
+
+  h1 {
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
+  }
+
+  .search-info {
+    .search-info-mixin();
+  }
+
+  .search-bar {
+    .search-bar-mixin();
+    margin-bottom: 0;
+
+      .filters {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        align-items: center;
+      }
+
+    .filter-select {
+      .filter-select-mixin();
+      min-width: 12vw;
+    }
+  }
+
+  .results-count {
+    .results-count-mixin();
+  }
+
+  .result-container {
+    .result-container-mixin();
+    grid-template-columns: repeat(2, minmax(350px, 550px));
+
+    .result-card > .result-favorite {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 12px;
+      right: 12px;
+      cursor: pointer;
+      z-index: 5;
+
+      .heart-icon {
+        font-size: 1.8rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+        transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease, color 0.3s ease;
+        will-change: transform, opacity, filter, color;
+      }
+
+      .heart-icon.outline {
+        color: white;
+        opacity: 1;
+        z-index: 1;
+      }
+
+      .heart-icon.fill {
+        color: #ff2d55;
+        z-index: 2;
+      }
+
+      .heart-icon.pending {
+        opacity: 0.5;
+        transform: scale(0.85);
+        filter: grayscale(100%) brightness(0.6);
+        pointer-events: none;
+      }
+
+      &:hover .heart-icon {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 8px #ff2d55);
+      }
+
+      &:active .heart-icon {
+        transform: scale(1.15);
+      }
+    }
+  }
+}

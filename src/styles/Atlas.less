@@ -1,0 +1,288 @@
+@import './mixins.less';
+
+.country-search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: darken(#f6f7f9, 2%);
+    padding-bottom: 10vh;
+
+    .atlas-header h1 {
+        text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+        font-size: 2rem;
+    }
+
+    .search-info {
+        .search-info-mixin();
+    }
+
+    .search-bar {
+        .search-bar-mixin();
+        width: 75%;
+        margin-bottom: 0;
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .filter-select {
+            .filter-select-mixin();
+            min-width: 12vw;
+        }
+    }
+
+    .results-count {
+        .results-count-mixin();
+    }
+}
+
+.result-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+    max-width: 1200px;
+    gap: 1rem;
+    width: 80%;
+    margin-top: 1rem;
+
+    .country-card {
+        background-color: white;
+        border: 2px solid gray;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        will-change: transform, box-shadow, opacity;
+
+        &:hover {
+            transform: scale(1.03);
+            transform-origin: center center;
+            box-shadow: 0 6px 14px rgba(128, 128, 128, 1);
+            opacity: 0.8;
+        }
+
+        .country-flag {
+            max-width: 100%;
+            height: 100px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            display: block;
+            margin: 0 auto;
+        }
+
+        h3 {
+            color: #0d47a1;
+            margin-bottom: 2vh;
+        }
+
+        p {
+            font-size: 0.8rem;
+            color: #333333;
+            margin: 6px 0;
+            line-height: 1.4;
+            text-align: left;
+
+            &:nth-child(2n) {
+                background-color: #f7f7f7;
+            }
+        }
+    }
+
+    .no-results {
+        text-align: center;
+        letter-spacing: 1px;
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+
+    .modal-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 2rem;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        animation: popIn 0.3s ease;
+        will-change: transform;
+
+        .modal-flag {
+            max-width: 75%;
+            max-height: 250px;
+            border-radius: 10px;
+            border: 1px solid gray;
+            margin-top: 4vh;
+        }
+
+        h2 {
+            color: #0d47a1;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            text-align: left;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+
+            &:nth-child(2n+1) {
+                &:not(:last-child) {
+                    background-color: #f7f7f7;
+                }
+            }
+
+            &:last-child {
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.1rem;
+                margin-top: 1rem;
+            }
+        }
+
+        hr {
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 1.75rem;
+            padding: 0 5px 0 5px;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+
+        .page-number {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            user-select: none;
+        }
+
+        .map-container {
+            position: relative;
+            overflow: hidden;
+
+            h2 {
+                color: black;
+                letter-spacing: 1px;
+            }
+
+            h3 {
+                color: #0d47a1;
+                font-size: 1.25rem;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #444;
+                font-weight: 400;
+            }
+
+            strong {
+                color: #0c3c85;
+                font-weight: 600;
+            }
+
+            .loading-info {
+                font-size: 1.1rem;
+                font-style: italic;
+                font-weight: 600;
+                color: black;
+                letter-spacing: 1px;
+            }
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.85);
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            border-radius: 25%;
+            cursor: pointer;
+            will-change: transform;
+
+            &:hover:not(.disabled) {
+                background-color: #4d5599;
+                color: white;
+                transform: translateY(-50%) scale(1.1);
+            }
+
+            &.left {
+                left: -60px;
+            }
+
+            &.right {
+                right: -60px;
+            }
+
+            &.disabled {
+                opacity: 0.8;
+                cursor: not-allowed;
+                background-color: rgba(200, 200, 200, 0.6);
+                color: #777;
+
+                &:hover {
+                    transform: translateY(-50%) scale(1);
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,6 @@
+<!-- default-avatar.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" role="img" aria-label="Default avatar">
+  <rect width="100%" height="100%" rx="16" fill="#f0f0f0"></rect>
+  <circle cx="40" cy="30" r="14" fill="#cfcfcf"></circle>
+  <path d="M20 62c4-8 12-12 20-12s16 4 20 12" fill="#d9d9d9"></path>
+</svg>

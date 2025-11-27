@@ -1,0 +1,241 @@
+@import './mixins.less';
+
+.edit-profile-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 20px;
+
+  .page-title {
+    margin: 0 0 25px 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
+  }
+
+  .edit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #f3f4f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 35px;
+
+    .avatar-edit-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      .avatar-preview {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid gray;
+      }
+
+      .avatar-upload-btn {
+        padding: 8px 12px;
+        background-color: #185abd;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-shadow: 0 0 2px black;
+        transition: background-color 0.3s ease;
+        will-change: background-color;
+
+        &:hover {
+          background-color: lighten(#185abd, 5%);
+        }
+
+        input {
+          display: none;
+        }
+      }
+    }
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .form-label {
+          font-weight: 600;
+          color: #222;
+          font-size: 0.95rem;
+        }
+
+        .form-input {
+          padding: 10px 12px;
+          width: 100%;
+          border: 2px solid darken(darkgray, 20%);
+          border-radius: 5px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          will-change: border-color, box-shadow;
+
+          &:focus {
+            outline: none;
+            border-color: #0D47A1;
+            box-shadow: 0 0 6px rgba(13, 71, 161, 0.3);
+          }
+        }
+
+        .country-input {
+          padding-right: 30px;
+          background-image: url("../assets/arrow-down-symbol.png");
+          background-repeat: no-repeat;
+          background-position: right 10px center;
+          background-size: 12px;
+        }
+
+        .error {
+          .error-message-mixin();
+          animation: fadeIn 0.3s ease-in-out;
+        }
+      }
+
+      .autocomplete {
+        position: relative;
+        width: 50%;
+        max-width: 350px;
+
+        .drop-down {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          max-height: 200px;
+          overflow-y: auto;
+          z-index: 10;
+          margin-top: 0.2rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);     
+          
+          .country-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in;
+            will-change: background-color;
+            
+            &:hover {
+              background-color: #f0f0f0;
+            }
+
+            .country-flag {
+              width: 24px;
+              height: 16px;
+              margin-right: 8px;
+              object-fit: cover;
+            }
+
+            .country-name {
+              flex: 1;
+            }
+          }
+
+          .no-country-item {
+            color: #555;
+            font-style: italic;
+            background-color: #f9f9f9;
+          }
+
+          .no-results {
+            padding: 0.5rem 0.75rem;
+            color: #888;
+            cursor: default;
+            font-style: italic;           
+          }
+        }
+      }
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+
+      .save-btn {
+        padding: 10px 25px;
+        background-color: #185abd;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-shadow: 0 0 2px black;
+        transition: background-color 0.3s ease;
+        will-change: background-color;
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+        &:hover {
+          background-color: lighten(#185abd, 5%);
+        }
+      }
+
+      .cancel-btn {
+        padding: 10px 25px;
+        background-color: #888;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-shadow: 0 0 2px black;
+        transition: background-color 0.3s ease;
+        will-change: background-color;
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+        &:hover {
+          background-color: lighten(#888, 5%);
+        }
+      }
+    }
+  }
+
+  .message {
+    .message-success-error-mixin();
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
