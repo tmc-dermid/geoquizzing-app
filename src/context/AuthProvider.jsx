@@ -26,7 +26,8 @@ export function AuthProvider({ children }) {
         points,
         total_quizzes_taken,
         total_correct_answers,
-        total_incorrect_answers
+        total_incorrect_answers,
+        is_admin
       `)
       .eq('id', user.id)
       .single();

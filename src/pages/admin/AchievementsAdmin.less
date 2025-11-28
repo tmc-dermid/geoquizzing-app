@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+.admin-wrapper {
+  padding: 20px 40px;
+
+  h2 {
+    font-size: 2rem;
+    color: black;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+  .achievement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 40px auto;
+    padding: 20px 26px;
+    width: 100%;
+    max-width: 750px;
+    background-color: #f5f7fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      color: #0a387b;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid darken(darkgray, 20%);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #0D47A1;
+        box-shadow: 0 0 6px rgba(13, 71, 161, 0.3);                
+      }
+    }
+
+    textarea {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 28px;
+      background-color: #0d47a1;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      will-change: background-color;
+      width: fit-content;
+      align-self: center;
+
+      &:hover {
+        background-color: lighten(#0d47a1, 5%);
+      }
+    }
+  }
+
+  h3 {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    color: black;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+  .achievement-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .achievement-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 290px;
+      height: auto;
+      background: linear-gradient(135deg, #0608a6, #294a90, #0461cf);
+      border-radius: 12px;
+      border: 3px solid #294a90;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px 0;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+      will-change: transform, box-shadow, filter;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.2);
+        border-radius: 12px;
+      }
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+        filter: brightness(1.1);
+      }
+
+      .achievement-category {
+        position: absolute;
+        top: 25px;
+        right: -40px;
+        width: 160px;
+        text-align: center;
+        letter-spacing: 1px;
+        transform: rotate(45deg);
+        color: #fff;
+        font-weight: bold;
+        font-size: 0.75rem;
+        padding: 4px 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        pointer-events: none;
+        z-index: 2;
+        will-change: transform;
+        user-select: none;
+      }
+
+      .achievement-icon {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid #00fed4;
+        border-radius: 50%;
+        padding: 20px;
+        margin: 15px auto 20px;
+        font-size: 2.5rem;
+        color: #00f2fe;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 10px #00fe4c, 0 0 20px rgba(0, 42, 254, 0.5);
+      }
+
+      .achievement-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        gap: 6px;
+        padding: 10px;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(12px);
+
+        .achievement-title {
+          font-family: 'Roboto Mono', monospace;
+          font-weight: 700;
+          font-size: 1.25rem;
+          letter-spacing: 1.5px;
+          text-align: center;
+          color: #9fbbd6;
+          text-shadow: 0 2px 10px rgba(13, 87, 216, 0.5);
+          margin: 0 5px 10px 5px;
+        }
+
+        .achievement-description {
+          font-family: 'Lato', sans-serif;
+          font-style: italic;
+          font-size: 0.9rem;
+          color: #e0e0e0;
+          text-align: center;
+          line-height: 1.4rem;
+          letter-spacing: 1px;
+          margin: 0 10px;
+        }
+
+        .achievement-points {
+          font-family: 'Roboto Mono', monospace;
+          font-weight: 600;
+          font-size: 1.05rem;
+          margin: 20px 10px;
+          color: #01e0eb;
+        }
+      }
+    }
+  }
+}

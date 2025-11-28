@@ -160,9 +160,9 @@ export default function Favorites() {
                   {hovered === quiz.subcategory_id ? (
                     <motion.div
                       key="broken"
-                      initial={{ scale: 0.5, rotate: -15, opacity: 0 }}
+                      initial={{ scale: 0.75, rotate: 5, opacity: 0.75 }}
                       animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                      exit={{ scale: 0.5, rotate: 15, opacity: 0 }}
+                      exit={{ scale: 0.75, rotate: -5, opacity: 0.75 }}
                       transition={{ duration: 0.3 }}
                       style={{ display: "inline-block" }}
                     >
@@ -171,9 +171,9 @@ export default function Favorites() {
                   ) : (
                     <motion.div
                       key="filled"
-                      initial={{ scale: 0.5, rotate: 15, opacity: 0 }}
+                      initial={{ scale: 0.75, rotate: -5, opacity: 0.75 }}
                       animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                      exit={{ scale: 0.5, rotate: -15, opacity: 0 }}
+                      exit={{ scale: 0.75, rotate: 5, opacity: 0.75 }}
                       transition={{ duration: 0.3 }}
                       style={{ display: "inline-block" }}                    
                     >
