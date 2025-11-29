@@ -1,13 +1,29 @@
 import React from "react";
+import Select, { components } from "react-select";
 import { useEffect, useState } from "react";
 import { achievementIconMap, achievementIconOptions } from "../../helper/achievementIcons.js";
+import { RiEdit2Line, RiDeleteBin5Line } from "react-icons/ri";
+import { Slide, ToastContainer, toast } from 'react-toastify';
 import supabase from "../../helper/supabaseClient.js";
+import 'react-toastify/dist/ReactToastify.css';
 import "./AchievementsAdmin.less";
+
+
+const IconOption = (props) => {
+  const IconComponent = achievementIconMap[props.data.value];
+  return (
+    <components.Option {...props}>
+      {IconComponent && <IconComponent style={{ width: 20, height: 20, marginRight: 8}} />}
+      {props.data.label}
+    </components.Option>
+  );
+};
 
 export default function AchievementsAdmin() {
 
   const [achievements, setAchievements] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
 
   const [form, setForm] = useState({
     title: "",
@@ -30,6 +46,7 @@ export default function AchievementsAdmin() {
     RARE: 2,
     LEGENDARY: 3,
   };
+
 
   useEffect(() => {
     load();
@@ -54,21 +71,72 @@ export default function AchievementsAdmin() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const { error } = await supabase
-      .from("achievements")
-      .insert({
-        title: form.title,
-        description: form.description,
-        icon: form.icon,
-        condition_type: form.condition_type,
-        condition_value: form.condition_value,
-        points: form.points,
-        category: form.category,
+    if (editingId) {
+      const { error } = await supabase
+        .from("achievements")
+        .update({
+          title: form.title,
+          description: form.description,
+          icon: form.icon,
+          condition_type: form.condition_type,
+          condition_value: form.condition_value,
+          points: form.points,
+          category: form.category,          
+        })
+        .eq("achievement_id", editingId);
+
+      if (error) {
+        alert("Error updating achievement: " + error.message);
+        return;
+      }
+
+      toast.success(<span>Successfully updated achievement: <strong>{form.title}</strong></span>, {
+        toastId: `achievement-edit-${editingId}`,
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+        style: {
+          background: '#e6ffed',
+          color: '#1b5e20',
+        },
       });
 
-    if (error) {
-      alert("Error: " + error.message);
-      return;
+      setEditingId(null);
+    } else {
+      const { error } = await supabase
+        .from("achievements")
+        .insert({
+          title: form.title,
+          description: form.description,
+          icon: form.icon,
+          condition_type: form.condition_type,
+          condition_value: form.condition_value,
+          points: form.points,
+          category: form.category,
+        });
+
+      if (error) {
+        alert("Error: " + error.message);
+        return;
+      }
+      toast.success(<span>Added new achievement: <strong>{form.title}</strong></span>, {
+        toastId: `achievement-add-${form.title}`,
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+        style: {
+          background: '#e6ffed',
+          color: '#1b5e20',
+        },
+      });
     }
 
     load();
@@ -79,7 +147,59 @@ export default function AchievementsAdmin() {
       condition_type: "quizzes_played",
       condition_value: 1,
       points: 0, 
+      category: "COMMON",
     });
+  }
+
+
+  function handleEdit(a) {
+    setEditingId(a.achievement_id);
+
+    setForm({
+      title: a.title,
+      description: a.description,
+      icon: a.icon,
+      condition_type: a.condition_type,
+      condition_value: a.condition_value,
+      points: a.points,
+      category: a.category,
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+
+  async function handleDelete(a) {
+    const confirmDelete = window.confirm(`Are you sure you want to delete achievement "${a.title}"?`);
+
+    if (!confirmDelete) return;
+
+    const { error } = await supabase
+      .from("achievements")
+      .delete()
+      .eq("achievement_id", a.achievement_id);
+
+    if (error) {
+      alert("Error deleting achievement: " + error.message);
+      return;
+    }
+
+    toast.info(<span>Successfully deleted achievement: <strong>{a.title}</strong></span>, {
+      toastId: `achievement-delete-${a.achievement_id}`,
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      transition: Slide,
+      style: {
+        background: '#e3f2fd',
+        color: '#0d47a1',
+      },
+    });
+
+    load();
   }
 
   return (
@@ -105,16 +225,33 @@ export default function AchievementsAdmin() {
         />
 
         <label>Icon:</label>
-        <select
-          value={form.icon}
-          onChange={(e) => setForm({ ...form, icon: e.target.value })}
-        >
-          {achievementIconOptions.map((icon) => (
-            <option key={icon} value={icon}>
-              {icon}
-            </option>
-          ))}
-        </select>
+        <Select
+          isSearchable={false}
+          value={{ value: form.icon, label: form.icon }}
+          onChange={(selected) => setForm({ ...form, icon: selected.value })}
+          options={achievementIconOptions
+            .map(icon => ({ value: icon, label: icon }))
+            .sort((a, b) => a.label.localeCompare(b.label))}
+          components={{
+            Option: IconOption,
+            IndicatorSeparator: () => null,
+          }}
+          menuPlacement="auto"
+          styles={{
+            menu: (provided) => ({
+              ...provided,
+            }),
+            menuList: (provided) => ({
+              ...provided,
+              maxHeight: 250,
+              overflowY: "auto",
+            }),
+            control: (provided) => ({
+              ...provided,
+              minHeight: 40,
+            }),
+          }}
+        />
 
         <label>Condition Type:</label>
         <select
@@ -123,6 +260,7 @@ export default function AchievementsAdmin() {
         >
           <option value="quizzes_played">quizzes_played</option>
           <option value="correct_answers">correct_answers</option>
+          <option value="quiz_modes">quiz_modes</option>
         </select>
 
         <label>Condition Value:</label>
@@ -149,7 +287,9 @@ export default function AchievementsAdmin() {
           <option value="LEGENDARY">LEGENDARY</option>
         </select>
 
-        <button type="submit">Submit</button>
+        <button type="submit">
+          {editingId ? "Save changes" : "Submit"}
+        </button>
       </form>
 
       <hr />
@@ -168,6 +308,22 @@ export default function AchievementsAdmin() {
               >
                 {a.category}
               </div>
+              <div className="achievement-actions">
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEdit(a)}
+                  title="Edit"
+                >
+                  <RiEdit2Line className="btn-icon" />
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(a)}
+                  title="Delete"
+                >
+                  <RiDeleteBin5Line className="btn-icon" />
+                </button>
+              </div>
               <div className="achievement-icon">
                 {achievementIconMap[a.icon] && React.createElement(achievementIconMap[a.icon])}
               </div>
@@ -180,6 +336,7 @@ export default function AchievementsAdmin() {
           ))
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -3,9 +3,11 @@ import { useSearchParams, useParams, useNavigate, Navigate } from "react-router-
 import { getCode } from "country-list";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { formatDistanceToNow } from "date-fns";
+import { countryCodeMap } from '../helper/countryMapping.js';
 import Statistics from './Statistics.jsx';
 import History from './History.jsx';
 import Favorites from './Favorites.jsx';
+import Achievements from './Achievements.jsx';
 import supabase from '../helper/supabaseClient.js';
 import '../styles/Profile.less';
 
@@ -85,6 +87,15 @@ export default function UserProfile() {
   }, [profile?.last_active]);
 
 
+  function getFlagsApiCode(restCountryName) {
+    if (countryCodeMap[restCountryName]) {
+      return countryCodeMap[restCountryName];
+    }
+
+    return getCode(restCountryName) || null;
+  }
+
+
   if (!loading && profile && user) {
     if (user.id === profile.id) {
       return <Navigate to="/profile" replace />;
@@ -109,7 +120,7 @@ export default function UserProfile() {
             <h2 className="user-name">{profile.username}</h2>
 
             {profile.country_of_origin && (() => {
-              const countryCode = getCode(profile.country_of_origin);
+              const countryCode = getFlagsApiCode(profile.country_of_origin);
               return (
                 countryCode && (
                   <img
@@ -150,10 +161,10 @@ export default function UserProfile() {
         </div>
 
         <div
-          className={`tab ${activeTab === "history" ? "active" : ""}`}
-          onClick={() => changeTab("history")}
+          className={`tab ${activeTab === "achievements" ? "active" : ""}`}
+          onClick={() => changeTab("achievements")}
         >
-          History
+          Achievements
         </div>
 
         <div
@@ -162,11 +173,19 @@ export default function UserProfile() {
         >
           Favorites
         </div>
+
+        <div
+          className={`tab ${activeTab === "history" ? "active" : ""}`}
+          onClick={() => changeTab("history")}
+        >
+          History
+        </div>
       </div>
       <div className="profile-tab-content">
         {activeTab === "statistics" && <Statistics username={username} />}
-        {activeTab === "history" && <History username={username} />}
+        {activeTab === "achievements" && <Achievements username={username} />}        
         {activeTab === "favorites" && <Favorites username={username} />}
+        {activeTab === "history" && <History username={username} />}
       </div>
     </div>
   );

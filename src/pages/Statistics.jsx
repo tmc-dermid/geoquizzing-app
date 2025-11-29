@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useState, useEffect } from "react";
 import { generalStatsConfig, quizPerformanceConfig } from "../helper/statsConfig.jsx";
 import CountUp from "react-countup";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
+import supabase from "../helper/supabaseClient.js";
 import "../styles/Statistics.less";
 
 const StatCard = ({ stat, value, tooltipsEnabled }) => {
@@ -21,12 +21,38 @@ const StatCard = ({ stat, value, tooltipsEnabled }) => {
   );
 };
 
-export default function Statistics() {
+export default function Statistics({ username }) {
 
-  const { profile } = useContext(AuthContext);
+  const [profileData, setProfileData] = useState(null);
   const [tooltipsEnabled, setTooltipsEnabled] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  if (!profile) return <div className="stats-container">Loading statistics...</div>;
+  useEffect(() => {
+    async function fetchProfileStats() {
+      setLoading(true);
+
+      const { data: profile, error } = await supabase
+        .from('user_profile')
+        .select('*')
+        .eq('username', username)
+        .single();
+
+      if (error || !profile) {
+        console.error("Error fetching profile statistics:", error);
+        setProfileData(null);
+        setLoading(false);
+        return;
+      }
+
+      setProfileData(profile);
+      setLoading(false);
+    }
+
+    fetchProfileStats();
+  }, [username]);
+
+  if (loading) return <div className="stats-wrapper">Loading statistics...</div>;
+  if (!profileData) return <div className="stats-wrapper">Profile not found</div>;
 
   return (
     <div className="stats-wrapper">
@@ -41,7 +67,7 @@ export default function Statistics() {
 
         <div className="stats-container">
           {generalStatsConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profile[stat.key]} tooltipsEnabled={tooltipsEnabled} />
+            <StatCard key={stat.key} stat={stat} value={profileData[stat.key]} tooltipsEnabled={tooltipsEnabled} />
           ))}
         </div>
       </section>
@@ -50,7 +76,7 @@ export default function Statistics() {
         <h3 className="stats-heading">Quiz Performance</h3>
         <div className="stats-container">
           {quizPerformanceConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profile[stat.key]} tooltipsEnabled={tooltipsEnabled} />
+            <StatCard key={stat.key} stat={stat} value={profileData[stat.key]} tooltipsEnabled={tooltipsEnabled} />
           ))}
         </div>
       </section>

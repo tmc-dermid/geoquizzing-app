@@ -242,3 +242,113 @@
       border: 1px solid #ffbdbd;
     }
 }
+
+
+// ACHIEVEMENTS
+.achievement-card-mixin() {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 290px;
+  height: auto;
+  background: linear-gradient(135deg, #0608a6, #294a90, #0461cf);
+  border-radius: 12px;
+  border: 3px solid #294a90;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  will-change: transform, box-shadow, filter;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+  }
+
+  .achievement-category {
+    position: absolute;
+    top: 25px;
+    right: -40px;
+    width: 160px;
+    text-align: center;
+    letter-spacing: 1px;
+    transform: rotate(45deg);
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 4px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    pointer-events: none;
+    z-index: 2;
+    will-change: transform;
+    user-select: none;
+  }
+
+  .achievement-icon {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #00fed4;
+    border-radius: 50%;
+    padding: 20px;
+    margin: 15px auto 20px;
+    font-size: 2.5rem;
+    color: #00f2fe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px #00fe4c, 0 0 20px rgba(0, 42, 254, 0.5);
+  }
+
+  .achievement-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 6px;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+
+    .achievement-title {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 1.5px;
+      text-align: center;
+      color: #9fbbd6;
+      text-shadow: 0 2px 10px rgba(13, 87, 216, 0.5);
+      margin: 0 5px 10px 5px;
+    }
+
+    .achievement-description {
+      font-family: 'Lato', sans-serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #e0e0e0;
+      text-align: center;
+      line-height: 1.4rem;
+      letter-spacing: 1px;
+      margin: 0 10px;
+    }
+
+    .achievement-points {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin: 20px 10px;
+      color: #01e0eb;
+    }
+  }
+}

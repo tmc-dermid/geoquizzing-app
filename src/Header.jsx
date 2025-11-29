@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { PiSignOutBold, PiUserBold, PiChartBarBold, PiHeartBold, PiClockBold } from 'react-icons/pi';
+import { PiSignOutBold, PiUserBold, PiChartBarBold, PiHeartBold, PiClockBold, PiTrophyBold } from 'react-icons/pi';
 import { useAuth } from './context/useAuth.js';
 import logo from './assets/logo.png';
 
@@ -90,13 +90,17 @@ export default function Header() {
                   <PiChartBarBold className='icon' />
                   Statistics
                 </NavLink>
-                <NavLink to ='/profile?tab=history' className='dropdown-link'>
-                  <PiClockBold className='icon' />
-                  History
+                <NavLink to ='/profile?tab=achievements' className='dropdown-link'>
+                  <PiTrophyBold className='icon' />
+                  Achievements
                 </NavLink>
                 <NavLink to='/profile?tab=favorites' className='dropdown-link'>
                   <PiHeartBold className='icon' />
                   Favorites
+                </NavLink>
+                <NavLink to ='/profile?tab=history' className='dropdown-link'>
+                  <PiClockBold className='icon' />
+                  History
                 </NavLink>
                 <hr />
                 <button onClick={handleSignOut}>

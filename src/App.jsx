@@ -15,6 +15,7 @@ import History from './pages/History.jsx';
 import Favorites from './pages/Favorites.jsx';
 import UserProfile from './pages/UserProfile.jsx';
 import EditProfile from './pages/EditProfile.jsx';
+import Achievements from './pages/Achievements.jsx';
 import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
@@ -33,9 +34,10 @@ function AppRoutes({ profile }) {
       <Route path='/profile' element={ <Profile /> } />
       <Route path='/profile/edit' element={ <EditProfile /> } />
       <Route path='/user/:username' element={ <UserProfile /> } />
-      <Route path='/statistics' element={ <Statistics /> } />
-      <Route path='/favorites' element={ <Favorites /> } />
-      <Route path='/history' element={ <History /> } />
+      <Route path='/statistics' element={ <Statistics username={profile?.username} /> } />
+      <Route path='/achievements' element={ <Achievements username={profile?.username} /> } />
+      <Route path='/favorites' element={ <Favorites username={profile?.username} /> } />
+      <Route path='/history' element={ <History username={profile?.username} /> } />
       <Route
         path='/admin/achievements'
         element={

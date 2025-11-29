@@ -80,6 +80,31 @@
                         flex-shrink: 0;
                     }
                 }
+
+                .copy-link-btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    padding: 8px 12px;
+                    border: none;
+                    border-radius: 10px;
+                    background-color: #8a929a;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: transform 0.3s ease, background-color 0.3s ease;
+                    will-change: transform, background-color;
+
+                    &:hover {
+                      transform: scale(1.03);
+                      background-color: lighten(#8a929a, 5%);
+                    }
+
+                    .copy-icon {
+                      font-size: 1.1rem;
+                      flex-shrink: 0;
+                    }
+                }
             }
             
             .user-since {

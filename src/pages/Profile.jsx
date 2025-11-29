@@ -2,11 +2,13 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { getCode } from "country-list";
 import { MdOutlineEdit } from "react-icons/md";
+import { FiLink } from "react-icons/fi";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import Statistics from './Statistics.jsx';
 import History from './History.jsx';
 import Favorites from './Favorites.jsx';
+import Achievements from './Achievements.jsx';
 import { countryCodeMap } from '../helper/countryMapping.js';
 import '../styles/Profile.less';
 
@@ -67,6 +69,13 @@ export default function Profile() {
     return getCode(restCountryName) || null;
   }
 
+  function copyProfileLink() {
+    const profileLink = `${window.location.origin}/user/${profile.username}`;
+    navigator.clipboard.writeText(profileLink);
+
+    alert("Profile link copied to clipboard!");
+  }
+
   if (!user || !profile) return <div className="profile-container">Loading...</div>;
 
   const countryCode = profile.country_of_origin ? getFlagsApiCode(profile.country_of_origin) : null;
@@ -97,12 +106,13 @@ export default function Profile() {
               );
             })()}
 
-            <button
-              className="edit-profile-btn"
-              onClick={() => navigate("/profile/edit")}
-            >
-              <MdOutlineEdit className="edit-icon"/>
+            <button className="edit-profile-btn" onClick={() => navigate("/profile/edit")}>
+              <MdOutlineEdit className="edit-icon" />
               Edit Profile
+            </button>
+
+            <button className="copy-link-btn" onClick={copyProfileLink} title="Copy profile link">
+              <FiLink className="copy-icon" />
             </button>
           </div>
           <p className="user-since">
@@ -133,10 +143,10 @@ export default function Profile() {
         </div>
 
         <div
-          className={`tab ${activeTab === "history" ? "active" : ""}`}
-          onClick={() => changeTab("history")}
+          className={`tab ${activeTab === "achievements" ? "active" : ""}`}
+          onClick={() => changeTab("achievements")}
         >
-          History
+          Achievements
         </div>
 
         <div
@@ -145,11 +155,19 @@ export default function Profile() {
         >
           Favorites
         </div>
+
+        <div
+          className={`tab ${activeTab === "history" ? "active" : ""}`}
+          onClick={() => changeTab("history")}
+        >
+          History
+        </div>
       </div>
       <div className="profile-tab-content">
-        {activeTab === "statistics" && <Statistics />}
-        {activeTab === "history" && <History />}
-        {activeTab === "favorites" && <Favorites />}
+        {activeTab === "statistics" && <Statistics username={profile?.username} />}
+        {activeTab === "achievements" && <Achievements username={profile?.username} />}
+        {activeTab === "favorites" && <Favorites username={profile?.username} />}
+        {activeTab === "history" && <History username={profile?.username} />}
       </div>
     </div>
   );
