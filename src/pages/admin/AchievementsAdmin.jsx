@@ -1,7 +1,7 @@
 import React from "react";
 import Select, { components } from "react-select";
 import { useEffect, useState } from "react";
-import { achievementIconMap, achievementIconOptions } from "../../helper/achievementIcons.js";
+import { achievementIconMap, achievementIconOptions, categoryColors, categoryOrder } from "../../helper/achievementsConfig.js";
 import { RiEdit2Line, RiDeleteBin5Line } from "react-icons/ri";
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import supabase from "../../helper/supabaseClient.js";
@@ -34,19 +34,6 @@ export default function AchievementsAdmin() {
     points: 0,
     category: "COMMON",
   });
-
-  const categoryColors = {
-    COMMON: "linear-gradient(135deg, #01d6e1, #01b74d, #0377eb)",
-    RARE: "linear-gradient(135deg, #6a2c70, #9b5de5, #4a00e0)",
-    LEGENDARY: "linear-gradient(135deg, #ff6f00, #ffb347, #dbab1aff)",
-  };
-
-  const categoryOrder = {
-    COMMON: 1,
-    RARE: 2,
-    LEGENDARY: 3,
-  };
-
 
   useEffect(() => {
     load();

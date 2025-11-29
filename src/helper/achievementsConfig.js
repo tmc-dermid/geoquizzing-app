@@ -27,3 +27,15 @@ export const achievementIconMap = {
 };
 
 export const achievementIconOptions = Object.keys(achievementIconMap);
+
+export const categoryColors = {
+  COMMON: "linear-gradient(135deg, #01d6e1, #01b74d, #0377eb)",
+  RARE: "linear-gradient(135deg, #6a2c70, #9b5de5, #4a00e0)",
+  LEGENDARY: "linear-gradient(135deg, #ff6f00, #ffb347, #dbab1aff)",
+};
+
+export const categoryOrder = {
+  COMMON: 1,
+  RARE: 2,
+  LEGENDARY: 3,
+};
