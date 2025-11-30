@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from '../helper/supabaseClient.js';
 import '../styles/Categories.less';
 
@@ -10,33 +11,7 @@ export default function Categories() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
-
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const cached = localStorage.getItem("categories");
-  //     if (cached) {
-  //       setCategories(JSON.parse(cached));
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     const { data, error } = await supabase
-  //       .from('categories')
-  //       .select('category_id, category_name, category_img')
-  //       .order('category_name', { ascending: true });
-
-  //     if (error) console.error("Error fetching categories:", error);
-  //     else {
-  //       setCategories(data);
-  //       localStorage.setItem("categories", JSON.stringify)
-  //     }
-
-  //     setLoading(false);
-  //   };
-
-  //   fetchCategories();
-  // }, []);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -102,7 +77,11 @@ export default function Categories() {
         <div className="result-container">
           {filteredCategories.length > 0 ? (
             filteredCategories.map((cat) => (
-              <div className="result-card" key={cat.category_id}>
+              <div
+                className="result-card"
+                key={cat.category_id}
+                onClick={() => navigate(`/categories/${cat.category_id}`)}
+              >
                 <img
                   src={cat.category_img}
                   alt={cat.category_name}

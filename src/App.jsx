@@ -17,6 +17,7 @@ import UserProfile from './pages/UserProfile.jsx';
 import EditProfile from './pages/EditProfile.jsx';
 import Achievements from './pages/Achievements.jsx';
 import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
+import Quiz from './pages/Quiz.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import './styles/App.less';
@@ -28,6 +29,8 @@ function AppRoutes({ profile }) {
       <Route path='/' element={ <Home /> } />
       <Route path='/atlas' element={ <Atlas /> } />
       <Route path='/categories' element={ <Categories /> } />
+      <Route path='/categories/:categoryId' element={ <Quizzes /> } />
+      <Route path='/quiz/:token/:slug' element={ <Quiz /> } />
       <Route path='/quizzes' element={ <Quizzes /> } />
       <Route path='/signup' element={ <SignUp /> } />
       <Route path='/signin' element={ <SignIn /> } />

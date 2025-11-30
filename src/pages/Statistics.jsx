@@ -31,20 +31,35 @@ export default function Statistics({ username }) {
     async function fetchProfileStats() {
       setLoading(true);
 
-      const { data: profile, error } = await supabase
+      const { data: profile, error: profileErr } = await supabase
         .from('user_profile')
         .select('*')
         .eq('username', username)
         .single();
 
-      if (error || !profile) {
-        console.error("Error fetching profile statistics:", error);
+      if (profileErr || !profile) {
+        console.error("Error fetching profile statistics:", profileErr);
         setProfileData(null);
         setLoading(false);
         return;
       }
 
-      setProfileData(profile);
+      const { data: stats, error: statsErr } = await supabase
+        .from('user_stats')
+        .select('*')
+        .eq('user_id', profile.id)
+        .maybeSingle();
+
+      if (statsErr) {
+        console.warn("User has no stats yet, using defaults.");
+      }
+
+      const merged = {
+        ...profile,
+        ...stats,
+      };
+
+      setProfileData(merged);
       setLoading(false);
     }
 

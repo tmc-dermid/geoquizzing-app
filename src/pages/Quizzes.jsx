@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Slide, ToastContainer, toast } from 'react-toastify';
@@ -20,13 +21,14 @@ export default function Quizzes() {
     const [lastChangedFav, setLastChangedFav] = useState(null);
 
     const { user } = useContext(AuthContext);
-
+    const { categoryId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
       const fetchQuizzes = async () => {
         const { data, error } = await supabase
           .from('subcategories')
-          .select('subcategory_id, category_id, subcategory_name, subcategory_img, region')
+          .select('*')
           .order('subcategory_name', { ascending: true });
 
         if (error) console.error("Error fetching quizzes:", error);
@@ -115,9 +117,9 @@ export default function Quizzes() {
 
     const filteredQuizzes = quizzes.filter((quiz) => {
 
-      const matchesCategory =
-        selectedType === "all" ||
-        quiz.category_id === parseInt(selectedType);
+      const matchesCategory = categoryId
+        ? quiz.category_id === parseInt(categoryId)
+        : selectedType === "all" || quiz.category_id === parseInt(selectedType);
 
       const matchesRegion =
         selectedRegion === "all" ||
@@ -259,7 +261,11 @@ export default function Quizzes() {
         <div className="result-container">
           {filteredQuizzes.length > 0 ? (
             filteredQuizzes.map((quiz) => (
-              <div className="result-card" key={quiz.subcategory_id}>
+              <div
+                className="result-card"
+                key={quiz.subcategory_id}
+                onClick={() => navigate(`/quiz/${quiz.token}/${quiz.slug}`)}
+              >
                 <img
                   src={quiz.subcategory_img}
                   alt={quiz.subcategory_name}

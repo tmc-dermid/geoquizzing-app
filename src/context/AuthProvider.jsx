@@ -22,11 +22,9 @@ export function AuthProvider({ children }) {
         avatar_url,
         created_at,
         last_active,
+        updated_at,
         country_of_origin,
         points,
-        total_quizzes_taken,
-        total_correct_answers,
-        total_incorrect_answers,
         is_admin
       `)
       .eq('id', user.id)
