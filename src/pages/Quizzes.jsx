@@ -264,7 +264,7 @@ export default function Quizzes() {
               <div
                 className="result-card"
                 key={quiz.subcategory_id}
-                onClick={() => navigate(`/quiz/${quiz.token}/${quiz.slug}`)}
+                onClick={() => navigate(`/quiz/${quiz.slug}`)}
               >
                 <img
                   src={quiz.subcategory_img}
