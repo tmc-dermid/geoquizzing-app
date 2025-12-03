@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import { FaHeartBroken } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext.jsx";
@@ -12,6 +13,7 @@ import '../styles/Favorites.less';
 export default function Favorites({ username }) {
 
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [favoriteQuizzes, setFavoriteQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -153,6 +155,7 @@ export default function Favorites({ username }) {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="favorite-row"
               key={quiz.subcategory_id}
+              onClick={() => navigate(`/quiz/${quiz.slug}`)}
             >
               <img
                 src={quiz.subcategory_img}
@@ -170,7 +173,10 @@ export default function Favorites({ username }) {
               {isOwner && (
                 <button
                   className={`favorite-remove ${pending[quiz.subcategory_id] ? "pending" : ""}`}
-                  onClick={() => removeFavorite(quiz.subcategory_id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeFavorite(quiz.subcategory_id);
+                  }}
                   onMouseEnter={() => setHovered(quiz.subcategory_id)}
                   onMouseLeave={() => setHovered(null)}
                   title="Remove from favorites"

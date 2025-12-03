@@ -1,49 +1,89 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { generalStatsConfig, quizPerformanceConfig } from "../helper/statsConfig.jsx";
-import CountUp from "react-countup";
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import "../styles/Statistics.less";
+  
+  const handleChoiceClick = async (choice) => {
+    if (answered) return;
 
-const StatCard = ({ stat, value }) => {
-  const displayValue = stat.format ? stat.format(value) : <CountUp end={value} duration={1.5} />;
+    const isCorrect = choice.is_correct;
+    const userAnswerArray = [choice.choice_text];
 
-  return (
-    <>
-      <div className="stats-card" data-tooltip-id="global-tooltip" data-tooltip-html={stat.description || ""}>
-        {stat.icon && <div className="stats-icon">{stat.icon}</div>}
-        <p className="stats-label">{stat.label}</p>
-        <p className="stats-value">{displayValue}</p>
-      </div>
-      <ReactTooltip id="global-tooltip" place="top" delayShow={100} delayHide={100} className="custom-tooltip"/>
-    </>
-  );
-};
+    setSelected([choice.label]);
+    setIsAnsCorrect(isCorrect);
+    setAnswered(true);
 
-export default function Statistics() {
-  const { profile } = useContext(AuthContext);
+    await supabase
+      .from('quiz_questions')
+      .update({
+        user_answer: userAnswerArray,
+        is_correct: isCorrect,
+        answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
+      })
+      .eq('quiz_question_id', questionData.quiz_question_id);
 
-  if (!profile) return <div className="stats-container">Loading statistics...</div>;
+    const isLast = parseInt(question_order) >= sessionData.num_questions;
 
-  return (
-    <div className="stats-wrapper">
-      <section className="stats-section">
-        <h3 className="stats-heading">General Stats</h3>
-        <div className="stats-container">
-          {generalStatsConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profile[stat.key]} />
-          ))}
-        </div>
-      </section>
+    await supabase.rpc("increment_quiz_session_totals", {
+      p_session_id: session_id,
+      p_inc_correct: isCorrect ? 1 : 0,
+      p_inc_incorrect: isCorrect ? 0 : 1,
+      p_mark_completed: isLast
+    });
 
-      <section className="stats-section">
-        <h3 className="stats-heading">Quiz Performance</h3>
-        <div className="stats-container">
-          {quizPerformanceConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profile[stat.key]} />
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
+    goToNextQuestion();
+  };
+
+
+    const handleInputSubmit = async () => {
+    if (answered) return;
+
+    const userAnswers = inputAnswer
+      .split(",")
+      .map((a) => a.trim().toLowerCase())
+      .filter((a) => a.length > 0);
+
+    const correctAnswers = questionData.question.correct_answer.map((a) => a.toLowerCase());
+
+    const correct = userAnswers.every(ans => correctAnswers.includes(ans));
+    setIsAnsCorrect(correct);
+    setAnswered(true);
+
+    await supabase
+      .from('quiz_questions')
+      .update({
+        user_answer: userAnswers,
+        is_correct: correct,
+        answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
+      })
+      .eq('quiz_question_id', questionData.quiz_question_id);
+
+    const isLast = parseInt(question_order) >= sessionData.num_questions;
+
+    await supabase.rpc("increment_quiz_session_totals", {
+      p_session_id: session_id,
+      p_inc_correct: correct ? 1 : 0,
+      p_inc_incorrect: correct ? 0 : 1,
+      p_mark_completed: isLast
+    });
+
+    goToNextQuestion();
+  };
+
+
+              <motion.div
+              key={`choices-${question_order}`}
+              className={`choices-grid ${difficulty === "easy" ? "grid-2x2" : "grid-2x3"}`}
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -300, opacity: 0 }}
+            >
+              {choices.map((choice) => (
+                <button
+                  key={choice.label}
+                  className={`choice-btn ${
+                    answered ? choice.is_correct ? "correct" : selected.includes(choice.label) ? "wrong" : "" : ""
+                  }`}
+                  onClick={() => handleChoiceClick(choice)}
+                  disabled={answered}
+                >
+                  <span className='choice-label'>{choice.label}</span> {choice.choice_text}
+                </button>
+              ))}
+            </motion.div>

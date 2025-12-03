@@ -278,7 +278,10 @@ export default function Quizzes() {
                       ${favorites[quiz.subcategory_id] ? "active" : ""}
                       ${pendingFavs[quiz.subcategory_id] ? "pending" : ""}`
                     }
-                    onClick={() => toggleFavorite(quiz.subcategory_id, quiz.subcategory_name)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(quiz.subcategory_id, quiz.subcategory_name);
+                    }}
                     title="Add to favorites!"
                   >
                     <AiOutlineHeart className="heart-icon outline" />

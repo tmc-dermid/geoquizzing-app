@@ -1,13 +1,33 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import supabase from '../helper/supabaseClient.js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaInfoCircle } from "react-icons/fa";
+import { MapContainer, GeoJSON, useMap } from "react-leaflet";
 import '../styles/QuizQuestion.less';
+import "leaflet/dist/leaflet.css";
+
+function FitBounds({ geoJsonData }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!geoJsonData) return;
+
+    const geoJsonLayer = L.geoJSON(geoJsonData);
+    map.fitBounds(geoJsonLayer.getBounds(), {
+      padding: [10, 10],
+    });
+  }, [geoJsonData, map]);
+
+  return null;
+}
+
 
 export default function QuizQuestion() {
 
   const { session_id, question_order } = useParams();
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const [sessionData, setSessionData] = useState(null);
   const [questionData, setQuestionData] = useState(null);
@@ -18,11 +38,23 @@ export default function QuizQuestion() {
   const [timer, setTimer] = useState(0);
   const [inputAnswer, setInputAnswer] = useState("");
   const [shownAt, setShownAt] = useState(Date.now());
+  const [isAnsCorrect, setIsAnsCorrect] = useState(null);
+  const [numCorrectChoices, setNumCorrectChoices] = useState(1);
+
+  const difficultyMultipliers = {
+    easy: 2,
+    medium: 3,
+    hard: 5
+  };
 
   useEffect(() => {
-    setShownAt(Date.now());
     setAnswered(false);
     setSelected([]);
+    setIsAnsCorrect(null);
+
+    if (questionData) {
+      setShownAt(Date.now());
+    }
   }, [question_order]);
 
   useEffect(() => {
@@ -37,9 +69,18 @@ export default function QuizQuestion() {
           difficulty,
           num_questions,
           with_dependencies,
+          total_correct,
+          total_incorrect,
+          base_points,
+          hint_penalty,
+          completed_at,
+          status,
           started_at,
-          subcategory:subcategories(
-            subcategory_name
+          subcategory:subcategories (
+            subcategory_name,
+            category:categories (
+              category_name
+            )
           )
         `)
         .eq('session_id', session_id)
@@ -86,8 +127,6 @@ export default function QuizQuestion() {
         p_include_dependencies: sessionRes.with_dependencies
       });
 
-      console.log("sessionRes.with_dependencies", sessionRes.with_dependencies);
-
       if (choicesError) {
         console.error("Error fetching choices:", choicesError);
         return;
@@ -101,9 +140,33 @@ export default function QuizQuestion() {
         label: labels[index]
       }));
 
-      setQuestionData(questionRow);
+      let shapeData = null;
+
+      if (
+        sessionRes.subcategory?.category?.category_name === "Country Shapes" &&
+        !questionRow.question.question_img &&
+        questionRow.question.country_id
+      ) {
+        const { data: shapeRes, error: shapeError } = await supabase
+          .from('country_shapes')
+          .select('geom')
+          .eq('country_id', questionRow.question.country_id)
+          .single();
+        
+        if (!shapeError && shapeRes) {
+          shapeData = shapeRes.geom;
+        }
+      }
+
+      setQuestionData({
+        ...questionRow,
+        shape: shapeData
+      });
       setChoices(shuffledChoices);
       setLoading(false);
+
+      const correctCount = shuffledChoices.filter(c => c.is_correct).length;
+      setNumCorrectChoices(correctCount);
     };
 
     fetchQuestions();
@@ -113,35 +176,128 @@ export default function QuizQuestion() {
   useEffect(() => {
     if (!sessionData) return;
 
+    const start = new Date(sessionData.started_at).getTime();
+
+    setTimer(Math.max(0, Math.floor((Date.now() - start) / 1000)));
+
     const interval = setInterval(() => {
-        const now = Date.now();
-        const start = new Date(sessionData.started_at).getTime();
-        setTimer(Math.floor((now - start) / 1000));
-      }, 1000);
-    
+      setTimer(Math.max(0, Math.floor((Date.now() - start) / 1000)));
+    }, 1000);
+
     return () => clearInterval(interval);
   }, [sessionData]);
+
+  
+  useEffect(() => {
+    if (!questionData) return;
+
+    if (sessionData?.difficulty === "hard" && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [questionData, sessionData]);
 
 
   const handleChoiceClick = async (choice) => {
     if (answered) return;
 
-    const isCorrect = choice.is_correct;
-    const userAnswerArray = [choice.choice_text];
+    let updatedSelected = [...selected];
 
-    setSelected([choice.label]);
-    setAnswered(true);
+    if (updatedSelected.includes(choice.label)) {
+      updatedSelected = updatedSelected.filter(l => l !== choice.label);
+    } else {
+      updatedSelected.push(choice.label);
+    }
 
-    await supabase
-      .from('quiz_questions')
-      .update({
-        user_answer: userAnswerArray,
-        is_correct: isCorrect,
-        answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
-      })
-      .eq('quiz_question_id', questionData.quiz_question_id);
+    setSelected(updatedSelected);
 
-    goToNextQuestion();
+    const selectedChoices = choices.filter(c => updatedSelected.includes(c.label));
+    const isLast = parseInt(question_order) >= sessionData.num_questions;
+    const multiplier = difficultyMultipliers[sessionData.difficulty] || 1;
+
+    if (numCorrectChoices === 1) {
+      const isCorrect = choice.is_correct;
+      setIsAnsCorrect(isCorrect);
+      setAnswered(true);
+
+      const pointsForThisQuestion = isCorrect ? multiplier : 0;
+
+      await supabase
+        .from("quiz_questions")
+        .update({
+          user_answer: [choice.choice_text],
+          is_correct: isCorrect,
+          answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000),
+        })
+        .eq("quiz_question_id", questionData.quiz_question_id);
+
+      await supabase.rpc("increment_quiz_session_totals", {
+        p_session_id: session_id,
+        p_inc_correct: isCorrect ? 1 : 0,
+        p_inc_incorrect: isCorrect ? 0 : 1,
+        p_add_points: pointsForThisQuestion,
+        p_mark_completed: isLast,
+      });
+
+      return goToNextQuestion();
+    }
+
+    const incorrectSelected = selectedChoices.some(c => !c.is_correct);
+
+    if (incorrectSelected) {
+      setIsAnsCorrect(false);
+      setAnswered(true);
+
+      const pointsForThisQuestion = 0;
+
+      await supabase
+        .from("quiz_questions")
+        .update({
+          user_answer: selectedChoices.map(c => c.choice_text),
+          is_correct: false,
+          answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000),
+        })
+        .eq("quiz_question_id", questionData.quiz_question_id);
+
+      await supabase.rpc("increment_quiz_session_totals", {
+        p_session_id: session_id,
+        p_inc_correct: 0,
+        p_inc_incorrect: 1,
+        p_add_points: pointsForThisQuestion,
+        p_mark_completed: isLast,
+      });
+
+      return goToNextQuestion();
+    }
+
+    const allCorrectSelected = choices
+      .filter(c => c.is_correct)
+      .every(c => updatedSelected.includes(c.label));
+
+    if (allCorrectSelected) {
+      setIsAnsCorrect(true);
+      setAnswered(true);
+
+      const pointsForThisQuestion = multiplier;
+
+      await supabase
+        .from("quiz_questions")
+        .update({
+          user_answer: selectedChoices.map(c => c.choice_text),
+          is_correct: true,
+          answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000),
+        })
+        .eq("quiz_question_id", questionData.quiz_question_id);
+
+      await supabase.rpc("increment_quiz_session_totals", {
+        p_session_id: session_id,
+        p_inc_correct: 1,
+        p_inc_incorrect: 0,
+        p_add_points: pointsForThisQuestion,
+        p_mark_completed: isLast,
+      });
+
+      return goToNextQuestion();
+    }
   };
 
 
@@ -155,20 +311,29 @@ export default function QuizQuestion() {
 
     const correctAnswers = questionData.question.correct_answer.map((a) => a.toLowerCase());
 
-    const isCorrect = 
-      userAnswers.length === correctAnswers.length &&
-      userAnswers.every((ans) => correctAnswers.includes(ans));
-
+    const correct = userAnswers.every(ans => correctAnswers.includes(ans));
+    setIsAnsCorrect(correct);
     setAnswered(true);
+
+    const pointsForThisQuestion = correct ? (difficultyMultipliers[sessionData.difficulty] || 1) : 0;
+    const isLast = parseInt(question_order) >= sessionData.num_questions;
 
     await supabase
       .from('quiz_questions')
       .update({
         user_answer: userAnswers,
-        is_correct: isCorrect,
+        is_correct: correct,
         answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
       })
       .eq('quiz_question_id', questionData.quiz_question_id);
+
+    await supabase.rpc("increment_quiz_session_totals", {
+      p_session_id: session_id,
+      p_inc_correct: correct ? 1 : 0,
+      p_inc_incorrect: correct ? 0 : 1,
+      p_add_points: pointsForThisQuestion,
+      p_mark_completed: isLast
+    });
 
     goToNextQuestion();
   };
@@ -180,7 +345,7 @@ export default function QuizQuestion() {
       } else {
         navigate(`/quiz/${session_id}/${parseInt(question_order) + 1}`);
       }
-    }, 2000);
+    }, 1000);
   };
 
   if (loading || !sessionData || !questionData) return <div className='quiz-question-container'>Loading question...</div>;
@@ -192,7 +357,9 @@ export default function QuizQuestion() {
       <div className='quiz-question-card'>
         <div className='quiz-header'>
           <div className='header-left'>
-            <h2>Quiz: {sessionData.subcategory.subcategory_name}</h2>
+            <h2 className='quiz-title'>
+              Quiz: <span className='quiz-name'>{sessionData.subcategory.subcategory_name}</span>
+            </h2>
             <div className='question-counter'>
               Question {question_order} / {sessionData.num_questions}
             </div>
@@ -201,13 +368,40 @@ export default function QuizQuestion() {
           <div className='timer'>Time: {timer}s</div>
         </div>
 
-        {questionData.question.question_img && (
+        {questionData.question.question_img ? (
           <img
             src={questionData.question.question_img}
             alt="Question"
             className='question-img'
           />
-        )}
+        ) : questionData.shape ? (
+          <div className='question-shape-map'>
+            <MapContainer
+              style={{
+                height: "100%",
+                width: "100%",
+                borderRadius: "10px",
+                backgroundColor: "#f7f6f6ff",
+              }}
+              center={[0, 0]}
+              zoom={3}
+              scrollWheelZoom={true}
+              zoomControl={true}
+              attributionControl={true}
+            >
+              <GeoJSON
+                data={questionData.shape}
+                style={{
+                  color: "black",
+                  weight: 1,
+                  fillColor: "#4d5599",
+                  fillOpacity: 1,
+                }}
+              />
+              <FitBounds geoJsonData={questionData.shape} />
+            </MapContainer>
+          </div>
+        ) : null}
 
         <div className='question-text'>
           {questionData.question.question_text}
@@ -217,43 +411,68 @@ export default function QuizQuestion() {
           {difficulty === "hard" ? (
             <motion.div
               key={`input-${question_order}`}
-              className='question-input'
+              className={`question-input ${answered ? (isAnsCorrect ? "correct" : "wrong") : ""}`}
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
             >
-              <input
-                type="text"
-                placeholder='Enter your answer...'
-                value={inputAnswer}
-                onChange={(e) => setInputAnswer(e.target.value)}
-                disabled={answered}
-              />
+              <div className='input-wrapper'>
+                <input
+                  type="text"
+                  placeholder='Enter your answer...'
+                  ref={inputRef}
+                  value={inputAnswer}
+                  onChange={(e) => setInputAnswer(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleInputSubmit();
+                    }
+                  }}
+                  disabled={answered}
+                />
+                {answered && isAnsCorrect && (
+                  <span className='input-correct-icon'>✓</span>
+                )}
+                {answered && !isAnsCorrect && (
+                  <span className='input-incorrect-icon'>✗</span>
+                )}
+              </div>
               <button onClick={handleInputSubmit} disabled={answered}>
                 Submit
               </button>
             </motion.div>
           ) : (
-            <motion.div
-              key={`choices-${question_order}`}
-              className={`choices-grid ${difficulty === "easy" ? "grid-2x2" : "grid-2x3"}`}
-              initial={{ x: 300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -300, opacity: 0 }}
-            >
-              {choices.map((choice) => (
-                <button
-                  key={choice.label}
-                  className={`choice-btn ${
-                    answered ? choice.is_correct ? "correct" : selected.includes(choice.label) ? "wrong" : "" : ""
-                  }`}
-                  onClick={() => handleChoiceClick(choice)}
-                  disabled={answered}
-                >
-                  <span className='choice-label'>{choice.label}</span> {choice.choice_text}
-                </button>
-              ))}
-            </motion.div>
+            <>
+              {numCorrectChoices > 1 && (
+                <div className='multi-answer-warning'>
+                  <FaInfoCircle className='warning-icon' />
+                  This question has multiple correct answers. Select all that apply.
+                </div>
+              )}
+              <motion.div
+                key={`choices-${question_order}`}
+                className={`choices-grid ${difficulty === "easy" ? "grid-2x2" : "grid-2x3"}`}
+                initial={{ x: 300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -300, opacity: 0 }}
+              >
+                {choices.map((choice) => (
+                  <button
+                    key={choice.label}
+                    className={`choice-btn ${
+                      answered
+                        ? (choice.is_correct ? "correct" : selected.includes(choice.label) ? "wrong" : "")
+                        : selected.includes(choice.label) ? "selected" : ""
+                    }`}
+                    onClick={() => handleChoiceClick(choice)}
+                    disabled={answered}
+                  >
+                    <span className='choice-label'>{choice.label}</span> {choice.choice_text}
+                  </button>
+                ))}
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>
