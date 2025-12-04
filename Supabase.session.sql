@@ -331,9 +331,3 @@ AS $$
   LEFT JOIN public.region_stats r ON r.region = s.region
   WHERE s.slug = slug_input;
 $$ LANGUAGE sql STABLE;
-
-
-
-
-
-

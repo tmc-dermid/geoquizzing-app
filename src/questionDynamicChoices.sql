@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_question_dynamic_choices(
+CREATE OR REPLACE FUNCTION public.get_question_dynamic_choices(
   p_question_id INT,
   p_subcategory_id INT,
   p_difficulty TEXT,

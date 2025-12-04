@@ -40,6 +40,7 @@ export default function QuizQuestion() {
   const [shownAt, setShownAt] = useState(Date.now());
   const [isAnsCorrect, setIsAnsCorrect] = useState(null);
   const [numCorrectChoices, setNumCorrectChoices] = useState(1);
+  const [shapesCache, setShapesCache] = useState({});
 
   const difficultyMultipliers = {
     easy: 2,
@@ -355,14 +356,17 @@ export default function QuizQuestion() {
   return (
     <div className="quiz-question-container">
       <div className='quiz-question-card'>
+        <div className='progress-bar-container'>
+          <div className='progress-bar-fill' style={{ width: `${(question_order / sessionData.num_questions) * 100}%` }} />
+          <div className='progress-bar-label'>
+            {question_order} / {sessionData.num_questions}
+          </div>
+        </div>
         <div className='quiz-header'>
           <div className='header-left'>
             <h2 className='quiz-title'>
               Quiz: <span className='quiz-name'>{sessionData.subcategory.subcategory_name}</span>
             </h2>
-            <div className='question-counter'>
-              Question {question_order} / {sessionData.num_questions}
-            </div>
           </div>
 
           <div className='timer'>Time: {timer}s</div>
