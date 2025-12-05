@@ -40,7 +40,6 @@ export default function QuizQuestion() {
   const [shownAt, setShownAt] = useState(Date.now());
   const [isAnsCorrect, setIsAnsCorrect] = useState(null);
   const [numCorrectChoices, setNumCorrectChoices] = useState(1);
-  const [shapesCache, setShapesCache] = useState({});
 
   const difficultyMultipliers = {
     easy: 2,
@@ -172,6 +171,8 @@ export default function QuizQuestion() {
 
     fetchQuestions();
   }, [session_id, question_order]);
+
+  //console.log("With dependencies:", sessionData?.with_dependencies);
 
 
   useEffect(() => {
