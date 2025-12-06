@@ -7,9 +7,6 @@
 --   last_active TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 --   avatar_url TEXT,
 --   country_of_origin VARCHAR(50),
---   total_quizzes_taken INT DEFAULT 0,
---   total_correct_answers INT DEFAULT 0,
---   total_incorrect_answers INT DEFAULT 0,
 --   updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 --   is_admin BOOLEAN DEFAULT FALSE
 -- );
@@ -109,6 +106,7 @@
 --         END
 --     ) STORED,
 --     status TEXT NOT NULL DEFAULT 'ongoing' CHECK(status IN ('ongoing', 'completed')),
+--     stats_processed BOOLEAN DEFAULT FALSE
 
 --     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
 --     FOREIGN KEY (subcategory_id) REFERENCES subcategories(subcategory_id) ON DELETE RESTRICT

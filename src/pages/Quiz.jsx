@@ -28,7 +28,7 @@ function generateQuestionOptions(subcategory, includeDeps) {
 
 export default function Quiz() {
 
-  const { token, slug } = useParams(); 
+  const { slug } = useParams(); 
   const navigate = useNavigate();
 
   const { profile } = useContext(AuthContext);
@@ -86,7 +86,7 @@ export default function Quiz() {
     }
   }, [subcategory, includeDependencies]);
 
-  if (loading) return <div className="quiz-loading">Loading quiz...</div>;
+  if (loading) return <div className="quiz-loading">Loading quiz menu...</div>;
   if (!subcategory) return <div className="quiz-error">Quiz not found.</div>;
 
   const startQuiz = async () => {
@@ -109,7 +109,7 @@ export default function Quiz() {
       return;
     }
 
-    navigate(`/quiz/${data}/1`);
+    navigate(`/quiz/${data}`);
   };
 
   return (

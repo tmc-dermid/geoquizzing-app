@@ -35,8 +35,8 @@ function AppRoutes({ profile }) {
         <Route path='/atlas' element={ <Atlas /> } />
         <Route path='/categories' element={ <Categories /> } />
         <Route path='/categories/:categoryId' element={ <Quizzes /> } />
-        <Route path='/quiz/:slug' element={ <Quiz /> } />  
-        <Route path='/quiz/:session_id/:question_order' element={ <QuizQuestion /> } />   
+        <Route path='/quiz-menu/:slug' element={ <Quiz /> } />  
+        <Route path='/quiz/:session_id' element={ <QuizQuestion /> } />
         <Route path='/quiz/:session_id/results' element={ <QuizResults/> } />   
         <Route path='/quizzes' element={ <Quizzes /> } />
         <Route path='/signup' element={ <SignUp /> } />
@@ -61,7 +61,7 @@ function AppRoutes({ profile }) {
           }
         />
       </Routes>
-    //</AnimatePresence>
+    </AnimatePresence>
   );
 }
 

@@ -10,10 +10,10 @@ export const generalStatsConfig = [
     description: "Total points earned so far"
   },
   {
-    key: "total_quizzes_taken",
-    label: "Total Quizzes Taken",
+    key: "total_quizzes_completed",
+    label: "Total Quizzes Completed",
     icon: <MdAssignmentTurnedIn />,
-    description: "Total number of quizzes attempted"
+    description: "Total number of quizzes completed"
   },
   {
     key: "total_questions_answered",

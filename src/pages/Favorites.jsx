@@ -155,7 +155,7 @@ export default function Favorites({ username }) {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="favorite-row"
               key={quiz.subcategory_id}
-              onClick={() => navigate(`/quiz/${quiz.slug}`)}
+              onClick={() => navigate(`/quiz-menu/${quiz.slug}`)}
             >
               <img
                 src={quiz.subcategory_img}

@@ -25,7 +25,7 @@ function FitBounds({ geoJsonData }) {
 
 export default function QuizQuestion() {
 
-  const { session_id, question_order } = useParams();
+  const { session_id } = useParams();
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -37,9 +37,11 @@ export default function QuizQuestion() {
   const [answered, setAnswered] = useState(false);
   const [timer, setTimer] = useState(0);
   const [inputAnswer, setInputAnswer] = useState("");
+  const [inputError, setInputError] = useState("");
   const [shownAt, setShownAt] = useState(Date.now());
   const [isAnsCorrect, setIsAnsCorrect] = useState(null);
   const [numCorrectChoices, setNumCorrectChoices] = useState(1);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const difficultyMultipliers = {
     easy: 2,
@@ -47,35 +49,30 @@ export default function QuizQuestion() {
     hard: 5
   };
 
-  useEffect(() => {
-    setAnswered(false);
-    setSelected([]);
-    setIsAnsCorrect(null);
-
-    if (questionData) {
-      setShownAt(Date.now());
-    }
-  }, [question_order]);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
+    const fetchSession = async () => {
       setLoading(true);
 
       const { data: sessionRes, error: sessionError } = await supabase
         .from('quiz_sessions')
         .select(`
-          session_id,
-          subcategory_id,
-          difficulty,
-          num_questions,
-          with_dependencies,
-          total_correct,
-          total_incorrect,
-          base_points,
-          hint_penalty,
-          completed_at,
-          status,
-          started_at,
+          *,
+          quiz_questions:quiz_questions (
+            quiz_question_id,
+            question_order,
+            user_answer,
+            is_correct,
+            attempts,
+            answer_time_seconds,
+            question:questions (
+              question_text,
+              question_img,
+              question_id,
+              country_id,
+              correct_answer
+            )
+          ),
           subcategory:subcategories (
             subcategory_name,
             category:categories (
@@ -86,91 +83,64 @@ export default function QuizQuestion() {
         .eq('session_id', session_id)
         .single();
 
-      if (sessionError || !sessionRes) {
+      if (sessionError) {
         console.error("Session not found", sessionError);
+        setLoading(false);
         return;
       }
 
       setSessionData(sessionRes);
+      setLoading(false);
+    };
 
-      const { data: questionRow, error: questionError } = await supabase
-        .from('quiz_questions')
-        .select(`
-          quiz_question_id,
-          question_id,
-          question_order,
-          correct_answer,
-          user_answer,
-          attempts,
-          is_hint_used,
-          question:questions(
-            question_text,
-            question_img,
-            question_id,
-            country_id,
-            correct_answer
-          )
-        `)
-        .eq('session_id', session_id)
-        .eq('question_order', question_order)
-        .single();
-      
-      if (questionError || !questionRow) {
-        console.error("Question not found", questionError);
-        return;
-      }
+    fetchSession();
+  }, [session_id]);
+
+  useEffect(() => {
+    if (!sessionData) return;
+
+    const questionRow = sessionData.quiz_questions[currentQuestionIndex];
+    if (!questionRow) return;
+
+    const fetchQuestionDetails = async () => {
+      setLoading(true);
+      setAnswered(false);
+      setSelected([]);
+      setIsAnsCorrect(null);
+      setShownAt(Date.now());
 
       const { data: choicesData, error: choicesError } = await supabase.rpc("get_question_dynamic_choices", {
         p_question_id: questionRow.question.question_id,
-        p_subcategory_id: sessionRes.subcategory_id,
-        p_difficulty: sessionRes.difficulty,
-        p_include_dependencies: sessionRes.with_dependencies
+        p_subcategory_id: sessionData.subcategory_id,
+        p_difficulty: sessionData.difficulty,
+        p_include_dependencies: sessionData.with_dependencies
       });
 
-      if (choicesError) {
-        console.error("Error fetching choices:", choicesError);
-        return;
-      }
-
-      let shuffledChoices = [...(choicesData || [])].sort(() => Math.random() - 0.5);
+      if (choicesError) console.error("Error fetching choices:", choicesError);
 
       const labels = ['A', 'B', 'C', 'D', 'E', 'F'];
-      shuffledChoices = shuffledChoices.map((choice, index) => ({
-        ...choice,
-        label: labels[index]
-      }));
 
+      let shuffledChoices = (choicesData || []).sort(() => Math.random() - 0.5).map((c, i) => ({ ...c, label: labels[i] }));
       let shapeData = null;
 
-      if (
-        sessionRes.subcategory?.category?.category_name === "Country Shapes" &&
-        !questionRow.question.question_img &&
-        questionRow.question.country_id
-      ) {
+      if ( sessionData.subcategory?.category?.category_name === "Country Shapes" && questionRow.question.country_id) {
         const { data: shapeRes, error: shapeError } = await supabase
           .from('country_shapes')
           .select('geom')
           .eq('country_id', questionRow.question.country_id)
           .single();
         
-        if (!shapeError && shapeRes) {
-          shapeData = shapeRes.geom;
-        }
+        if (!shapeError && shapeRes) shapeData = shapeRes.geom;
       }
 
-      setQuestionData({
-        ...questionRow,
-        shape: shapeData
-      });
+      setQuestionData({ ...questionRow, shape: shapeData });
       setChoices(shuffledChoices);
+      setNumCorrectChoices(shuffledChoices.filter(c => c.is_correct).length);
       setLoading(false);
-
-      const correctCount = shuffledChoices.filter(c => c.is_correct).length;
-      setNumCorrectChoices(correctCount);
     };
 
-    fetchQuestions();
-  }, [session_id, question_order]);
+    fetchQuestionDetails();
+  }, [sessionData, currentQuestionIndex]);
 
   //console.log("With dependencies:", sessionData?.with_dependencies);
 
@@ -179,12 +149,10 @@ export default function QuizQuestion() {
     if (!sessionData) return;
 
     const start = new Date(sessionData.started_at).getTime();
+    const updateTimer = () => setTimer(Math.max(0, Math.floor((Date.now() - start) / 1000)));
+    updateTimer();
 
-    setTimer(Math.max(0, Math.floor((Date.now() - start) / 1000)));
-
-    const interval = setInterval(() => {
-      setTimer(Math.max(0, Math.floor((Date.now() - start) / 1000)));
-    }, 1000);
+    const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
   }, [sessionData]);
@@ -192,6 +160,11 @@ export default function QuizQuestion() {
   
   useEffect(() => {
     if (!questionData) return;
+
+    setInputAnswer("");
+    setAnswered(false);
+    setSelected([]);
+    setIsAnsCorrect(null);
 
     if (sessionData?.difficulty === "hard" && inputRef.current) {
       inputRef.current.focus();
@@ -202,18 +175,13 @@ export default function QuizQuestion() {
   const handleChoiceClick = async (choice) => {
     if (answered) return;
 
-    let updatedSelected = [...selected];
-
-    if (updatedSelected.includes(choice.label)) {
-      updatedSelected = updatedSelected.filter(l => l !== choice.label);
-    } else {
-      updatedSelected.push(choice.label);
-    }
-
+    const updatedSelected = selected.includes(choice.label)
+      ? selected.filter(l => l !== choice.label)
+      : [...selected, choice.label];
     setSelected(updatedSelected);
 
     const selectedChoices = choices.filter(c => updatedSelected.includes(c.label));
-    const isLast = parseInt(question_order) >= sessionData.num_questions;
+    const isLast = currentQuestionIndex + 1 >= sessionData.quiz_questions.length;
     const multiplier = difficultyMultipliers[sessionData.difficulty] || 1;
 
     if (numCorrectChoices === 1) {
@@ -311,14 +279,21 @@ export default function QuizQuestion() {
       .map((a) => a.trim().toLowerCase())
       .filter((a) => a.length > 0);
 
-    const correctAnswers = questionData.question.correct_answer.map((a) => a.toLowerCase());
+    if (userAnswers.length === 0) {
+      setInputError("Please enter an answer!");
+      return;
+    }
+
+    setInputError("");
+
+    const correctAnswers = questionData.question.correct_answer.map(a => a.toLowerCase());
 
     const correct = userAnswers.every(ans => correctAnswers.includes(ans));
     setIsAnsCorrect(correct);
     setAnswered(true);
 
     const pointsForThisQuestion = correct ? (difficultyMultipliers[sessionData.difficulty] || 1) : 0;
-    const isLast = parseInt(question_order) >= sessionData.num_questions;
+    const isLast = currentQuestionIndex + 1 >= sessionData.quiz_questions.length;
 
     await supabase
       .from('quiz_questions')
@@ -342,15 +317,16 @@ export default function QuizQuestion() {
 
   const goToNextQuestion = () => {
     setTimeout(() => {
-      if (parseInt(question_order) >= sessionData.num_questions) {
+      if (currentQuestionIndex + 1 >= sessionData.quiz_questions.length) {
         navigate(`/quiz/${session_id}/results`);
       } else {
-        navigate(`/quiz/${session_id}/${parseInt(question_order) + 1}`);
+        setCurrentQuestionIndex(prev => prev + 1);
       }
     }, 1000);
   };
 
-  if (loading || !sessionData || !questionData) return <div className='quiz-question-container'>Loading question...</div>;
+  if (loading) return <div className='quiz-question-container'>Loading question...</div>;
+  if (!sessionData || !questionData) return <div className='quiz-question-container'>No question data.</div>;
 
   const difficulty = sessionData.difficulty;
   
@@ -358,9 +334,9 @@ export default function QuizQuestion() {
     <div className="quiz-question-container">
       <div className='quiz-question-card'>
         <div className='progress-bar-container'>
-          <div className='progress-bar-fill' style={{ width: `${(question_order / sessionData.num_questions) * 100}%` }} />
+          <div className='progress-bar-fill' style={{ width: `${((currentQuestionIndex + 1) / sessionData.num_questions) * 100}%` }} />
           <div className='progress-bar-label'>
-            {question_order} / {sessionData.num_questions}
+            {(currentQuestionIndex + 1)} / {sessionData.num_questions}
           </div>
         </div>
         <div className='quiz-header'>
@@ -415,32 +391,37 @@ export default function QuizQuestion() {
         <AnimatePresence mode='wait'>
           {difficulty === "hard" ? (
             <motion.div
-              key={`input-${question_order}`}
+              key={`input-${currentQuestionIndex}`}
               className={`question-input ${answered ? (isAnsCorrect ? "correct" : "wrong") : ""}`}
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
             >
-              <div className='input-wrapper'>
-                <input
-                  type="text"
-                  placeholder='Enter your answer...'
-                  ref={inputRef}
-                  value={inputAnswer}
-                  onChange={(e) => setInputAnswer(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleInputSubmit();
-                    }
-                  }}
-                  disabled={answered}
-                />
-                {answered && isAnsCorrect && (
-                  <span className='input-correct-icon'>✓</span>
-                )}
-                {answered && !isAnsCorrect && (
-                  <span className='input-incorrect-icon'>✗</span>
+              <div className='input-column'>
+                <div className='input-wrapper'>
+                  <input
+                    type="text"
+                    placeholder='Enter your answer...'
+                    ref={inputRef}
+                    value={inputAnswer}
+                    onChange={(e) => setInputAnswer(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleInputSubmit();
+                      }
+                    }}
+                    disabled={answered}
+                  />
+                  {answered && isAnsCorrect && (
+                    <span className='input-correct-icon'>✓</span>
+                  )}
+                  {answered && !isAnsCorrect && (
+                    <span className='input-incorrect-icon'>✗</span>
+                  )}
+                </div>
+                {inputError && (
+                  <div className='input-error-msg'>{inputError}</div>
                 )}
               </div>
               <button onClick={handleInputSubmit} disabled={answered}>
@@ -456,7 +437,7 @@ export default function QuizQuestion() {
                 </div>
               )}
               <motion.div
-                key={`choices-${question_order}`}
+                key={`choices-${currentQuestionIndex}`}
                 className={`choices-grid ${difficulty === "easy" ? "grid-2x2" : "grid-2x3"}`}
                 initial={{ x: 300, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

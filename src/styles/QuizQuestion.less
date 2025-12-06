@@ -192,50 +192,89 @@
     .question-input {
       display: flex;
       gap: 10px;
-      align-items: center;
+      align-items: flex-start;
 
-      .input-wrapper {
-        position: relative;
+      .input-column {
+        display: flex;
+        flex-direction: column;
         flex: 1;
 
-        input {
-          width: 100%;
-          padding: 12px 40px 12px 14px;
-          border: 2px solid #bfdbfe;
-          border-radius: 10px;
-          font-size: 1rem;
+        .input-wrapper {
+          position: relative;
+
+          input {
+            width: 100%;
+            padding: 10px 40px 10px 14px;
+            border: 2px solid #bfdbfe;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+
+            &:focus {
+              outline: none;
+              border-color: #3b82f6;
+              box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+            }
+
+            &[disabled] {
+              background-color: #f1f5f9;
+            }
+          }
+
+          .input-correct-icon, .input-incorrect-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            pointer-events: none;
+          }
+
+          .input-correct-icon {
+            color: #10b981;
+          }
+
+          .input-incorrect-icon {
+            color: #ef4444;
+          }
+        }
+
+        .input-error-msg {
+          border-radius: 5px;
+          color: #d32f2f;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 0.85rem;
+          padding: 4px 8px;
+          margin-top: 10px;
+          width: fit-content;
           transition: all 0.3s ease;
-
-          &:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
-          }
-
-          &[disabled] {
-            background-color: #f1f5f9;
-          }
-        }
-
-        .input-correct-icon, .input-incorrect-icon {
-          position: absolute;
-          right: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: 1.5rem;
-          font-weight: bold;
-          pointer-events: none;
-        }
-
-        .input-correct-icon {
-          color: #10b981;
-        }
-
-        .input-incorrect-icon {
-          color: #ef4444;
         }
       }
 
+      &.correct {
+        .input-column {
+          .input-wrapper {
+            input {
+              background-color: #d8fbe9;
+              border-color: #10b981;
+              color: #064e3b; 
+            }
+          }
+        }
+      }
+       
+      &.wrong {
+        .input-column {
+          .input-wrapper {
+            input {
+              background-color: #fee2e2;
+              border-color: #ef4444;
+              color: #7f1d1d;   
+            }
+          }
+        }
+      }
 
       button {
         background-color: #2563eb;
@@ -244,8 +283,10 @@
         border: none;
         color: #fff;
         font-weight: 600;
+        font-size: 0.9rem;
         cursor: pointer;
-        transform: all 0.3s ease;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        will-change: transform, background-color;
 
         &:hover:not([disabled]) {
           background-color: #1d4ed8;
@@ -260,18 +301,6 @@
           opacity: 0.6;
           cursor: default;
         }
-      }
-
-      &.correct input {
-        background-color: #d1fae5;
-        border-color: #10b981;
-        color: #064e3b;        
-      }
-
-      &.wrong input {
-        background-color: #fee2e2;
-        border-color: #ef4444;
-        color: #7f1d1d;      
       }
     }
   }

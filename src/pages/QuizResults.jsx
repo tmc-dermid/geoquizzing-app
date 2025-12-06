@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GiTrophyCup } from "react-icons/gi";
 import { FiImage, FiArrowUp, FiArrowLeft, FiMap } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { geoPath, geoMercator, geoBounds } from 'd3-geo';
+import CountryShapeSvg from './CountryShapeSvg.jsx';
 import CountUp from 'react-countup';
 import supabase from '../helper/supabaseClient.js';
 import '../styles/QuizResults.less';
@@ -38,16 +38,14 @@ export default function QuizResults() {
             question:questions (
               question_text,
               question_img,
-              country_id,
-              country:country_id (
-                country_shapes:country_shapes (
-                  geom
-                )
-              )
+              country_id
             )
           ),
           subcategories:subcategories (
-            subcategory_name
+            subcategory_name,
+            categories:category_id (
+              category_name
+            )
           )
         `)
         .eq('session_id', session_id)
@@ -67,6 +65,22 @@ export default function QuizResults() {
   }, [session_id]);
 
 
+  const fetchCountryShape = async (country_id) => {
+    const { data, error } = await supabase
+      .from('country_shapes')
+      .select('geom')
+      .eq('country_id', country_id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching country shape:", error);
+      return;
+    }
+
+    return data.geom;
+  };
+
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && modalImg) {
@@ -80,6 +94,26 @@ export default function QuizResults() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [modalImg]);
+
+
+  useEffect(() => {
+    if (!sessionData) return;
+    if (!session_id) return;
+
+    const completeQuiz = async () => {
+      const { data: rpcData, error: rpcError } = await supabase.rpc('update_user_stats', {
+        p_session_id: sessionData.session_id
+      });
+
+      if (rpcError) {
+        console.error("Error updating stats:", rpcError);
+      } else {
+        console.log("Stats updated successfully:", rpcData);
+      }
+    };
+
+    completeQuiz();
+  }, [sessionData, session_id]);
 
 
   if (loading) return <div className='quiz-results-container'><i>Loading...</i></div>;
@@ -100,23 +134,7 @@ export default function QuizResults() {
     (sum, q) => sum + (q.answer_time_seconds || 0), 0
   );
 
-
-  const getSvgPathFromGeoJSON = (geojson, width = 400, height = 300) => {
-    let feature;
-
-    if (geojson.type === 'Feature' || geojson.type === 'FeatureCollection') {
-      feature = geojson;
-    } else {
-      feature = { type: 'Feature', geometry: geojson };
-    }
-
-    const projection = geoMercator()
-      .fitSize([width, height], feature);
-
-    const pathGenerator = geoPath().projection(projection);
-
-    return pathGenerator(feature);
-  };
+  const isCountryShapesCategory = sessionData?.subcategories?.categories?.category_name === "Country Shapes";
 
 
   return (
@@ -259,24 +277,32 @@ export default function QuizResults() {
                       {q.question.question_img && (
                         <FiImage
                           className='img-icon'
+                          title="View Image"
                           onClick={() => setModalImg({
                             type: 'image',
                             src: q.question.question_img
                           })}
-                          title="View Image"
                         />
                       )}
 
-                      {q.question.country?.country_shapes?.[0]?.geom && (
+                      {isCountryShapesCategory && q.question.country_id && (
                         <FiMap
                           className='img-icon country-shape'
-                          onClick={() => setModalImg({
-                            type: 'svg',
-                            geojson: q.question.country.country_shapes[0].geom,
-                            width: 400,
-                            height: 300                          
-                          })}
                           title="View Country Shape"
+                          onClick={async () => {
+                            let geom = q.question.country?.country_shapes?.[0]?.geom;
+
+                            if (!geom) {
+                              geom = await fetchCountryShape(q.question.country_id);
+                            }
+
+                            if (geom) {
+                              setModalImg({
+                                type: 'svg',
+                                geojson: geom
+                              });
+                            }
+                          }}
                         />
                       )}
                     </span>
@@ -340,31 +366,32 @@ export default function QuizResults() {
                 className='img-modal-content'
                 src={modalImg.src}
                 alt="Question"
-                initial={{ scale: 0.8, opacity: 0 }}
+                initial={{ scale: 0.75, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
+                exit={{ scale: 0.75, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeIn" }}
                 onClick={(e) => e.stopPropagation()}
               />
             )}
 
             {modalImg.type === 'svg' && (
-              <motion.svg
-                width={modalImg.width}
-                height={modalImg.height}
-                viewBox={`0 0 ${modalImg.width} ${modalImg.height}`}
-                style={{ backgroundColor: "#f7f6f6", borderRadius: "10px" }}
-                initial={{ scale: 0.8, opacity: 0 }}
+              <motion.div
+                style={{
+                  backgroundColor: "#f7f6f6",
+                  borderRadius: "10px",
+                }}
+                initial={{ scale: 0.75, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
+                exit={{ scale: 0.75, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeIn" }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <path
-                  d={getSvgPathFromGeoJSON(modalImg.geojson, modalImg.width, modalImg.height)}
-                  fill='#4d5599'
-                  stroke='black'
-                  strokeWidth={1}
+                <CountryShapeSvg
+                  geojson={modalImg.geojson}
+                  width={modalImg.width}
+                  height={modalImg.height}
                 />
-              </motion.svg>
+              </motion.div>
             )}
 
             <button className='img-modal-close-btn' onClick={() => setModalImg(null)}>×</button>
