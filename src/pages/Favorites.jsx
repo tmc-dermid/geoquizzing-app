@@ -129,7 +129,7 @@ export default function Favorites({ username }) {
     setPending((p) => ({ ...p, [id]: false }));
   };
 
-  if (loading) return <div className="favorites-wrapper"><h3>Loading...</h3></div>;
+  if (loading) return <p className="loading-info">Loading favorite quizzes...</p>;
 
   if (favoriteQuizzes.length === 0) {
     return (
@@ -143,7 +143,9 @@ export default function Favorites({ username }) {
 
   return (
     <div className="favorites-wrapper">
-      <h2 className="favorites-heading">Favorite Quizzes</h2>
+      <h2 className="favorites-heading">
+        {isOwner ? "Your Favorite Quizzes" : <span><strong>{username}'s</strong> Favorite Quizzes</span>}
+      </h2>
       <div className="favorites-list">
         <AnimatePresence>
           {favoriteQuizzes.map((quiz) => (

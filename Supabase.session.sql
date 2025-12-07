@@ -29,8 +29,10 @@
 --     correct_ratio FLOAT DEFAULT 0,
 --     incorrect_ratio FLOAT DEFAULT 0,
 --     longest_streak INT DEFAULT 0,
+--     total_time_active_seconds BIGINT DEFAULT 0,
 --     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 -- );
+
 
 -- CREATE TABLE user_stats_daily (
 --   user_id UUID REFERENCES user_profile(id) ON DELETE CASCADE,
@@ -183,6 +185,26 @@
 --   earned_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 --   PRIMARY KEY(user_id, achievement_id)
 -- );
+
+-- CREATE TABLE activity_sessions (
+--   activity_session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--   user_id UUID REFERENCES user_profile(id) ON DELETE CASCADE,
+--   started_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+--   last_seen_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+--   ended_at TIMESTAMPTZ,
+--   duration_seconds BIGINT
+-- ); 
+
+
+-- CREATE TABLE user_activity_daily (
+--   user_id UUID REFERENCES user_profile(id) ON DELETE CASCADE,
+--   date DATE NOT NULL,
+--   activity_seconds BIGINT DEFAULT 0,
+--   session_count INT DEFAULT 0,
+
+--   PRIMARY KEY (user_id, date)
+-- );
+
 
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$

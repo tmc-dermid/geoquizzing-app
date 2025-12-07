@@ -6,7 +6,7 @@ import { FiLink } from "react-icons/fi";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import Statistics from './Statistics.jsx';
-import History from './History.jsx';
+import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
 import { countryCodeMap } from '../helper/countryMapping.js';
@@ -71,9 +71,8 @@ export default function Profile() {
 
   function copyProfileLink() {
     const profileLink = `${window.location.origin}/user/${profile.username}`;
-    navigator.clipboard.writeText(profileLink);
 
-    alert("Profile link copied to clipboard!");
+    navigator.clipboard.writeText(profileLink);
   }
 
   if (!user || !profile) return <div className="profile-container">Loading...</div>;
@@ -167,7 +166,7 @@ export default function Profile() {
         {activeTab === "statistics" && <Statistics username={profile?.username} />}
         {activeTab === "achievements" && <Achievements username={profile?.username} />}
         {activeTab === "favorites" && <Favorites username={profile?.username} />}
-        {activeTab === "history" && <History username={profile?.username} />}
+        {activeTab === "history" && <QuizHistory username={profile?.username} />}
       </div>
     </div>
   );

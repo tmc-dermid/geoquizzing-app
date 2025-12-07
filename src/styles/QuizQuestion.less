@@ -149,7 +149,8 @@
       gap: 10px;      
       background-color: #e0ecff;
       border: 2px solid transparent;
-      padding: 14px 16px;
+      padding: 14px 40px 14px 16px;
+      position: relative;
       border-radius: 12px;
       font-size: 1rem;
       text-align: left;
@@ -186,6 +187,21 @@
       .choice-label {
         font-weight: 700;
         color: #1e3a8a;
+      }
+
+      .choice-icon {
+        position: absolute;
+        right: 12px;
+        font-size: 1.3rem;
+        font-weight: bold;
+
+        &.correct-icon {
+          color: #10b981;
+        }
+
+        &.incorrect-icon {
+          columns: #ef4444;
+        }
       }
     }
 

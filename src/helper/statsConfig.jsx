@@ -1,4 +1,4 @@
-import { FaStar, FaCheck, FaTimes, FaCheckCircle, FaTimesCircle, FaQuestion, FaLightbulb, FaRegLightbulb, FaHourglassHalf } from "react-icons/fa";
+import { FaStar, FaCheck, FaTimes, FaCheckCircle, FaTimesCircle, FaQuestion, FaLightbulb, FaRegLightbulb, FaHourglassHalf, FaRegClock } from "react-icons/fa";
 import { MdLightbulbCircle, MdQuestionMark, MdAssignmentTurnedIn  } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 
@@ -40,6 +40,29 @@ export const generalStatsConfig = [
     icon: <FaRegLightbulb />,
     format: (v) => ((v ?? 0).toFixed(1)),
     description: "Average number of hints used per quiz"
+  },
+  {
+    key: "total_time_spent_seconds",
+    label: "Total Playtime",
+    icon: <FaRegClock />,
+    format: (v) => {
+      const total = v ?? 0;
+
+      const days = Math.floor(total / 86400);
+      const hours = Math.floor((total % 86400) / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+
+      const timeParts = [];
+
+      if (days > 0) timeParts.push(`${days}d`);
+      if (hours > 0) timeParts.push(`${hours}h`);
+      if (minutes > 0) timeParts.push(`${minutes}min`);
+      if (seconds > 0 || timeParts.length === 0) timeParts.push(`${seconds}s`);
+
+      return timeParts.join(" ");
+    },
+    description: "Total time spent playing quizzes"
   },
 ];
 

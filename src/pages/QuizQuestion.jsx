@@ -366,9 +366,12 @@ export default function QuizQuestion() {
               }}
               center={[0, 0]}
               zoom={3}
-              scrollWheelZoom={true}
-              zoomControl={true}
+              scrollWheelZoom={false}
+              doubleClickZoom={false}
+              touchZoom={false}
+              zoomControl={false}
               attributionControl={true}
+              dragging={false}
             >
               <GeoJSON
                 data={questionData.shape}
@@ -455,6 +458,13 @@ export default function QuizQuestion() {
                     disabled={answered}
                   >
                     <span className='choice-label'>{choice.label}</span> {choice.choice_text}
+
+                    {answered && choice.is_correct && (
+                      <span className='choice-icon correct-icon'>✓</span>
+                    )}
+                    {answered && !choice.is_correct && selected.includes(choice.label) && (
+                      <span className='choice-icon incorrect-icon'>✗</span>
+                    )}
                   </button>
                 ))}
               </motion.div>

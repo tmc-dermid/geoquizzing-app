@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext.jsx";
 import { formatDistanceToNow } from "date-fns";
 import { countryCodeMap } from '../helper/countryMapping.js';
 import Statistics from './Statistics.jsx';
-import History from './History.jsx';
+import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
 import supabase from '../helper/supabaseClient.js';
@@ -185,7 +185,7 @@ export default function UserProfile() {
         {activeTab === "statistics" && <Statistics username={username} />}
         {activeTab === "achievements" && <Achievements username={username} />}        
         {activeTab === "favorites" && <Favorites username={username} />}
-        {activeTab === "history" && <History username={username} />}
+        {activeTab === "history" && <QuizHistory username={username} />}
       </div>
     </div>
   );

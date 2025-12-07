@@ -66,8 +66,8 @@ export default function Statistics({ username }) {
     fetchProfileStats();
   }, [username]);
 
-  if (loading) return <div className="stats-wrapper">Loading statistics...</div>;
-  if (!profileData) return <div className="stats-wrapper">Profile not found</div>;
+  if (loading) return <p className="loading-info">Loading statistics...</p>;
+  if (!profileData) return <p className="loading-info">Profile not found</p>;
 
   return (
     <div className="stats-wrapper">
