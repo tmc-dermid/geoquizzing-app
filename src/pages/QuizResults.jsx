@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { GiTrophyCup } from "react-icons/gi";
 import { FiImage, FiArrowUp, FiArrowLeft, FiMap } from 'react-icons/fi';
+import { FaRegLightbulb } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import CountryShapeSvg from './CountryShapeSvg.jsx';
 import CountUp from 'react-countup';
@@ -34,6 +35,8 @@ export default function QuizResults() {
             user_answer,
             correct_answer,
             is_correct,
+            is_hint_used,
+            hints_used,
             answer_time_seconds,
             question:questions (
               question_text,
@@ -197,13 +200,22 @@ export default function QuizResults() {
 
         <div className="results-item total-points">
           <span className="results-label">Total Points</span>
-          <span className="results-value">
-            <CountUp
-              start={0}
-              end={sessionData.total_points}  
-              duration={1.5}
-            />
-          </span>
+
+          <div className='penalty-points'>
+            <span className="results-value">
+              <CountUp
+                start={0}
+                end={sessionData.total_points}  
+                duration={1.5}
+              />
+            </span>
+
+            {sessionData.hint_penalty > 0 && (
+              <span className='penalty-text' title={`${sessionData.hint_penalty} points were deducted for hints`}>
+                (-{sessionData.hint_penalty} pts)
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="results-item">
@@ -268,9 +280,17 @@ export default function QuizResults() {
                   <div className='question-content'>
                     <div className='question-top'>
                       <span className='question-number'>Q{index + 1}</span>
-                      <span className={`result-icon ${q.is_correct ? "corr" : "incorr"}`}>
-                        {q.is_correct ? '✓' : '✗'}
-                      </span>
+                      <div className='icons-right'>
+                        {q.is_hint_used && (
+                          <FaRegLightbulb
+                            className='hint-icon'
+                            title='Hint used'
+                          />
+                        )}
+                        <span className={`result-icon ${q.is_correct ? "corr" : "incorr"}`}>
+                          {q.is_correct ? '✓' : '✗'}
+                        </span>
+                      </div>
                     </div>
                     <span className='question-text'>
                       {q.question.question_text}{" "}
@@ -336,7 +356,7 @@ export default function QuizResults() {
               {visibleCount < sessionData.quiz_questions.length && (
                 <div
                   className='show-more'
-                  onClick={setVisibleCount(prev => prev + 10)}
+                  onClick={() => setVisibleCount(prev => prev + 10)}
                 >
                   Show More
                 </div>

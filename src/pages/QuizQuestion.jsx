@@ -2,7 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import supabase from '../helper/supabaseClient.js';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaMagic } from "react-icons/fa";
+import { FaCircleHalfStroke, FaLightbulb } from 'react-icons/fa6';
 import { MapContainer, GeoJSON, useMap } from "react-leaflet";
 import '../styles/QuizQuestion.less';
 import "leaflet/dist/leaflet.css";
@@ -43,10 +44,25 @@ export default function QuizQuestion() {
   const [numCorrectChoices, setNumCorrectChoices] = useState(1);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
+  // Hints
+  const [limitedChoices, setLimitedChoices] = useState(null);
+  const [maskedAnswer, setMaskedAnswer] = useState(null);
+  const [usedHintsLocal, setUsedHintsLocal] = useState({
+    fifty_fifty: false,
+    reveal: false,
+    masked: false,
+  });
+
   const difficultyMultipliers = {
     easy: 2,
     medium: 3,
     hard: 5
+  };
+
+  const hintPenalties = {
+    fifty_fifty: 1,
+    reveal: 3,
+    masked: 2
   };
 
 
@@ -64,6 +80,8 @@ export default function QuizQuestion() {
             user_answer,
             is_correct,
             attempts,
+            is_hint_used,
+            hints_used,
             answer_time_seconds,
             question:questions (
               question_text,
@@ -104,9 +122,6 @@ export default function QuizQuestion() {
 
     const fetchQuestionDetails = async () => {
       setLoading(true);
-      setAnswered(false);
-      setSelected([]);
-      setIsAnsCorrect(null);
       setShownAt(Date.now());
 
       const { data: choicesData, error: choicesError } = await supabase.rpc("get_question_dynamic_choices", {
@@ -120,7 +135,10 @@ export default function QuizQuestion() {
 
       const labels = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-      let shuffledChoices = (choicesData || []).sort(() => Math.random() - 0.5).map((c, i) => ({ ...c, label: labels[i] }));
+      const shuffledChoices = (choicesData || [])
+        .sort(() => Math.random() - 0.5)
+        .map((c, i) => ({ ...c, label: labels[i] }));
+
       let shapeData = null;
 
       if ( sessionData.subcategory?.category?.category_name === "Country Shapes" && questionRow.question.country_id) {
@@ -142,8 +160,6 @@ export default function QuizQuestion() {
     fetchQuestionDetails();
   }, [sessionData, currentQuestionIndex]);
 
-  //console.log("With dependencies:", sessionData?.with_dependencies);
-
 
   useEffect(() => {
     if (!sessionData) return;
@@ -159,28 +175,141 @@ export default function QuizQuestion() {
 
   
   useEffect(() => {
-    if (!questionData) return;
-
     setInputAnswer("");
     setAnswered(false);
     setSelected([]);
     setIsAnsCorrect(null);
+    setLimitedChoices(null);
+    setMaskedAnswer(null);
+    setUsedHintsLocal({
+      fifty_fifty: false,
+      reveal: false,
+      masked: false
+    });
 
     if (sessionData?.difficulty === "hard" && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [questionData, sessionData]);
+  }, [currentQuestionIndex]);
+
+
+  const applyHint = async (penalty) => {
+    try {
+      await supabase
+        .from('quiz_questions')
+        .update({
+          is_hint_used: true,
+          hints_used: (questionData.hints_used || 0) + 1
+        })
+        .eq('quiz_question_id', questionData.quiz_question_id);
+
+      await supabase.rpc("increment_hint_usage", {
+        p_session_id: session_id,
+        p_penalty: penalty
+      });
+        
+      setSessionData(prev => prev ? {
+        ...prev,
+        used_hints_count: (prev.used_hints_count || 0) + 1,
+        hint_penalty: (prev.hint_penalty || 0) + penalty
+      } : prev);
+
+      setQuestionData(prev => prev ? {
+        ...prev,
+        hints_used: (prev.hints_used || 0) + 1,
+        is_hint_used: true
+      } : prev);
+
+    } catch (err) {
+      console.error("Error applying hint usage:", err);
+    }
+  };
+
+  const useFiftyFity = async (e) => {
+    e?.preventDefault();
+    if (usedHintsLocal.fifty_fifty) return;
+
+    const correct = choices.filter(c => c.is_correct);
+    const incorrect = choices.filter(c => !c.is_correct);
+
+    if (correct.length === 0) return;
+
+    let maxChoices;
+
+    if (difficulty === "easy") maxChoices = 2;
+    else if (difficulty === "medium") maxChoices = 3;
+    else maxChoices = choices.length;
+
+    let numToKeep = Math.min(maxChoices, correct.length + incorrect.length);
+
+    let incorrectToKeep = Math.max(0, numToKeep - correct.length);
+    let shuffledIncorrect = [...incorrect].sort(() => Math.random() - 0.5).slice(0, incorrectToKeep);
+
+    const newList = [...correct, ...shuffledIncorrect].sort(() => Math.random() - 0.5);
+
+    setLimitedChoices(newList);
+    setUsedHintsLocal(prev => ({ ...prev, fifty_fifty: true }));
+
+    await applyHint(hintPenalties.fifty_fifty);
+  };
+
+
+  const useShowCorrect = async (e) => {
+    e?.preventDefault();
+    if (usedHintsLocal.reveal) return;
+
+    const correctLabels = choices.filter(c => c.is_correct).map(c => c.choice_text);
+
+    setSelected(correctLabels);
+    setUsedHintsLocal(prev => ({ ...prev, reveal: true }));
+
+    await applyHint(hintPenalties.reveal);
+  };
+
+  const maskAnswer = (answer) => {
+    if (!answer) return "";
+
+    const base = Array.isArray(answer) ? answer[0] : answer;
+
+    return base
+      .split("")
+      .map((char, index) => {
+        if (/[a-zA-Z]/.test(char)) {
+          return index === 0 || /[^a-zA-Z]/.test(base[index-1])
+          ? char.toUpperCase()
+          : "_";
+        } else {
+          return char;
+        }
+      })
+      .join(" ");
+  };
+
+  const useMaskedHint = async (e) => {
+    e?.stopPropagation();
+    if (usedHintsLocal.masked) return;
+
+    const correct = questionData?.question?.correct_answer;
+    if (!correct) return;
+
+    const masked = maskAnswer(Array.isArray(correct) ? correct[0] : correct);
+
+    setMaskedAnswer(masked);
+    setUsedHintsLocal(prev => ({ ...prev, masked: true }));
+
+    await applyHint(hintPenalties.masked);
+  };
 
 
   const handleChoiceClick = async (choice) => {
     if (answered) return;
 
-    const updatedSelected = selected.includes(choice.label)
-      ? selected.filter(l => l !== choice.label)
-      : [...selected, choice.label];
+    const updatedSelected = selected.includes(choice.choice_text)
+      ? selected.filter(t => t !== choice.choice_text)
+      : [...selected, choice.choice_text];
     setSelected(updatedSelected);
 
-    const selectedChoices = choices.filter(c => updatedSelected.includes(c.label));
+    const selectedChoices = choices.filter(c => updatedSelected.includes(c.choice_text));
     const isLast = currentQuestionIndex + 1 >= sessionData.quiz_questions.length;
     const multiplier = difficultyMultipliers[sessionData.difficulty] || 1;
 
@@ -241,7 +370,7 @@ export default function QuizQuestion() {
 
     const allCorrectSelected = choices
       .filter(c => c.is_correct)
-      .every(c => updatedSelected.includes(c.label));
+      .every(c => updatedSelected.includes(c.choice_text));
 
     if (allCorrectSelected) {
       setIsAnsCorrect(true);
@@ -270,14 +399,23 @@ export default function QuizQuestion() {
     }
   };
 
+  const normalizeAnswer = (str) => {
+    return str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+    };
 
   const handleInputSubmit = async () => {
     if (answered) return;
 
     const userAnswers = inputAnswer
       .split(",")
-      .map((a) => a.trim().toLowerCase())
-      .filter((a) => a.length > 0);
+      .map(a => normalizeAnswer(a))
+      .filter(a => a.length > 0);
 
     if (userAnswers.length === 0) {
       setInputError("Please enter an answer!");
@@ -286,7 +424,7 @@ export default function QuizQuestion() {
 
     setInputError("");
 
-    const correctAnswers = questionData.question.correct_answer.map(a => a.toLowerCase());
+    const correctAnswers = questionData.question.correct_answer.map(a => normalizeAnswer(a));
 
     const correct = userAnswers.every(ans => correctAnswers.includes(ans));
     setIsAnsCorrect(correct);
@@ -329,6 +467,9 @@ export default function QuizQuestion() {
   if (!sessionData || !questionData) return <div className='quiz-question-container'>No question data.</div>;
 
   const difficulty = sessionData.difficulty;
+  const listToRender = limitedChoices || choices;
+
+  const hintUsedFlag = (hintKey) => !!usedHintsLocal[hintKey];
   
   return (
     <div className="quiz-question-container">
@@ -339,6 +480,55 @@ export default function QuizQuestion() {
             {(currentQuestionIndex + 1)} / {sessionData.num_questions}
           </div>
         </div>
+
+        <div className='hint-bar-container'>
+          <div className='hint-placeholder' />
+
+          {maskedAnswer && (
+            <div className='masked-hint'>
+              {maskedAnswer}
+            </div>
+          )}
+
+          <div className='hint-bar'>
+            {(difficulty === "easy" || difficulty === "medium") && (
+              <button
+                type="button"
+                className={`hint-btn ${hintUsedFlag('fifty_fifty') ? 'used' : ''}`}
+                onClick={(e) => useFiftyFity(e)}
+                disabled={hintUsedFlag('fifty_fifty')}
+                title="50/50 (-1 point)"
+              >
+                <FaCircleHalfStroke className='hint-icon' />
+              </button>
+            )}
+
+            {(difficulty === "easy" || difficulty === "medium") && (
+              <button
+                type="button"
+                className={`hint-btn ${hintUsedFlag('reveal') ? 'used' : ''}`}
+                onClick={(e) => useShowCorrect(e)}
+                disabled={hintUsedFlag('reveal')}
+                title="Reveal correct answer (-3 points)"
+              >
+                <FaLightbulb className='hint-icon' />
+              </button>
+            )}
+
+            {difficulty === "hard" && (
+              <button
+                type="button"
+                className={`hint-btn ${hintUsedFlag('masked') ? 'used' : ''}`}
+                onClick={useMaskedHint}
+                disabled={hintUsedFlag('masked')}
+                title="Show masked hint (-2 points)"
+              >
+                <FaMagic className='hint-icon' />
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className='quiz-header'>
           <div className='header-left'>
             <h2 className='quiz-title'>
@@ -399,6 +589,9 @@ export default function QuizQuestion() {
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
+              onAnimationComplete={() => {
+                if (difficulty === "hard") inputRef.current?.focus();
+              }}
             >
               <div className='input-column'>
                 <div className='input-wrapper'>
@@ -446,14 +639,14 @@ export default function QuizQuestion() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -300, opacity: 0 }}
               >
-                {choices.map((choice) => (
+                {listToRender.map((choice) => (
                   <button
                     key={choice.label}
                     className={`choice-btn ${
                       answered
                         ? (choice.is_correct ? "correct" : selected.includes(choice.label) ? "wrong" : "")
                         : selected.includes(choice.label) ? "selected" : ""
-                    }`}
+                    } ${usedHintsLocal.reveal && choice.is_correct ? 'reveal-highlight' : ''}`}
                     onClick={() => handleChoiceClick(choice)}
                     disabled={answered}
                   >

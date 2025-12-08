@@ -201,6 +201,20 @@
           }
         }
       }
+
+      .penalty-points {
+        display: flex;
+        gap: 6px;
+        align-items: baseline;
+
+        .penalty-text {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #d97706;
+          cursor: default;
+          opacity: 0.85;
+        }
+      }
     }
   }
 
@@ -321,17 +335,31 @@
               color: #4b3b85;
             }
 
-            .result-icon {
-              font-size: 1.2rem;
-              font-weight: 700;
-              text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-
-              &.corr {
-                color: @success;
+            .icons-right {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            
+              .hint-icon {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #b69726;
               }
 
-              &.incorr {
-                color: #ef4444;
+              .result-icon {
+                font-size: 1.2rem;
+                font-weight: 700;
+                text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: default;
+                user-select: none;
+
+                &.corr {
+                  color: @success;
+                }
+
+                &.incorr {
+                  color: #ef4444;
+                }
               }
             }
           }

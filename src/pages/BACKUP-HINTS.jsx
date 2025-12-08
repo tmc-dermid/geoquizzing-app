@@ -43,10 +43,25 @@ export default function QuizQuestion() {
   const [numCorrectChoices, setNumCorrectChoices] = useState(1);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
+  // Hints
+  const [limitedChoices, setLimitedChoices] = useState(null);
+  const [maskedAnswer, setMaskedAnswer] = useState(null);
+  const [usedHintsLocal, setUsedHintsLocal] = useState({
+    fifty_fifty: false,
+    reveal: false,
+    masked: false,
+  });
+
   const difficultyMultipliers = {
     easy: 2,
     medium: 3,
     hard: 5
+  };
+
+  const hintPenalties = {
+    fifty_fifty: 1,
+    reveal: 3,
+    masked: 2
   };
 
 
@@ -64,6 +79,8 @@ export default function QuizQuestion() {
             user_answer,
             is_correct,
             attempts,
+            is_hint_used,
+            hints_used,
             answer_time_seconds,
             question:questions (
               question_text,
@@ -107,6 +124,13 @@ export default function QuizQuestion() {
       setAnswered(false);
       setSelected([]);
       setIsAnsCorrect(null);
+      setMaskedAnswer(null);
+      setLimitedChoices(null);
+      setUsedHintsLocal({
+        fifty_fifty: false,
+        reveal: false,
+        masked: false,
+      });
       setShownAt(Date.now());
 
       const { data: choicesData, error: choicesError } = await supabase.rpc("get_question_dynamic_choices", {
@@ -142,8 +166,6 @@ export default function QuizQuestion() {
     fetchQuestionDetails();
   }, [sessionData, currentQuestionIndex]);
 
-  //console.log("With dependencies:", sessionData?.with_dependencies);
-
 
   useEffect(() => {
     if (!sessionData) return;
@@ -171,6 +193,21 @@ export default function QuizQuestion() {
     }
   }, [questionData, sessionData]);
 
+  const applyHint = async (penalty) => {
+    try {
+      const newHintsUsed = (questionData.hints_used || 0) + 1;
+
+      await supabase
+        .from('quiz_questions')
+        .update({
+          is_hint_used: true,
+          hints_used: newHintsUsed
+        })
+        .eq('quiz_question_id', questionData.quiz_question_id);
+    } catch (err) {
+      
+    }
+  }
 
   const handleChoiceClick = async (choice) => {
     if (answered) return;

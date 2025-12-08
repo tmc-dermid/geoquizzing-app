@@ -183,6 +183,14 @@ export default function QuizHistory({ username }) {
         </select>
       </div>
 
+      {!loading && (
+        <p className='results-count'>
+          {isOwner
+            ? <>You&apos;ve played a total of <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}.</>
+            : <><strong className='user-name'>{username}</strong> has played <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}.</>
+          }
+        </p>
+      )}
       <AnimatePresence>
         {filteredAndSorted.slice(0, visibleCount).map((session) => (
           <motion.div

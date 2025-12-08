@@ -7,7 +7,6 @@ DECLARE
   sess RECORD;
   today DATE := CURRENT_DATE;
 BEGIN
-  -- Get session
   SELECT *
   INTO sess
   FROM quiz_sessions
@@ -22,12 +21,10 @@ BEGIN
     RETURN;
   END IF;
 
-  -- UPDATE user points
   UPDATE user_profile
   SET points = points + sess.total_points
   WHERE id = sess.user_id;
 
-  -- CTEs
   WITH session_agg AS (
     SELECT
       s.user_id,
@@ -81,7 +78,7 @@ BEGIN
       ELSE 0
     END,
     CASE WHEN qa.total_questions_answered > 0
-      THEN (qa.total_hints_used_questions::FLOAT / qa.total_questions_answered)
+      THEN (sa.total_hints_used::FLOAT / qa.total_questions_answered)
       ELSE 0
     END,
     CASE WHEN qa.total_questions_answered > 0
@@ -113,7 +110,7 @@ BEGIN
     incorrect_ratio = EXCLUDED.incorrect_ratio,
     updated_at = NOW();
 
-  -- CTEs
+
   WITH session_daily AS (
     SELECT
       s.user_id,
@@ -158,7 +155,7 @@ BEGIN
     correct_answers = user_stats_daily.correct_answers + EXCLUDED.correct_answers,
     incorrect_answers = user_stats_daily.incorrect_answers + EXCLUDED.incorrect_answers;
 
-  -- Oznacz sesję jako przetworzoną
+
   UPDATE quiz_sessions
   SET stats_processed = TRUE
   WHERE session_id = p_session_id;
