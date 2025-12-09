@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generalStatsConfig, quizPerformanceConfig } from "../helper/statsConfig.jsx";
+import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig } from "../helper/statsConfig.jsx";
 import CountUp from "react-countup";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import supabase from "../helper/supabaseClient.js";
@@ -82,7 +82,12 @@ export default function Statistics({ username }) {
 
         <div className="stats-container">
           {generalStatsConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profileData[stat.key]} tooltipsEnabled={tooltipsEnabled} />
+            <StatCard
+              key={stat.key}
+              stat={stat}
+              value={profileData[stat.key]}
+              tooltipsEnabled={tooltipsEnabled}
+            />
           ))}
         </div>
       </section>
@@ -91,10 +96,30 @@ export default function Statistics({ username }) {
         <h3 className="stats-heading">Quiz Performance</h3>
         <div className="stats-container">
           {quizPerformanceConfig.map(stat => (
-            <StatCard key={stat.key} stat={stat} value={profileData[stat.key]} tooltipsEnabled={tooltipsEnabled} />
+            <StatCard
+              key={stat.key}
+              stat={stat}
+              value={profileData[stat.key]}
+              tooltipsEnabled={tooltipsEnabled}
+            />
           ))}
         </div>
       </section>
+
+      <section className="stats-section">
+        <h3 className="stats-heading">User Activity</h3>
+        <div className="stats-container">
+          {activityStatsConfig.map(stat => (
+            <StatCard
+              key={stat.key}
+              stat={stat}
+              value={profileData[stat.key]}
+              tooltipsEnabled={tooltipsEnabled}
+            />
+          ))}
+        </div>
+      </section>
+
       {tooltipsEnabled && <ReactTooltip id="global-tooltip" place="top" delayShow={100} delayHide={100} className="custom-tooltip" />}
     </div>
   );

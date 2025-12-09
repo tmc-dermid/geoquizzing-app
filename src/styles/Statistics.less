@@ -15,15 +15,11 @@
 }
 
 h3.stats-heading {
+  display: inline-block;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2c3e50;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  background: linear-gradient(90deg, #2c3e50, #0d47a1);
-  background-clip: text;
-  color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2c3e50;
   }
 
 .stats-section {
@@ -36,8 +32,6 @@ h3.stats-heading {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
-
-
 
     .tooltip-toggle {
       font-size: 0.9rem;
@@ -56,10 +50,11 @@ h3.stats-heading {
 }
 
 .stats-container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
-  grid-template-columns: repeat(3, 1fr);
   border-radius: 12px;
   background: linear-gradient(135deg, #0073e6, #5578c4, #0461cf);
   position: relative;
@@ -78,7 +73,7 @@ h3.stats-heading {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    padding: 20px 15px 10px 15px;
+    padding: 15px 10px 8px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,6 +83,7 @@ h3.stats-heading {
     z-index: 1;
     transition: box-shadow 0.3s ease;
     will-change: box-shadow;
+    width: clamp(200px, 31%, 350px);
 
     &:hover {
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -108,7 +104,7 @@ h3.stats-heading {
     }
 
     .stats-value {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: bold;
       background: linear-gradient(90deg, #0d47a1, #2d67bd, #0d47a1);
       background-clip: text;

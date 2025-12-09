@@ -4,11 +4,11 @@ import { getCode } from "country-list";
 import { MdOutlineEdit } from "react-icons/md";
 import { FiLink } from "react-icons/fi";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
 import Statistics from './Statistics.jsx';
 import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
+import LiveUserStatus from "./LiveUserStatus.jsx";
 import { countryCodeMap } from '../helper/countryMapping.js';
 import '../styles/Profile.less';
 
@@ -21,39 +21,10 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState(tabFromUrl); 
   const navigate = useNavigate();
   
-  const [activeStatus, setActiveStatus] = useState({ text: "", online: false });
 
   useEffect(() => {
     setActiveTab(tabFromUrl);
   }, [tabFromUrl]);
-
-
-  function getActiveStatus(dateString) {
-    if (!dateString) return { text: "-", online: false };
-    const date = new Date(dateString);
-    const now = new Date();
-
-    const diffInMinutes = (now - date) / 1000 / 60;
-
-    if (diffInMinutes <= 2) {
-      return { text: "Active now", online: true };
-    }
-
-    return {text: `Active ${formatDistanceToNow(date, { addSuffix: true })}`, online: false };
-  }
-
-
-  useEffect(() => {
-    if (!profile?.last_active) return;
-
-    setActiveStatus(getActiveStatus(profile.last_active));
-
-    const interval = setInterval(() => {
-      setActiveStatus(getActiveStatus(profile.last_active));
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, [profile?.last_active]);
 
 
   function changeTab(tab) {
@@ -127,8 +98,7 @@ export default function Profile() {
           </p>
           {profile.last_active && (
             <p className="user-active">
-              <span className={`status-dot ${activeStatus.online ? "online" : "offline"}`}></span>
-              {activeStatus.text}
+              <LiveUserStatus userId={profile.id} />
             </p>
           )}
         </div>

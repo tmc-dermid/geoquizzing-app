@@ -2,14 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import { useSearchParams, useParams, useNavigate, Navigate } from "react-router-dom";
 import { getCode } from "country-list";
 import { AuthContext } from "../context/AuthContext.jsx";
-import { formatDistanceToNow } from "date-fns";
 import { countryCodeMap } from '../helper/countryMapping.js';
 import Statistics from './Statistics.jsx';
 import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
 import supabase from '../helper/supabaseClient.js';
+import LiveUserStatus from "./LiveUserStatus.jsx";
 import '../styles/Profile.less';
+
 
 
 export default function UserProfile() {
@@ -24,7 +25,6 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const [activeStatus, setActiveStatus] = useState({ text: "", online: false });
 
   useEffect(() => {
     setActiveTab(tabFromUrl);
@@ -33,21 +33,6 @@ export default function UserProfile() {
   function changeTab(tab) {
     setActiveTab(tab);
     navigate(`/user/${username}?tab=${tab}`, { replace: true });
-  }
-
-
-  function getActiveStatus(dateString) {
-    if (!dateString) return { text: "-", online: false };
-    const date = new Date(dateString);
-    const now = new Date();
-
-    const diffInMinutes = (now - date) / 1000 / 60;
-
-    if (diffInMinutes <= 2) {
-      return { text: "Active now", online: true };
-    }
-
-    return {text: `Active ${formatDistanceToNow(date, { addSuffix: true })}`, online: false };
   }
 
   useEffect(() => {
@@ -72,19 +57,6 @@ export default function UserProfile() {
 
     fetchProfile();
   }, [username]);
-
-
-  useEffect(() => {
-    if (!profile?.last_active) return;
-
-    setActiveStatus(getActiveStatus(profile.last_active));
-
-    const interval = setInterval(() => {
-      setActiveStatus(getActiveStatus(profile.last_active));
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, [profile?.last_active]);
 
 
   function getFlagsApiCode(restCountryName) {
@@ -146,8 +118,7 @@ export default function UserProfile() {
           </p>
           {profile.last_active && (
             <p className="user-active">
-              <span className={`status-dot ${activeStatus.online ? "online" : "offline"}`}></span>
-              {activeStatus.text}
+              <LiveUserStatus userId={profile.id} />
             </p>
           )}
         </div>

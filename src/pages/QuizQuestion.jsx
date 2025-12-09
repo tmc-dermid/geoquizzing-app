@@ -208,18 +208,6 @@ export default function QuizQuestion() {
         p_penalty: penalty
       });
         
-      setSessionData(prev => prev ? {
-        ...prev,
-        used_hints_count: (prev.used_hints_count || 0) + 1,
-        hint_penalty: (prev.hint_penalty || 0) + penalty
-      } : prev);
-
-      setQuestionData(prev => prev ? {
-        ...prev,
-        hints_used: (prev.hints_used || 0) + 1,
-        is_hint_used: true
-      } : prev);
-
     } catch (err) {
       console.error("Error applying hint usage:", err);
     }
@@ -274,13 +262,15 @@ export default function QuizQuestion() {
     return base
       .split("")
       .map((char, index) => {
+        if (char === " ") {
+          return "\u00A0";
+        }
         if (/[a-zA-Z]/.test(char)) {
           return index === 0 || /[^a-zA-Z]/.test(base[index-1])
-          ? char.toUpperCase()
-          : "_";
-        } else {
-          return char;
+            ? char.toUpperCase()
+            : "_";
         }
+        return char;
       })
       .join(" ");
   };
@@ -404,29 +394,30 @@ export default function QuizQuestion() {
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, " ")
-      .trim()
-      .replace(/\s+/g, " ");
+      .replace(/[^a-z0-9]+/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
     };
 
   const handleInputSubmit = async () => {
     if (answered) return;
 
-    const userAnswers = inputAnswer
+    const rawUserAnswers = inputAnswer
       .split(",")
-      .map(a => normalizeAnswer(a))
+      .map(a => a.trim())
       .filter(a => a.length > 0);
 
-    if (userAnswers.length === 0) {
+    if (rawUserAnswers.length === 0) {
       setInputError("Please enter an answer!");
       return;
     }
 
     setInputError("");
 
+    const normalizedUserAnswers = rawUserAnswers.map(a => normalizeAnswer(a));
     const correctAnswers = questionData.question.correct_answer.map(a => normalizeAnswer(a));
 
-    const correct = userAnswers.every(ans => correctAnswers.includes(ans));
+    const correct = normalizedUserAnswers.every(ans => correctAnswers.includes(ans));
     setIsAnsCorrect(correct);
     setAnswered(true);
 
@@ -436,7 +427,7 @@ export default function QuizQuestion() {
     await supabase
       .from('quiz_questions')
       .update({
-        user_answer: userAnswers,
+        user_answer: rawUserAnswers,
         is_correct: correct,
         answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
       })
@@ -474,6 +465,15 @@ export default function QuizQuestion() {
   return (
     <div className="quiz-question-container">
       <div className='quiz-question-card'>
+        <div className='quiz-header'>
+          <div className='header-left'>
+            <h2 className='quiz-title'>
+              Quiz: <span className='quiz-name'>{sessionData.subcategory.subcategory_name}</span>
+            </h2>
+          </div>
+
+          <div className='timer'>Time: {timer}s</div>
+        </div>
         <div className='progress-bar-container'>
           <div className='progress-bar-fill' style={{ width: `${((currentQuestionIndex + 1) / sessionData.num_questions) * 100}%` }} />
           <div className='progress-bar-label'>
@@ -482,13 +482,13 @@ export default function QuizQuestion() {
         </div>
 
         <div className='hint-bar-container'>
-          <div className='hint-placeholder' />
-
-          {maskedAnswer && (
-            <div className='masked-hint'>
-              {maskedAnswer}
-            </div>
-          )}
+          <div className='masked-hint-wrapper'>
+            {maskedAnswer && (
+              <div className='masked-hint'>
+                {maskedAnswer}
+              </div>
+            )}
+          </div>
 
           <div className='hint-bar'>
             {(difficulty === "easy" || difficulty === "medium") && (
@@ -529,21 +529,13 @@ export default function QuizQuestion() {
           </div>
         </div>
 
-        <div className='quiz-header'>
-          <div className='header-left'>
-            <h2 className='quiz-title'>
-              Quiz: <span className='quiz-name'>{sessionData.subcategory.subcategory_name}</span>
-            </h2>
-          </div>
-
-          <div className='timer'>Time: {timer}s</div>
-        </div>
-
         {questionData.question.question_img ? (
           <img
             src={questionData.question.question_img}
             alt="Question"
             className='question-img'
+            draggable={false}
+            onContextMenu={e => e.preventDefault()}
           />
         ) : questionData.shape ? (
           <div className='question-shape-map'>
@@ -554,14 +546,15 @@ export default function QuizQuestion() {
                 borderRadius: "10px",
                 backgroundColor: "#f7f6f6ff",
               }}
+              className='shape-map'
               center={[0, 0]}
               zoom={3}
-              scrollWheelZoom={false}
+              scrollWheelZoom={true}
               doubleClickZoom={false}
               touchZoom={false}
-              zoomControl={false}
+              zoomControl={true}
               attributionControl={true}
-              dragging={false}
+              dragging={true}
             >
               <GeoJSON
                 data={questionData.shape}
@@ -644,8 +637,8 @@ export default function QuizQuestion() {
                     key={choice.label}
                     className={`choice-btn ${
                       answered
-                        ? (choice.is_correct ? "correct" : selected.includes(choice.label) ? "wrong" : "")
-                        : selected.includes(choice.label) ? "selected" : ""
+                        ? (choice.is_correct ? "correct" : selected.includes(choice.choice_text) ? "wrong" : "")
+                        : selected.includes(choice.choice_text) ? "selected" : ""
                     } ${usedHintsLocal.reveal && choice.is_correct ? 'reveal-highlight' : ''}`}
                     onClick={() => handleChoiceClick(choice)}
                     disabled={answered}
@@ -655,7 +648,7 @@ export default function QuizQuestion() {
                     {answered && choice.is_correct && (
                       <span className='choice-icon correct-icon'>✓</span>
                     )}
-                    {answered && !choice.is_correct && selected.includes(choice.label) && (
+                    {answered && !choice.is_correct && selected.includes(choice.choice_text) && (
                       <span className='choice-icon incorrect-icon'>✗</span>
                     )}
                   </button>

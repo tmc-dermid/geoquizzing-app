@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { GiTrophyCup } from "react-icons/gi";
-import { FiImage, FiArrowUp, FiArrowLeft, FiMap } from 'react-icons/fi';
+import { FiImage, FiArrowUp, FiArrowLeft, FiMap, FiRotateCcw } from 'react-icons/fi';
 import { FaRegLightbulb } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import CountryShapeSvg from './CountryShapeSvg.jsx';
@@ -46,6 +46,7 @@ export default function QuizResults() {
           ),
           subcategories:subcategories (
             subcategory_name,
+            slug,
             categories:category_id (
               category_name
             )
@@ -150,12 +151,21 @@ export default function QuizResults() {
         >
           <FiArrowLeft />
         </button>
+
         <GiTrophyCup className='header-icon left' />
         <div className='header-center'>
           Quiz Completed!
           <span className='quiz-name'>{sessionData.subcategories?.subcategory_name}</span>
         </div>
         <GiTrophyCup className='header-icon right' />
+
+        <button
+          className='play-again-btn'
+          onClick={() => navigate(`/quiz-menu/${sessionData.subcategories?.slug}`)}
+          title="Play Again"
+        >
+          <FiRotateCcw />
+        </button>
       </div>
 
       <div className='quiz-results-summary'>
