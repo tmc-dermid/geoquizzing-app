@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Select, { components } from "react-select";
 import { useEffect, useState } from "react";
 import { achievementIconMap, achievementIconOptions, categoryColors, categoryOrder } from "../../helper/achievementsConfig.js";
@@ -24,6 +24,8 @@ export default function AchievementsAdmin() {
   const [achievements, setAchievements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
+  const [filterCategory, setFilterCategory] = useState("ALL");
+  const [sortOption, setSortOption] = useState("title-asc");
 
   const [form, setForm] = useState({
     title: "",
@@ -189,6 +191,35 @@ export default function AchievementsAdmin() {
     load();
   }
 
+  const filteredAndSorted = useMemo(() => {
+    let result = [...achievements];
+
+    if (filterCategory !== 'ALL') {
+      result = result.filter((a) => a.category === filterCategory);
+    }
+
+    result.sort((a, b) => {
+      switch (sortOption) {
+        case "title-asc":
+          return a.title.localeCompare(b.title);
+
+        case "title-desc":
+          return b.title.localeCompare(a.title);
+
+        case "points-asc":
+          return a.points - b.points;
+
+        case "points-desc":
+          return b.points - a.points;
+
+        default: 
+          return 0;
+      }
+    });
+
+    return result;
+  }, [achievements, filterCategory, sortOption]);
+
   return (
     <div className="admin-wrapper">
       <h2>Achievements Admin Panel</h2>
@@ -281,13 +312,34 @@ export default function AchievementsAdmin() {
 
       <hr />
       <h3>Existing Achievements</h3>
+
+      <div className="filters-panel">
+        <select
+          value={filterCategory}
+          onChange={(e) => setFilterCategory(e.target.value)}
+        >
+          <option value="ALL">All Categories</option>
+          <option value="COMMON">COMMON</option>
+          <option value="RARE">RARE</option>
+          <option value="LEGENDARY">LEGENDARY</option>
+        </select>
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="title-asc">A ➝ Z</option>
+          <option value="title-desc">Z ➝ A</option>
+          <option value="points-asc">Points ↑</option>
+          <option value="points-desc">Points ↓</option>
+        </select>
+      </div>
+
       <div className="achievement-list">
         {loading ? (
           <p>Loading...</p>
         ) : (
-          [...achievements]
-          .sort((a, b) => categoryOrder[a.category] - categoryOrder[b.category])
-          .map(a => (
+          filteredAndSorted.map((a) => (
             <div className="achievement-card" key={a.achievement_id}>
               <div
                 className="achievement-category"

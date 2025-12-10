@@ -1,6 +1,5 @@
 import { FaStar, FaCheck, FaTimes, FaCheckCircle, FaTimesCircle, FaQuestion, FaLightbulb, FaRegLightbulb, FaHourglassHalf, FaRegClock } from "react-icons/fa";
 import { MdLightbulbCircle, MdQuestionMark, MdAssignmentTurnedIn  } from "react-icons/md";
-import { AiFillThunderbolt } from "react-icons/ai";
 import { GiPlayerTime } from "react-icons/gi";
 
 export const generalStatsConfig = [
@@ -85,12 +84,6 @@ export const quizPerformanceConfig = [
     icon: <MdLightbulbCircle />,
     format: (v) => (((v ?? 0) * 100).toFixed(2) + "%"),
     description: "Percentage of questions where hints were used"
-  },
-  {
-    key: "longest_streak",
-    label: "Longest Correct Streak",
-    icon: <AiFillThunderbolt />,
-    description: "The longest sequence of consecutive correct answers overall"
   },
 ];
 

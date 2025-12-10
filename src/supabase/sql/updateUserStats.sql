@@ -6,8 +6,6 @@ AS $$
 DECLARE
   sess RECORD;
   today DATE := CURRENT_DATE;
-  session_streak INT := 0;
-  current_best INT := 0;
 BEGIN
   SELECT *
   INTO sess
@@ -157,57 +155,6 @@ BEGIN
     quizzes_completed = user_stats_daily.quizzes_completed + EXCLUDED.quizzes_completed,
     correct_answers = user_stats_daily.correct_answers + EXCLUDED.correct_answers,
     incorrect_answers = user_stats_daily.incorrect_answers + EXCLUDED.incorrect_answers;
-
--- Update user_streaks
-  WITH ordered AS (
-    SELECT
-      is_correct,
-      question_order,
-      quiz_question_id,
-      CASE WHEN is_correct IS TRUE THEN 1 ELSE 0 END AS c
-    FROM quiz_questions 
-    WHERE session_id = p_session_id
-    ORDER BY question_order, quiz_question_id
-  ),
-  groups AS (
-    SELECT
-      *,
-      SUM(CASE WHEN c = 0 THEN 1 ELSE 0 END) OVER (ORDER BY question_order, quiz_question_id ROWS UNBOUNDED PRECEDING) AS grp
-    FROM ordered
-  ),
-  streaks AS (
-    SELECT
-      grp,
-      COUNT(*) AS streak
-    FROM groups
-    WHERE c = 1
-    GROUP BY grp
-  )
-
-  SELECT
-    COALESCE(MAX(streak), 0)
-  INTO session_streak
-  FROM streaks;
-
--- Save streak history
-  INSERT INTO user_streaks (user_id, session_id, streak_value)
-  VALUES (sess.user_id, p_session_id, COALESCE(session_streak, 0));
-
--- Get current best
-  SELECT
-    COALESCE(longest_streak, 0)
-  INTO current_best
-  FROM user_stats
-  WHERE user_id = sess.user_id;
-
--- Update
-  IF COALESCE(session_streak, 0) > current_best THEN
-    UPDATE user_stats
-    SET
-      longest_streak = session_streak,
-      updated_at = NOW()
-    WHERE user_id = sess.user_id;
-  END IF;
 
   UPDATE quiz_sessions
   SET stats_processed = TRUE
