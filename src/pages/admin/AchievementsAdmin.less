@@ -12,75 +12,11 @@
   }
 
   .achievement-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 40px auto;
-    padding: 20px 26px;
+    .admin-form-mixin();
+  }
+
+  hr {
     width: 100%;
-    max-width: 750px;
-    background-color: #f5f7fa;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    h3 {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-      color: #0a387b;
-    }
-
-    label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #333;
-      margin-top: 10px;
-    }
-
-    select > option:nth-child(2n) {
-      background-color: #f6f6f6;
-    }
-
-    input, select, textarea {
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 1px solid darken(darkgray, 20%);
-      font-size: 1rem;
-      transition: all 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: #0D47A1;
-        box-shadow: 0 0 6px rgba(13, 71, 161, 0.3);                
-      }
-    }
-
-    textarea {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    button {
-      margin-top: 15px;
-      padding: 12px 28px;
-      background-color: #0d47a1;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      will-change: background-color;
-      width: fit-content;
-      align-self: center;
-
-      &:hover {
-        background-color: lighten(#0d47a1, 5%);
-      }
-    }
   }
 
   h3 {
@@ -91,21 +27,35 @@
     text-align: center;
   }
 
-  .filters-panel {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    padding: 12px 16px;
+  .search-bar {
+    .search-bar-mixin();
+
     background-color: #dee3e9;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     border-radius: 6px;
+    padding: 12px 16px;
 
-    select {
-      .filter-select-mixin();
+  
+    .filters-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      select {
+        .filter-select-mixin();
+      }
     }
+
+    .search-btn {
+      .search-button-mixin();
+    }
+  }
+
+  .results-count {
+    .results-count-mixin();
   }
 
   .achievement-list {
@@ -115,6 +65,7 @@
 
     .achievement-card {
       .achievement-card-mixin();
+      margin-top: 15px;
 
       .achievement-actions {
         position: absolute;

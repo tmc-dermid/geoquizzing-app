@@ -17,11 +17,17 @@ import Favorites from './pages/Favorites.jsx';
 import UserProfile from './pages/UserProfile.jsx';
 import EditProfile from './pages/EditProfile.jsx';
 import Achievements from './pages/Achievements.jsx';
-import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
 import Quiz from './pages/Quiz.jsx';
 import QuizQuestion from './pages/QuizQuestion.jsx';
 import QuizResults from './pages/QuizResults.jsx';
 import QuizHistory from './pages/QuizHistory.jsx';
+import SignOutModal from './pages/SignOutModal.jsx';
+
+import AdminRoute from './routes/AdminRoute.jsx';
+import AdminDashboard from './pages/admin/AdminDashboard.jsx';
+import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
+import NewsAdmin from './pages/admin/NewsAdmin.jsx';
+
 import 'leaflet/dist/leaflet.css';
 import './styles/App.less';
 
@@ -85,6 +91,7 @@ function App() {
   return (
     <div className='app-wrapper'>
       <Header />
+      <SignOutModal />
       <div className='container'>
         <AnimatePresence mode='wait'>
           <Routes location={location} key={location.pathname}>
@@ -105,16 +112,29 @@ function App() {
             <Route path='/achievements' element={ <Achievements username={profile?.username} /> } />
             <Route path='/favorites' element={ <Favorites username={profile?.username} /> } />
             <Route path='/history' element={ <QuizHistory username={profile?.username} /> } />
+
+            <Route
+              path='/admin'
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
             <Route
               path='/admin/achievements'
               element={
-                !profile ? (
-                  <p>Loading...</p>
-                ) : profile.is_admin ? (
+                <AdminRoute>
                   <AchievementsAdmin />
-                ) : (
-                  <Navigate to='/' replace />
-                )
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/news'
+              element={
+                <AdminRoute>
+                  <NewsAdmin />
+                </AdminRoute>
               }
             />
           </Routes>

@@ -18,20 +18,20 @@
 --     user_id UUID PRIMARY KEY REFERENCES user_profile(id) ON DELETE CASCADE,
 --     total_questions_answered INT DEFAULT 0,
 --     total_hints_used INT DEFAULT 0,
---     total_time_spent_seconds BIGINT DEFAULT 0,
---     total_quizzes_taken INT DEFAULT 0,
---     total_correct_answers INT DEFAULT 0,
---     total_incorrect_answers INT DEFAULT 0,
---     avg_time_per_question FLOAT DEFAULT 0,
---     avg_questions_per_quiz FLOAT DEFAULT 0,
---     avg_hints_per_quiz FLOAT DEFAULT 0,
---     hints_usage_ratio FLOAT DEFAULT 0,
---     correct_ratio FLOAT DEFAULT 0,
---     incorrect_ratio FLOAT DEFAULT 0,
---     longest_streak INT DEFAULT 0,
---     current_streak INT DEFAULT 0;
---     total_time_active_seconds BIGINT DEFAULT 0,
---     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    -- total_time_spent_seconds BIGINT DEFAULT 0,
+    -- total_quizzes_taken INT DEFAULT 0,
+    -- total_correct_answers INT DEFAULT 0,
+    -- total_incorrect_answers INT DEFAULT 0,
+    -- avg_time_per_question FLOAT DEFAULT 0,
+    -- avg_questions_per_quiz FLOAT DEFAULT 0,
+    -- avg_hints_per_quiz FLOAT DEFAULT 0,
+    -- hints_usage_ratio FLOAT DEFAULT 0,
+    -- correct_ratio FLOAT DEFAULT 0,
+    -- incorrect_ratio FLOAT DEFAULT 0,
+    -- longest_streak INT DEFAULT 0,
+    -- current_streak INT DEFAULT 0;
+    -- total_time_active_seconds BIGINT DEFAULT 0,
+    -- updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 -- );
 
 

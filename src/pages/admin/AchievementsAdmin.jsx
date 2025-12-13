@@ -26,6 +26,8 @@ export default function AchievementsAdmin() {
   const [editingId, setEditingId] = useState(null);
   const [filterCategory, setFilterCategory] = useState("ALL");
   const [sortOption, setSortOption] = useState("title-asc");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [form, setForm] = useState({
     title: "",
@@ -198,6 +200,14 @@ export default function AchievementsAdmin() {
       result = result.filter((a) => a.category === filterCategory);
     }
 
+    if (searchQuery.trim() !== "") {
+      const lowerSearch = searchQuery.toLowerCase();
+      result = result.filter((a) => 
+        a.title.toLowerCase().includes(lowerSearch) ||
+        a.description.toLowerCase().includes(lowerSearch)
+      );
+    }
+
     result.sort((a, b) => {
       switch (sortOption) {
         case "title-asc":
@@ -218,14 +228,14 @@ export default function AchievementsAdmin() {
     });
 
     return result;
-  }, [achievements, filterCategory, sortOption]);
+  }, [achievements, filterCategory, sortOption, searchQuery]);
 
   return (
     <div className="admin-wrapper">
-      <h2>Achievements Admin Panel</h2>
+      <h2>Manage Achievements</h2>
 
       <form className="achievement-form" onSubmit={handleSubmit}>
-        <h3>Add Achievement</h3>
+        <h3>{editingId ? "Edit Achievement" : "Add Achievement"}</h3>
 
         <label>Title:</label>
         <input
@@ -313,27 +323,62 @@ export default function AchievementsAdmin() {
       <hr />
       <h3>Existing Achievements</h3>
 
-      <div className="filters-panel">
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-        >
-          <option value="ALL">All Categories</option>
-          <option value="COMMON">COMMON</option>
-          <option value="RARE">RARE</option>
-          <option value="LEGENDARY">LEGENDARY</option>
-        </select>
+      <div className="search-bar">
+        <div className="filters-panel">
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
+            <option value="ALL">All Categories</option>
+            <option value="COMMON">COMMON</option>
+            <option value="RARE">RARE</option>
+            <option value="LEGENDARY">LEGENDARY</option>
+          </select>
 
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option value="title-asc">A ➝ Z</option>
+            <option value="title-desc">Z ➝ A</option>
+            <option value="points-asc">Points ↑</option>
+            <option value="points-desc">Points ↓</option>
+          </select>
+        </div>
+
+        <div className="search-input">
+          <input
+            type="search"
+            placeholder="Search for an achievement..."
+            value={searchInput}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSearchInput(value)
+              
+              if (value.trim() === "") {
+                setSearchQuery("");
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearchQuery(searchInput.trim());
+              }
+            }}
+          />
+        </div>
+        <button
+          className="search-btn"
+          onClick={() => setSearchQuery(searchInput.trim())}
         >
-          <option value="title-asc">A ➝ Z</option>
-          <option value="title-desc">Z ➝ A</option>
-          <option value="points-asc">Points ↑</option>
-          <option value="points-desc">Points ↓</option>
-        </select>
+          Search
+        </button>
       </div>
+
+      {!loading && (
+        <p className="results-count">
+          Found <strong>{filteredAndSorted.length}</strong> achievement{filteredAndSorted.length !== 1 ? "s" : ""} in total
+        </p>
+      )}
 
       <div className="achievement-list">
         {loading ? (

@@ -1,0 +1,73 @@
+.admin-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 80vh;
+  padding: 20px;
+
+  .admin-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 16px;
+    background-color: #f3f3f3;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+
+    h2 {
+      font-size: 2rem;
+      color: #000;
+      text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+      margin-bottom: 8px
+    }
+
+    p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .admin-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+
+      .admin-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        background-color: #0D47A1;
+        padding: 18px 25px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        will-change: transform, box-shadow, background-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+          background-color: lighten(#0D47A1, 5%);
+        }
+
+        .admin-card-icon {
+          font-size: 1.4rem;
+          color: #ddd;
+        }
+
+        span {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

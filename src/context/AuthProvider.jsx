@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import supabase from '../helper/supabaseClient';
-import { useNavigate } from 'react-router-dom';
-import { toast, Slide } from 'react-toastify';
 import { AuthContext } from './AuthContext';
 
 
 export function AuthProvider({ children }) {
-
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const fetchProfile = async (user) => {
     if (!user) return;
@@ -39,23 +36,9 @@ export function AuthProvider({ children }) {
   };
 
   const signOut = async () => {
-
-    toast.success('Successfully signed out!', {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      transition: Slide,
-      style: {
-        background: '#e6ffed',
-        color: '#1b5e20',
-      },
-    });
-
     await supabase.auth.signOut();
+
+    setShowSignOutModal(true);
   };
 
   useEffect(() => {
@@ -75,10 +58,6 @@ export function AuthProvider({ children }) {
       } else {
         setUser(null);
         setProfile(null);
-
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
       }
     });
 
@@ -87,7 +66,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, profile, setProfile, signOut }}>
+    <AuthContext.Provider value={{ user, profile, setProfile, signOut, showSignOutModal, setShowSignOutModal }}>
       {children}
     </AuthContext.Provider>
   );

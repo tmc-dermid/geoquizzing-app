@@ -1,8 +1,10 @@
 import { GiCompass, GiFootsteps, GiEarthAmerica, GiEarthAfricaEurope, GiPathDistance, GiWorld, GiLaurelCrown, GiDiamondTrophy,
-  GiBrain, GiCrown, GiTrophyCup } from "react-icons/gi";
+  GiBrain, GiCrown, GiTrophyCup, 
+  GiLaurelsTrophy} from "react-icons/gi";
 import { FaEarthAsia, FaEarthEurope, FaEarthOceania, FaPlay, FaGraduationCap, FaShapes } from "react-icons/fa6";
 import { IoFootstepsSharp } from "react-icons/io5";
 import { FiCheckCircle } from "react-icons/fi";
+import { RiProgress1Line, RiProgress2Line, RiProgress3Line, RiProgress4Line, RiProgress5Line, RiProgress6Line, RiProgress7Line, RiProgress8Line } from "react-icons/ri";
 
 export const achievementIconMap = {
   GiFootsteps,          // used
@@ -15,6 +17,7 @@ export const achievementIconMap = {
   GiDiamondTrophy,      // used
   GiBrain,              // used
   GiCrown,              // used
+  GiLaurelsTrophy,      // used
   GiTrophyCup,          // used
   FaEarthAsia,          // used
   FaEarthEurope,        // used
@@ -24,6 +27,14 @@ export const achievementIconMap = {
   FaGraduationCap,      // used
   FiCheckCircle,        // used
   IoFootstepsSharp,     // used
+  RiProgress1Line,      // used
+  RiProgress2Line,      // used
+  RiProgress3Line,      // used
+  RiProgress4Line,      // used
+  RiProgress5Line,      // used
+  RiProgress6Line,      // used
+  RiProgress7Line,      // used
+  RiProgress8Line,      // used
 };
 
 export const achievementIconOptions = Object.keys(achievementIconMap);

@@ -1,0 +1,38 @@
+.signout-modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  .signout-modal-content {
+    background-color: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 300px;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #000;
+    }
+
+    button {
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      will-change: background-color;
+
+      &:hover {
+        background-color: lighten(#4caf50, 5%);
+      }
+    }
+  }
+}
