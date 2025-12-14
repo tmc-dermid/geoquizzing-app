@@ -79,7 +79,6 @@ export default function QuizQuestion() {
             question_order,
             user_answer,
             is_correct,
-            attempts,
             is_hint_used,
             hints_used,
             answer_time_seconds,

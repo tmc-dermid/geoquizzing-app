@@ -1,0 +1,266 @@
+@import '../styles/mixins.less';
+
+.home-page {
+  padding: 16px 30px 40px 30px;
+
+  .home-hero {
+    max-width: 1100px;
+    margin: 0 auto 30px auto;
+    padding: 40px 50px;
+    background: linear-gradient(135deg, #194189, #2c53af, #1b3a8a);
+    border-radius: 18px;
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(13, 71, 161, 0.35);
+    text-align: center;
+    overflow: hidden;
+
+    h1 {
+      background: linear-gradient(90deg, #d4c9ff, #e2f7ff, #d4c9ff);
+      z-index: 1;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+
+      button {
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        will-change: transform, box-shadow, background;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        }
+
+        &.primary-btn {
+          background: rgba(255,255,255,0.15);
+          border: 1px solid rgba(255,255,255,0.4);
+          color: #fff;
+
+          &:hover {
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        &.secondary-btn {
+          background: linear-gradient(135deg, #ffb347, #ffcc33);
+          color: #0d47a1;
+        }
+      }
+    }
+  }
+
+  .home-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .home-main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+
+      .home-section {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .section-title {
+          width: 100%;
+          max-width: 700px;
+          text-align: left;
+          font-size: 1.6rem;
+          font-weight: 700;
+          margin-bottom: 18px;
+          color: #000;
+        }
+
+        .news-list {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .news-card {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            background-color: #fdfdfd;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #d2d6da;
+            max-width: 700px;
+            margin: 0 auto;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+            will-change: box-shadow;
+
+            &:hover {
+              box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .news-image {
+              flex: 0 0 140px;
+              height: 100px;
+              overflow: hidden;
+              border-radius: 12px 0 0 12px;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                opacity: 0.8;
+              }
+            }
+
+            .news-content {
+              display: flex;
+              flex: 1;
+              padding: 14px 20px;
+              flex-direction: column;
+              justify-content: flex-start;
+              background-color: #fcfcfc;
+
+              .news-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin: 0 0 2px 0;
+                color: #0D47A1;
+                line-height: 1.3;
+              }
+
+              .news-date {
+                font-size: 0.85rem;
+                font-weight: 500;
+                font-style: italic;
+                color: #777;
+              }
+
+              .news-description {
+                font-size: 0.95rem;
+                color: #333;
+                margin: 8px 0 16px 0;
+                line-height: 1.5;
+              }
+
+              .news-examples {
+                margin: 0 0 6px 0;
+                padding: 6px 0 6px 0;
+                list-style-type: disc;
+                background-color: #f5f7fa;
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+                border-radius: 8px;
+                list-style-position: inside;
+
+                span {
+                  padding-left: 12px;
+                  color: #222;
+                  font-size: 0.9rem;
+                }
+
+                li {
+                  margin-bottom: 2px;
+                  font-size: 0.85rem;
+                  color: #555;
+
+                  &::marker {
+                    color: #0D47A1;
+                    font-size: 1rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .quiz-grid {
+          .result-container-mixin();
+          grid-template-columns: repeat(3, minmax(260px, 1fr)) !important;
+        }
+      }
+    }
+  }
+
+  .home-aside {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px 18px;
+    height: fit-content;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e3e8;
+
+    .aside-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .stat-card {
+        padding: 12px 14px;
+        background-color: #f5f7fa;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+
+        .stat-value {
+          display: block;
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: #0d47a1;
+        }
+
+        .stat-label {
+          font-size: 0.85rem;
+          font-weight: 500;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .home-aside {
+    order: -1;
+  }
+}
