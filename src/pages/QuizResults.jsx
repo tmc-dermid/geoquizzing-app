@@ -4,23 +4,27 @@ import { GiTrophyCup } from "react-icons/gi";
 import { FiImage, FiArrowUp, FiArrowLeft, FiMap, FiRotateCcw } from 'react-icons/fi';
 import { FaRegLightbulb } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAchievementStore } from '../helper/achievementStore.js';
+import { showAchievementToasts } from '../helper/showAchievementToasts.jsx';
 import CountryShapeSvg from './CountryShapeSvg.jsx';
 import CountUp from 'react-countup';
 import supabase from '../helper/supabaseClient.js';
 import '../styles/QuizResults.less';
-
 
 export default function QuizResults() {
 
   const { session_id } = useParams();
   const navigate = useNavigate();
   const questionsSectionRef = useRef(null);
+  const achievementsGrantedRef = useRef(false);
 
   const [sessionData, setSessionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const [visibleCount, setVisibleCount] = useState(10);
   const [modalImg, setModalImg] = useState(null);
+
+  const achievementStore = useAchievementStore();
 
   useEffect(() => {
     const fetchSessionData = async () => {
@@ -101,18 +105,37 @@ export default function QuizResults() {
 
 
   useEffect(() => {
-    if (!sessionData) return;
-    if (!session_id) return;
+    if (!sessionData || !session_id) return;
+
+    if(achievementsGrantedRef.current) return;
+    achievementsGrantedRef.current = true;
 
     const completeQuiz = async () => {
-      const { data: rpcData, error: rpcError } = await supabase.rpc('update_user_stats', {
+      const { error: statsError } = await supabase.rpc('update_user_stats', {
         p_session_id: sessionData.session_id
       });
 
-      if (rpcError) {
-        console.error("Error updating stats:", rpcError);
-      } else {
-        console.log("Stats updated successfully:", rpcData);
+      if (statsError) {
+        console.error("Error updating stats:", statsError);
+        return;
+      }
+
+      const { data: achievementsData, error: achievementsError } = await supabase.rpc('grant_achievements', {
+        p_user_id: sessionData.user_id
+      });
+
+      if (achievementsError) {
+        console.error("Error granting achievements:", achievementsError);
+        return;
+      }
+
+      if (achievementsData) {
+        const achievementsArray = Array.isArray(achievementsData) ? achievementsData : [achievementsData];
+
+        if (achievementsArray.length > 0) {
+          achievementStore.addAchievements(achievementsArray);
+          showAchievementToasts(achievementsArray);
+        }
       }
     };
 
@@ -167,7 +190,7 @@ export default function QuizResults() {
           <FiRotateCcw />
         </button>
       </div>
-
+      
       <div className='quiz-results-summary'>
         <div className='score-box'>
           <div className='score-title'>

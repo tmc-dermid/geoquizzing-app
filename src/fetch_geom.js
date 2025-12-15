@@ -9,7 +9,6 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Wczytanie GeoJSON
 const geojson = JSON.parse(fs.readFileSync('missing_territories.geojson', 'utf-8'));
 
 

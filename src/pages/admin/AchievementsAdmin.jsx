@@ -37,6 +37,10 @@ export default function AchievementsAdmin() {
     condition_value: 1,
     points: 0,
     category: "COMMON",
+    target_difficulty: null,
+    target_region: null,
+    enableDifficulty: false,
+    enableRegion: false,
   });
 
   useEffect(() => {
@@ -72,7 +76,9 @@ export default function AchievementsAdmin() {
           condition_type: form.condition_type,
           condition_value: form.condition_value,
           points: form.points,
-          category: form.category,          
+          category: form.category,   
+          target_difficulty: form.target_difficulty,
+          target_region: form.target_region,    
         })
         .eq("achievement_id", editingId);
 
@@ -108,6 +114,8 @@ export default function AchievementsAdmin() {
           condition_value: form.condition_value,
           points: form.points,
           category: form.category,
+          target_difficulty: form.target_difficulty,
+          target_region: form.target_region,
         });
 
       if (error) {
@@ -139,6 +147,8 @@ export default function AchievementsAdmin() {
       condition_value: 1,
       points: 0, 
       category: "COMMON",
+      target_difficulty: null,
+      target_region: null,
     });
   }
 
@@ -154,6 +164,10 @@ export default function AchievementsAdmin() {
       condition_value: a.condition_value,
       points: a.points,
       category: a.category,
+      target_difficulty: a.target_difficulty,
+      target_region: a.target_region,
+      enableDifficulty: a.target_difficulty !== null,
+      enableRegion: a.target_region !== null,
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -289,6 +303,10 @@ export default function AchievementsAdmin() {
           <option value="quizzes_played">quizzes_played</option>
           <option value="correct_answers">correct_answers</option>
           <option value="quiz_modes">quiz_modes</option>
+          <option value="hints_used">hints_used</option>
+          <option value="time_spent_seconds">time_spent_seconds</option>
+          <option value="streak">streak</option>
+          <option value="perfect_score">perfect_score</option>
         </select>
 
         <label>Condition Value:</label>
@@ -297,6 +315,63 @@ export default function AchievementsAdmin() {
           value={form.condition_value}
           onChange={(e) => setForm({ ...form, condition_value: e.target.value })}
         />
+
+        <label>
+          Target Difficulty
+          <input
+            type="checkbox"
+            checked={form.enableDifficulty}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                enableDifficulty: e.target.checked,
+                target_difficulty: e.target.checked ? form.target_difficulty || "easy" : null,
+              })
+            }
+            style={{ marginLeft: 8 }}
+          />
+        </label>
+        <select
+          value={form.target_difficulty}
+          onChange={(e) => setForm({ ...form, target_difficulty: e.target.value })}
+          disabled={!form.enableDifficulty}
+        >
+          <option value="null">null</option>
+          <option value="easy">easy</option>
+          <option value="medium">medium</option>
+          <option value="hard">hard</option>
+        </select>
+
+        <label>
+          Target Region
+          <input
+            type="checkbox"
+            checked={form.enableRegion}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                enableRegion: e.target.checked,
+                target_region: e.target.checked ? form.target_region || "easy" : null,
+              })
+            }
+            style={{ marginLeft: 8 }}
+          />
+        </label>
+        <select
+          value={form.target_region}
+          onChange={(e) => setForm({ ...form, target_region: e.target.value })}
+          disabled={!form.enableRegion}
+        >
+          <option value="null">null</option>
+          <option value="World">World</option>
+          <option value="Asia">Asia</option>
+          <option value="Africa">Africa</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
+          <option value="North America">North America</option>
+          <option value="South America">South America</option>
+          <option value="Dependent Territories">Dependent Territories</option>
+        </select>
 
         <label>Points:</label>
         <input

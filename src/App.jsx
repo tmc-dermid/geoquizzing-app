@@ -1,8 +1,9 @@
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect, useContext, useRef } from 'react';
 import { AuthContext } from './context/AuthContext.jsx';
 import { AnimatePresence } from 'framer-motion';
 import { startActivity, updateActivity, endActivity } from './activity/activityApi.js';
+import { ToastContainer } from 'react-toastify';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Home from './pages/Home.jsx';
@@ -28,6 +29,7 @@ import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
 import NewsAdmin from './pages/admin/NewsAdmin.jsx';
 
+import 'react-toastify/dist/ReactToastify.css';
 import 'leaflet/dist/leaflet.css';
 import './styles/App.less';
 
@@ -142,6 +144,17 @@ function App() {
       </div>
       
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

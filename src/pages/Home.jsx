@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import CountUp from "react-countup";
 import supabase from '../helper/supabaseClient';
 import '../styles/Home.less';
@@ -94,7 +94,11 @@ export default function Home() {
     const sorted = Object.entries(counts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3)
-      .map(([id]) => data.find((row) => row.subcategory_id === Number(id)).subcategories);
+      .map(([id]) => {
+        const row = data.find((r) => r.subcategory_id === Number(id));
+        return row?.subcategories;
+      })
+    .filter(Boolean);
 
     setPopularQuizzes(sorted);
     setPopularLoading(false);
@@ -104,30 +108,15 @@ export default function Home() {
     setAppStatsLoading(true);
     
     try {
-      const { count: userCount, error: userErr } = await supabase
-        .from('user_profile')
-        .select('*', { count: 'exact', head: true });
+      const { data, error } = await supabase.rpc("get_app_stats");
 
-      if (userErr) throw userErr;
-
-      const { count: quizCount, error: quizErr } = await supabase
-        .from('quiz_sessions')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'completed');
-
-      if (quizErr) throw quizErr;
-
-      const { count: answerCount , error: answerErr } = await supabase
-        .from('quiz_questions')
-        .select('quiz_question_id', { count: 'exact', head: true })
-        .not('user_answer', 'is', null);
-
-      if (answerErr) throw answerErr;
+      if (error) throw error;
+      if (!data || data.length === 0) throw new Error("No stats returned");
 
       setAppStats({
-        total_users: userCount || 0,
-        quizzes_completed: quizCount || 0,
-        questions_answered: answerCount,
+        total_users: data[0].total_users,
+        quizzes_completed: data[0].quizzes_completed,
+        questions_answered: data[0].questions_answered,
       });
 
     } catch (err) {
@@ -157,7 +146,14 @@ export default function Home() {
     }
   }
 
-  const formatDate = (date) => new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const formatDate = (date) => new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric", 
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
   return (
     <motion.div

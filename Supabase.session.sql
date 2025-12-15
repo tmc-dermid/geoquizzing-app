@@ -19,7 +19,7 @@
 --     total_questions_answered INT DEFAULT 0,
 --     total_hints_used INT DEFAULT 0,
     -- total_time_spent_seconds BIGINT DEFAULT 0,
-    -- total_quizzes_taken INT DEFAULT 0,
+    -- total_quizzes_completed INT DEFAULT 0,
     -- total_correct_answers INT DEFAULT 0,
     -- total_incorrect_answers INT DEFAULT 0,
     -- avg_time_per_question FLOAT DEFAULT 0,
@@ -172,10 +172,14 @@
 --   title TEXT NOT NULL,
 --   description TEXT,
 --   icon TEXT,
---   condition_type TEXT NOT NULL,
+--   condition_type TEXT NOT NULL CHECK (condition_type IN ('quizzes_played', 'correct_answers', 'quiz_modes', 'hints_used', 'time_spent_seconds', 'streak', 'perfect_score')),
 --   condition_value INT NOT NULL,
 --   points INT DEFAULT 0,
 --   category TEXT DEFAULT 'COMMON' CHECK(category IN ('COMMON', 'RARE', 'LEGENDARY')),
+--   target_subcategory_id INT DEFAULT NULL REFERENCES subcategories(subcategory_id) ON DELETE CASCADE,
+--   target_difficulty TEXT DEFAULT NULL CHECK (target_difficulty IN ('easy', 'medium', 'hard')),
+--   target_region TEXT DEFAULT NULL,
+--   num_questions_required INT DEFAULT NULL,
 --   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 -- );
 

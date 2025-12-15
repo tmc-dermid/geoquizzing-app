@@ -145,6 +145,15 @@ export default function QuizHistory({ username }) {
 
   const isOwner = user?.id && ownerId && user.id === ownerId;
 
+  const formatDate = (date) => new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric", 
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
   return (
     <div className="quiz-history-container">
       <h2 className='quiz-history-heading'>
@@ -216,14 +225,7 @@ export default function QuizHistory({ username }) {
             <div className='quiz-card-center'>
               <h4 className='quiz-name'>{session.subcategories.subcategory_name}</h4>
               <p className='quiz-completed-date'>
-                {new Date(session.completed_at).toLocaleDateString('en-GB', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: false
-                })}
+                {formatDate(session.completed_at)}
               </p>
             </div>
 
