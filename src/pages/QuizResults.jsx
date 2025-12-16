@@ -23,6 +23,7 @@ export default function QuizResults() {
   const [showDetails, setShowDetails] = useState(false);
   const [visibleCount, setVisibleCount] = useState(10);
   const [modalImg, setModalImg] = useState(null);
+  const [pendingAchievements, setPendingAchievements] = useState([]);
 
   const achievementStore = useAchievementStore();
 
@@ -134,13 +135,23 @@ export default function QuizResults() {
 
         if (achievementsArray.length > 0) {
           achievementStore.addAchievements(achievementsArray);
-          showAchievementToasts(achievementsArray);
+          setPendingAchievements(achievementsArray);
         }
       }
     };
 
     completeQuiz();
   }, [sessionData, session_id]);
+
+  useEffect(() => {
+    if (!pendingAchievements.length) return;
+
+    const id = setTimeout(() => {
+      showAchievementToasts(pendingAchievements);
+    }, 150);
+
+    return () => clearTimeout(id);
+  }, [pendingAchievements]);
 
 
   if (loading) return <div className='quiz-results-container'><i>Loading...</i></div>;
@@ -191,6 +202,15 @@ export default function QuizResults() {
         </button>
       </div>
       
+      {/* <button
+        onClick={() => showAchievementToasts([{
+          title: "Quick Learner",
+          icon: "GiTrophyCup"
+        }])}
+      >
+        Test
+      </button> */}
+
       <div className='quiz-results-summary'>
         <div className='score-box'>
           <div className='score-title'>

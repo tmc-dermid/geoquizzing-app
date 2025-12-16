@@ -454,7 +454,7 @@ export default function AchievementsAdmin() {
           Found <strong>{filteredAndSorted.length}</strong> achievement{filteredAndSorted.length !== 1 ? "s" : ""} in total
         </p>
       )}
-
+      
       <div className="achievement-list">
         {loading ? (
           <p>Loading...</p>

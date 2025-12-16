@@ -134,12 +134,19 @@ export default function Favorites({ username }) {
   if (favoriteQuizzes.length === 0) {
     return (
       <div className="favorites-wrapper">
-        <h3 className="no-favorites">{isOwner ? "You have no favorites yet" : <span><strong>{username}</strong> has no favorites</span>}</h3>
+        <p className="no-favorites">{isOwner ? "You have no favorites yet" : <span><strong>{username}</strong> has no favorites</span>}</p>
       </div>
     );
   }
 
-  const formatDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const formatDate = (iso) => new Date(iso).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
   return (
     <div className="favorites-wrapper">
@@ -151,9 +158,9 @@ export default function Favorites({ username }) {
           {favoriteQuizzes.map((quiz) => (
             <motion.div
               layout
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 60 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="favorite-row"
               key={quiz.subcategory_id}

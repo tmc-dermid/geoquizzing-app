@@ -137,7 +137,11 @@ export default function QuizHistory({ username }) {
   }, [sessions, sortBy, difficultyFilter, categoryFilter]);
 
   if (loading) return <p className='loading-info'>Loading quiz history...</p>;
-  if (!sessions.length) return <p className='loading-info'>No quiz history available.</p>;
+  if (!sessions.length) return (
+    <div className="quiz-history-container">
+      <p className="no-quiz-history">{isOwner ? "You haven't played any quizzes yet" : <span><strong>{username}</strong> hasn't played any quizzes yet</span>}</p>
+    </div>
+  );
 
   const uniqueCategories = [...new Set(
     sessions.map(s => s.subcategories.categories.category_name)
@@ -195,8 +199,8 @@ export default function QuizHistory({ username }) {
       {!loading && (
         <p className='results-count'>
           {isOwner
-            ? <>You&apos;ve played a total of <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}.</>
-            : <><strong className='user-name'>{username}</strong> has played <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}.</>
+            ? <>You&apos;ve played a total of <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}</>
+            : <><strong>{username}</strong> has played <strong>{sessions.length}</strong> quiz{sessions.length !== 1 ? "zes" : ""}</>
           }
         </p>
       )}

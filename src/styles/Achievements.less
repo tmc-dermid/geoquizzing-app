@@ -1,0 +1,62 @@
+@import url(./mixins.less);
+
+.loading-info {
+  .loading-info-mixin();
+}
+
+.no-achievements {
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.achievements-container {
+  padding: 20px 0 20px 0;
+
+  .achievements-heading {
+    text-align: center;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+
+    strong {
+      color: #262692;
+    }  
+  }
+
+  .results-count {
+    .results-count-mixin();
+    margin-bottom: 25px;
+  }
+
+  .achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    justify-items: center;
+    gap: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #efefef;
+
+    .achievement-card {
+      .achievement-card-mixin();
+      padding-bottom: 0;
+
+      .achievement-earned-at {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: 400;
+        font-style: italic;
+        letter-spacing: 0.5px;
+        color: #e0e0e0;
+        font-family: 'Lato', sans-serif;
+        background: rgba(25, 20, 60, 0.35);
+        border: 1px solid rgba(150, 150, 255, 0.4);
+        backdrop-filter: blur(8px);
+        padding: 4px 8px;
+        border-radius: 4px 4px 12px 12px;
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ export const showAchievementToasts = (achievements) => {
         </div>
       </div>,
       {
+        toastId: `achievement-${a.achievement_id}`,
         position: 'top-right',
         autoClose: 5000,
         closeButton: true,

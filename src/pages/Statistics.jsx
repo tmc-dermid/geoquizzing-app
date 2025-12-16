@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig } from "../helper/statsConfig.jsx";
-import CountUp from "react-countup";
+import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
+import CountUp from "react-countup";
 import supabase from "../helper/supabaseClient.js";
 import "../styles/Statistics.less";
 
@@ -80,8 +81,13 @@ export default function Statistics({ username }) {
           </label>
         </div>
 
-        <div className="stats-container">
-          {generalStatsConfig.map(stat => (
+        <motion.div
+          className="stats-container"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {generalStatsConfig.map(stat => (   
             <StatCard
               key={stat.key}
               stat={stat}
@@ -89,12 +95,19 @@ export default function Statistics({ username }) {
               tooltipsEnabled={tooltipsEnabled}
             />
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="stats-section">
         <h3 className="stats-heading">Quiz Performance</h3>
-        <div className="stats-container">
+
+        <motion.div
+          className="stats-container"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}          
+        >
           {quizPerformanceConfig.map(stat => (
             <StatCard
               key={stat.key}
@@ -103,12 +116,19 @@ export default function Statistics({ username }) {
               tooltipsEnabled={tooltipsEnabled}
             />
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="stats-section">
         <h3 className="stats-heading">User Activity</h3>
-        <div className="stats-container">
+
+        <motion.div
+          className="stats-container"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}             
+        >
           {activityStatsConfig.map(stat => (
             <StatCard
               key={stat.key}
@@ -117,7 +137,7 @@ export default function Statistics({ username }) {
               tooltipsEnabled={tooltipsEnabled}
             />
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {tooltipsEnabled && <ReactTooltip id="global-tooltip" place="top" delayShow={100} delayHide={100} className="custom-tooltip" />}

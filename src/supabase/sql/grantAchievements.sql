@@ -11,6 +11,8 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
   new_ach RECORD;
+  ach_points INT;
+  total_points INT := 0;
 BEGIN
   FOR new_ach IN
     WITH eligible_achievements AS (
@@ -72,10 +74,25 @@ BEGIN
     VALUES (p_user_id, new_ach.ach_id)
     ON CONFLICT DO NOTHING;
 
+    SELECT a.points
+    INTO ach_points
+    FROM achievements a
+    WHERE a.achievement_id = new_ach.ach_id;
+
+    total_points := total_points + COALESCE(ach_points, 0);
+
     RETURN QUERY
     SELECT a.achievement_id, a.title, a.description, a.icon, a.points
     FROM achievements a
     WHERE a.achievement_id = new_ach.ach_id;
+
   END LOOP;
+
+  IF total_points > 0 THEN
+    UPDATE user_profile AS u
+    SET points = u.points + total_points
+    WHERE u.id = p_user_id;
+  END IF;
+
 END;
 $$;
