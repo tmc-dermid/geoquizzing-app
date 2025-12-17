@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { achievementIconMap, categoryColors } from '../helper/achievementsConfig';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiEye } from 'react-icons/fi';
 import supabase from '../helper/supabaseClient';
 import '../styles/Achievements.less';
 
@@ -10,6 +11,7 @@ export default function Achievements({ username }) {
   const [achievements, setAchievements] = useState([]);
   const [ownerId, setOwnerId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedAchievement, setSelectedAchievement] = useState(null);
 
   const { user } = useContext(AuthContext);
 
@@ -100,6 +102,7 @@ export default function Achievements({ username }) {
     </div>
   );
 
+
   return (
     <div className='achievements-container'>
       <h2 className='achievements-heading'>
@@ -115,37 +118,86 @@ export default function Achievements({ username }) {
         </p>
       )}
 
-      <div className='achievement-grid'>
+      <div className='achievement-icon-grid'>
         <AnimatePresence>
-          {achievements.map((ach) => (
+          {achievements.map((ach, index) => (
             <motion.div
               key={ach.achievement_id}
-              className='achievement-card'
-              initial={{ opacity: 0, y: 20 }}
+              className='achievement-icon-tile'
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20}}
-              transition={{ duration: 0.5, delay: 0.1 * achievements.indexOf(ach) }}
+              exit={{ opacity: 0, y: 15 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => setSelectedAchievement(ach)}
             >
               <div
-                className='achievement-category'
+                className='icon-wrapper'
                 style={{ background: categoryColors[ach.category] }}
               >
-                {ach.category}
-              </div>
-              <div className='achievement-icon'>
                 {achievementIconMap[ach.icon] && React.createElement(achievementIconMap[ach.icon])}
               </div>
-              <div className='achievement-info'>
-                <div className='achievement-title'>{ach.title}</div>
-                <div className='achievement-description'>{ach.description}</div>
-                <div className='achievement-points'>Points: {ach.points}</div>
-              </div>
+              <div className='tile-title'>{ach.title}</div>
+              <div className='tile-date'>{formatDate(ach.earned_at)}</div>
 
-              <div className='achievement-earned-at'><strong>Earned at: </strong>{formatDate(ach.earned_at)}</div>
+              <motion.div
+                className='tile-overlay'
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className='tile-overlay-label'><FiEye style={{ marginRight: 8 }}/> View Card</div>
+              </motion.div>
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {selectedAchievement && (
+          <motion.div
+            className='achievement-modal-backdrop'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedAchievement(null)}
+          >
+            <motion.div
+              className='achievement-modal-content'
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className='achievement-card'>
+                <div
+                  className='achievement-category'
+                  style={{ background: categoryColors[selectedAchievement.category] }}
+                >
+                  {selectedAchievement.category}
+                </div>
+
+                <div className='achievement-icon'>
+                  {achievementIconMap[selectedAchievement.icon]
+                    && React.createElement(achievementIconMap[selectedAchievement.icon])}
+                </div>
+
+                <div className="achievement-info">
+                  <div className="achievement-title">{selectedAchievement.title}</div>
+                  <div className="achievement-description">{selectedAchievement.description}</div>
+                  <div className="achievement-points">Points: {selectedAchievement.points}</div>
+                </div>
+
+                <div className='achievement-earned-at'>
+                  <strong>Earned at:</strong>
+                  {" "}{formatDate(selectedAchievement.earned_at)}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
