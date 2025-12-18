@@ -60,7 +60,15 @@ BEGIN
         ON s.subcategory_id = qs.subcategory_id
        AND (ea.target_region IS NULL OR s.region = ea.target_region)
       WHERE ea.condition_type = 'perfect_score'
+    ),
+    hints_used_check AS (
+      SELECT ea.achievement_id AS ach_id
+      FROM eligible_achievements ea
+      JOIN user_stats us ON us.user_id = p_user_id
+      WHERE ea.condition_type = 'hints_used'
+        AND us.total_hints_used >= ea.condition_value
     )
+
     SELECT ach_id FROM quizzes_played_check
     UNION
     SELECT ach_id FROM correct_answers_check
@@ -68,6 +76,8 @@ BEGIN
     SELECT ach_id FROM quiz_modes_check
     UNION
     SELECT ach_id FROM perfect_score_check
+    UNION
+    SELECT ach_id FROM hints_used_check
   LOOP
 
     INSERT INTO user_achievement (user_id, achievement_id)

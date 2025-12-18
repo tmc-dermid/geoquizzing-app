@@ -4,6 +4,7 @@ import { AuthContext } from './context/AuthContext.jsx';
 import { AnimatePresence } from 'framer-motion';
 import { startActivity, updateActivity, endActivity } from './activity/activityApi.js';
 import { ToastContainer } from 'react-toastify';
+import { AchievementToastContainer } from './helper/AchievementToastContainer.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Home from './pages/Home.jsx';
@@ -28,6 +29,7 @@ import AdminRoute from './routes/AdminRoute.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import AchievementsAdmin from './pages/admin/AchievementsAdmin.jsx';
 import NewsAdmin from './pages/admin/NewsAdmin.jsx';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'leaflet/dist/leaflet.css';
@@ -92,6 +94,7 @@ function App() {
 
   return (
     <div className='app-wrapper'>
+      <AchievementToastContainer />
       <Header />
       <SignOutModal />
       <div className='container'>

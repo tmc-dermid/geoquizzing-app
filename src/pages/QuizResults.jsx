@@ -5,7 +5,7 @@ import { FiImage, FiArrowUp, FiArrowLeft, FiMap, FiRotateCcw } from 'react-icons
 import { FaRegLightbulb } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAchievementStore } from '../helper/achievementStore.js';
-import { showAchievementToasts } from '../helper/showAchievementToasts.jsx';
+import { addAchievementToast } from '../helper/AchievementToastContainer.jsx';
 import CountryShapeSvg from './CountryShapeSvg.jsx';
 import CountUp from 'react-countup';
 import supabase from '../helper/supabaseClient.js';
@@ -23,7 +23,6 @@ export default function QuizResults() {
   const [showDetails, setShowDetails] = useState(false);
   const [visibleCount, setVisibleCount] = useState(10);
   const [modalImg, setModalImg] = useState(null);
-  const [pendingAchievements, setPendingAchievements] = useState([]);
 
   const achievementStore = useAchievementStore();
 
@@ -135,24 +134,14 @@ export default function QuizResults() {
 
         if (achievementsArray.length > 0) {
           achievementStore.addAchievements(achievementsArray);
-          setPendingAchievements(achievementsArray);
+         
+          achievementsArray.forEach((a) => addAchievementToast(a));
         }
       }
     };
 
     completeQuiz();
   }, [sessionData, session_id]);
-
-  useEffect(() => {
-    if (!pendingAchievements.length) return;
-
-    const id = setTimeout(() => {
-      showAchievementToasts(pendingAchievements);
-    }, 150);
-
-    return () => clearTimeout(id);
-  }, [pendingAchievements]);
-
 
   if (loading) return <div className='quiz-results-container'><i>Loading...</i></div>;
   if (!sessionData) return <div className='quiz-results-container'><i>No session data found.</i></div>;
@@ -201,15 +190,6 @@ export default function QuizResults() {
           <FiRotateCcw />
         </button>
       </div>
-      
-      {/* <button
-        onClick={() => showAchievementToasts([{
-          title: "Quick Learner",
-          icon: "GiTrophyCup"
-        }])}
-      >
-        Test
-      </button> */}
 
       <div className='quiz-results-summary'>
         <div className='score-box'>

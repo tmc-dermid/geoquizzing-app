@@ -12,6 +12,7 @@ export default function Achievements({ username }) {
   const [ownerId, setOwnerId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const { user } = useContext(AuthContext);
 
@@ -95,6 +96,14 @@ export default function Achievements({ username }) {
 
   const isOwner = user?.id && ownerId && user.id === ownerId;
 
+  const filteredAchievements = React.useMemo(() => {
+    if (!selectedCategory) return achievements;
+
+    return achievements.filter((ach) => ach.category === selectedCategory);
+  }, [achievements, selectedCategory]);
+
+  
+
   if (loading) return <p className='loading-info'>Loading achievements...</p>;
   if (!achievements.length) return (
     <div className="achievements-container">
@@ -118,9 +127,47 @@ export default function Achievements({ username }) {
         </p>
       )}
 
+      <div className='achievement-tabs'>
+        {["COMMON", "RARE", "LEGENDARY"].map((cat) => (
+          <button
+            key={cat}
+            className={`tab-button ${selectedCategory === cat ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+        <button
+          className={`tab-button reset ${!selectedCategory ? 'active' : ''}`}
+          onClick={() => setSelectedCategory(null)}
+        >
+          All
+        </button>
+      </div>
+
       <div className='achievement-icon-grid'>
-        <AnimatePresence>
-          {achievements.map((ach, index) => (
+        <AnimatePresence mode='wait'>
+          {filteredAchievements.length === 0 ? (
+            <motion.div
+              key='empty'
+              className='empty-category-info'
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {selectedCategory ? (
+                <>
+                  No achievements in <strong>{selectedCategory}</strong> category yet.
+                </>
+              ) : (
+                <>
+                  No achievements to display.
+                </>
+              )}
+            </motion.div>
+          ) : (
+          filteredAchievements.map((ach, index) => (
             <motion.div
               key={ach.achievement_id}
               className='achievement-icon-tile'
@@ -149,7 +196,8 @@ export default function Achievements({ username }) {
                 <div className='tile-overlay-label'><FiEye style={{ marginRight: 8 }}/> View Card</div>
               </motion.div>
             </motion.div>
-          ))}
+            ))
+          )}
         </AnimatePresence>
       </div>
 

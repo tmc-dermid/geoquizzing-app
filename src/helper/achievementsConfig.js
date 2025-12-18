@@ -1,7 +1,7 @@
 import { GiCompass, GiFootsteps, GiEarthAmerica, GiEarthAfricaEurope, GiPathDistance, GiWorld, GiLaurelCrown, GiDiamondTrophy,
   GiBrain, GiCrown, GiTrophyCup, 
   GiLaurelsTrophy} from "react-icons/gi";
-import { FaEarthAsia, FaEarthEurope, FaEarthOceania, FaPlay, FaGraduationCap, FaShapes } from "react-icons/fa6";
+import { FaEarthAsia, FaEarthEurope, FaEarthOceania, FaPlay, FaGraduationCap, FaShapes, FaLightbulb } from "react-icons/fa6";
 import { IoFootstepsSharp } from "react-icons/io5";
 import { FiCheckCircle } from "react-icons/fi";
 import { RiProgress1Line, RiProgress2Line, RiProgress3Line, RiProgress4Line, RiProgress5Line, RiProgress6Line, RiProgress7Line, RiProgress8Line } from "react-icons/ri";
@@ -26,6 +26,7 @@ export const achievementIconMap = {
   FaShapes,             // used
   FaGraduationCap,      // used
   FiCheckCircle,        // used
+  FaLightbulb,          // used
   IoFootstepsSharp,     // used
   RiProgress1Line,      // used
   RiProgress2Line,      // used

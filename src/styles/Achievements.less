@@ -30,6 +30,62 @@
     margin-bottom: 25px;
   }
 
+  .achievement-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 22px 0 -1px 0;
+    width: fit-content;
+
+    .tab-button {
+      position: relative;
+      padding: 10px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: #cfd8ff;
+      background: linear-gradient(180deg, rgba(12, 28, 80, 0.9), rgba(8, 18, 50, 0.95));
+      border: 1px solid rgba(0, 160, 255, 0.35);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      will-change: background, color;
+
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 8px;
+      }
+
+      &:not(:last-child) {
+        border-right: none;
+      }
+
+      &:hover {
+        color: #fff;
+        background: linear-gradient(180deg, rgba(20, 45, 120, 0.95), rgba(10, 25, 80, 0.95));
+      }
+
+      &.active {
+        z-index: 2;
+        color: #fff;
+        background: linear-gradient(180deg, rgba(20, 50, 150, 1), rgba(10, 30, 90, 1));
+      }
+
+      &.reset {
+        font-size: 0.75rem;
+        letter-spacing: 1.1px;
+        color: #b0c4ff;
+        text-transform: uppercase;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+
   .achievement-icon-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -38,7 +94,7 @@
     padding: 28px 22px;
     justify-items: center;
     position: relative;
-    border-radius: 20px;
+    border-radius: 0 20px 20px 20px;
     background: linear-gradient(180deg,rgba(8, 18, 60, 0.95),rgba(6, 12, 40, 0.95));
     border: 1px solid rgba(0, 160, 255, 0.35);
     box-shadow:
@@ -69,6 +125,15 @@
       pointer-events: none;
       border-radius: inherit;
       box-shadow: inset 0 0 45px rgba(4, 77, 234, 0.35);
+    }
+
+    .empty-category-info {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #cfd8ff;
     }
 
     .achievement-icon-tile {
