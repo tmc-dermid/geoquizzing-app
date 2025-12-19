@@ -29,7 +29,7 @@
     -- correct_ratio FLOAT DEFAULT 0,
     -- incorrect_ratio FLOAT DEFAULT 0,
     -- longest_streak INT DEFAULT 0,
-    -- current_streak INT DEFAULT 0;
+    -- current_streak INT DEFAULT 0,
     -- total_time_active_seconds BIGINT DEFAULT 0,
     -- updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 -- );
@@ -63,6 +63,7 @@
 --     question_text TEXT NOT NULL,
 --     correct_answer TEXT[] NOT NULL,
 --     question_img TEXT,
+--     is_multi_answer BOOLEAN DEFAULT FALSE,
 --     FOREIGN KEY(country_id) REFERENCES countries(country_id)
 -- );
 
@@ -208,6 +209,17 @@
 --   session_count INT DEFAULT 0,
 
 --   PRIMARY KEY (user_id, date)
+-- );
+
+
+-- CREATE TABLE user_category_streaks (
+--   user_id UUID REFERENCES user_profile(id) ON DELETE CASCADE,
+--   category_id INT REFERENCES categories(category_id) ON DELETE CASCADE,
+--   current_streak INT DEFAULT 0,
+--   longest_streak INT DEFAULT 0,
+--   updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+
+--   PRIMARY KEY(user_id, category_id)
 -- );
 
 

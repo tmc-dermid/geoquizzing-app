@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig } from "../helper/statsConfig.jsx";
+import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig, streakStatsConfig } from "../helper/statsConfig.jsx";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
@@ -143,6 +143,27 @@ export default function Statistics({ username }) {
           transition={{ duration: 0.5 }}
         >
           {generalStatsConfig.map(stat => (   
+            <StatCard
+              key={stat.key}
+              stat={stat}
+              value={profileData[stat.key]}
+              tooltipsEnabled={tooltipsEnabled}
+            />
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="stats-section">
+        <h3 className="stats-heading">Streaks</h3>
+
+        <motion.div
+          className="stats-container"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}             
+        >
+          {streakStatsConfig.map(stat => (
             <StatCard
               key={stat.key}
               stat={stat}

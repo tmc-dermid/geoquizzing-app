@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext.jsx';
-import { achievementIconMap, categoryColors } from '../helper/achievementsConfig';
+import { achievementIconMap, categoryColors, categoryOrder } from '../helper/achievementsConfig';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiEye } from 'react-icons/fi';
 import supabase from '../helper/supabaseClient';
@@ -71,7 +71,15 @@ export default function Achievements({ username }) {
           const formatted = achievementsData.map((ua) => ({
             ...ua.achievements,
             earned_at: ua.earned_at,
-          }));
+          }))
+          .sort((a, b) => {
+            const catDiff = categoryOrder[a.category] - categoryOrder[b.category];
+
+            if (catDiff !== 0) return catDiff;
+
+            return new Date(b.earned_at) - new Date(a.earned_at);
+          });
+
           setAchievements(formatted);
         }
       } catch (err) {
@@ -145,7 +153,7 @@ export default function Achievements({ username }) {
         </button>
       </div>
 
-      <div className='achievement-icon-grid'>
+      <motion.div className='achievement-icon-grid' layout>
         <AnimatePresence mode='wait'>
           {filteredAchievements.length === 0 ? (
             <motion.div
@@ -158,7 +166,7 @@ export default function Achievements({ username }) {
             >
               {selectedCategory ? (
                 <>
-                  No achievements in <strong>{selectedCategory}</strong> category yet.
+                  No achievements in <strong>{selectedCategory}</strong> category yet
                 </>
               ) : (
                 <>
@@ -167,14 +175,15 @@ export default function Achievements({ username }) {
               )}
             </motion.div>
           ) : (
-          filteredAchievements.map((ach, index) => (
+          filteredAchievements.map((ach) => (
             <motion.div
+              layout
               key={ach.achievement_id}
               className='achievement-icon-tile'
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 15 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
+              transition={{ duration: 0.5 }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setSelectedAchievement(ach)}
             >
@@ -199,7 +208,7 @@ export default function Achievements({ username }) {
             ))
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {selectedAchievement && (

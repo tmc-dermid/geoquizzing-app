@@ -260,7 +260,7 @@ export default function Home() {
         </main>
 
         <aside className='home-aside'>
-          <h3 className='aside-title'>General Stats</h3>
+          <h3 className='aside-title'>General</h3>
 
           <div className='stats-list'>
             <div className="stat-card">

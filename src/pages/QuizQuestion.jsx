@@ -1,10 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
-import supabase from '../helper/supabaseClient.js';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaInfoCircle, FaMagic } from "react-icons/fa";
 import { FaCircleHalfStroke, FaLightbulb } from 'react-icons/fa6';
 import { MapContainer, GeoJSON, useMap } from "react-leaflet";
+import { AuthContext } from '../context/AuthContext.jsx';
+import supabase from '../helper/supabaseClient.js';
 import '../styles/QuizQuestion.less';
 import "leaflet/dist/leaflet.css";
 
@@ -27,6 +28,7 @@ function FitBounds({ geoJsonData }) {
 export default function QuizQuestion() {
 
   const { session_id } = useParams();
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -87,7 +89,8 @@ export default function QuizQuestion() {
               question_img,
               question_id,
               country_id,
-              correct_answer
+              correct_answer,
+              is_multi_answer
             )
           ),
           subcategory:subcategories (
@@ -318,6 +321,12 @@ export default function QuizQuestion() {
         })
         .eq("quiz_question_id", questionData.quiz_question_id);
 
+      await supabase.rpc("process_question_streak", {
+        p_user_id: user.id,
+        p_question_id: questionData.question.question_id,
+        p_is_correct: isCorrect,
+      });
+
       await supabase.rpc("increment_quiz_session_totals", {
         p_session_id: session_id,
         p_inc_correct: isCorrect ? 1 : 0,
@@ -345,6 +354,12 @@ export default function QuizQuestion() {
           answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000),
         })
         .eq("quiz_question_id", questionData.quiz_question_id);
+
+      await supabase.rpc("process_question_streak", {
+        p_user_id: user.id,
+        p_question_id: questionData.question.question_id,
+        p_is_correct: false,
+      });
 
       await supabase.rpc("increment_quiz_session_totals", {
         p_session_id: session_id,
@@ -375,6 +390,12 @@ export default function QuizQuestion() {
           answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000),
         })
         .eq("quiz_question_id", questionData.quiz_question_id);
+
+      await supabase.rpc("process_question_streak", {
+        p_user_id: user.id,
+        p_question_id: questionData.question.question_id,
+        p_is_correct: true,
+      });
 
       await supabase.rpc("increment_quiz_session_totals", {
         p_session_id: session_id,
@@ -416,7 +437,19 @@ export default function QuizQuestion() {
     const normalizedUserAnswers = rawUserAnswers.map(a => normalizeAnswer(a));
     const correctAnswers = questionData.question.correct_answer.map(a => normalizeAnswer(a));
 
-    const correct = normalizedUserAnswers.every(ans => correctAnswers.includes(ans));
+    let correct = false;
+
+    if (questionData.question.is_multi_answer) {
+      const userCombined = normalizedUserAnswers.join("");
+      const correctCombined = correctAnswers.join("");
+
+      const sortString = (s) => s.split("").sort().join("");
+
+      correct = sortString(userCombined) === sortString(correctCombined);
+    } else {
+      correct = normalizedUserAnswers.some(ans => correctAnswers.includes(ans));
+    }
+
     setIsAnsCorrect(correct);
     setAnswered(true);
 
@@ -431,6 +464,12 @@ export default function QuizQuestion() {
         answer_time_seconds: Math.floor((Date.now() - shownAt) / 1000)
       })
       .eq('quiz_question_id', questionData.quiz_question_id);
+
+    await supabase.rpc("process_question_streak", {
+      p_user_id: user.id,
+      p_question_id: questionData.question.question_id,
+      p_is_correct: correct,
+    });
 
     await supabase.rpc("increment_quiz_session_totals", {
       p_session_id: session_id,
@@ -573,8 +612,19 @@ export default function QuizQuestion() {
           {questionData.question.question_text}
         </div>
 
+
+        
         <AnimatePresence mode='wait'>
           {difficulty === "hard" ? (
+          <>
+            {questionData.question.is_multi_answer && ( 
+              <div className='multi-answer-warning'>
+                <FaInfoCircle className='warning-icon' />
+                This question has multiple correct answers. Enter them in any order.
+                <br />
+                Separate with spaces or comas, or just type them together.
+              </div>
+            )}
             <motion.div
               key={`input-${currentQuestionIndex}`}
               className={`question-input ${answered ? (isAnsCorrect ? "correct" : "wrong") : ""}`}
@@ -616,6 +666,7 @@ export default function QuizQuestion() {
                 Submit
               </button>
             </motion.div>
+          </>
           ) : (
             <>
               {numCorrectChoices > 1 && (

@@ -1,6 +1,7 @@
 import { FaStar, FaCheck, FaTimes, FaCheckCircle, FaTimesCircle, FaQuestion, FaLightbulb, FaRegLightbulb, FaHourglassHalf, FaRegClock } from "react-icons/fa";
 import { MdLightbulbCircle, MdQuestionMark, MdAssignmentTurnedIn  } from "react-icons/md";
 import { GiPlayerTime } from "react-icons/gi";
+import { BsFillLightningFill, BsLightning } from "react-icons/bs";
 
 export const generalStatsConfig = [
   {
@@ -43,6 +44,20 @@ export const generalStatsConfig = [
   },
 ];
 
+export const streakStatsConfig = [
+  {
+    key: "current_streak",
+    label: "Current Streak",
+    icon: <BsLightning />,
+    description: "Current number of consecutive correct answers in general"
+  },
+  {
+    key: "longest_streak",
+    label: "Longest Streak",
+    icon: <BsFillLightningFill />,
+    description: "Highest number of consecutive correct answers in general"
+  },
+];
 
 export const quizPerformanceConfig = [
   {
