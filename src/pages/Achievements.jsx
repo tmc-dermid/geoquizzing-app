@@ -154,14 +154,14 @@ export default function Achievements({ username }) {
       </div>
 
       <motion.div className='achievement-icon-grid' layout>
-        <AnimatePresence mode='wait'>
+        <AnimatePresence>
           {filteredAchievements.length === 0 ? (
             <motion.div
               key='empty'
               className='empty-category-info'
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
               {selectedCategory ? (
@@ -180,10 +180,10 @@ export default function Achievements({ username }) {
               layout
               key={ach.achievement_id}
               className='achievement-icon-tile'
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 15 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0,}}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setSelectedAchievement(ach)}
             >

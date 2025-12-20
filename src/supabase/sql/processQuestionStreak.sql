@@ -19,7 +19,19 @@ BEGIN
     UPDATE user_stats
     SET
       current_streak = COALESCE(current_streak, 0) + 1,
-      longest_streak = GREATEST(COALESCE(longest_streak, 0), COALESCE(current_streak, 0) + 1),
+
+      longest_streak = CASE
+        WHEN current_streak + 1 > COALESCE(longest_streak, 0)
+        THEN current_streak + 1
+        ELSE longest_streak
+      END,
+
+      longest_streak_date = CASE
+        WHEN current_streak + 1 > COALESCE(longest_streak, 0)
+        THEN NOW()
+        ELSE longest_streak_date
+      END,
+
       updated_at = NOW()
     WHERE user_id = p_user_id;
   ELSE
@@ -39,7 +51,19 @@ BEGIN
     UPDATE user_category_streaks
     SET
       current_streak = COALESCE(current_streak, 0) + 1,
-      longest_streak = GREATEST(COALESCE(longest_streak, 0), COALESCE(current_streak, 0) + 1),
+
+      longest_streak = CASE
+        WHEN current_streak + 1 > COALESCE(longest_streak, 0)
+        THEN current_streak + 1
+        ELSE longest_streak
+      END,
+
+      longest_streak_date = CASE
+        WHEN current_streak + 1 > COALESCE(longest_streak, 0)
+        THEN NOW()
+        ELSE longest_streak_date
+      END,
+
       updated_at = NOW()
     WHERE user_id = p_user_id
       AND category_id = v_category_id;

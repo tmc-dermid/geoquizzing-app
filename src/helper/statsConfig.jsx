@@ -53,7 +53,7 @@ export const streakStatsConfig = [
   },
   {
     key: "longest_streak",
-    label: "Longest Streak",
+    label: "Best Streak",
     icon: <BsFillLightningFill />,
     description: "Highest number of consecutive correct answers in general"
   },

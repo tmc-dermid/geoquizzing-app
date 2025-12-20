@@ -31,7 +31,8 @@
     -- longest_streak INT DEFAULT 0,
     -- current_streak INT DEFAULT 0,
     -- total_time_active_seconds BIGINT DEFAULT 0,
-    -- updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    -- updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    -- longest_streak_date TIMESTAMPTZ
 -- );
 
 
@@ -218,6 +219,7 @@
 --   current_streak INT DEFAULT 0,
 --   longest_streak INT DEFAULT 0,
 --   updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+--   longest_streak_date TIMESTAMPTZ,
 
 --   PRIMARY KEY(user_id, category_id)
 -- );

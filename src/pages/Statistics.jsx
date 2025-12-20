@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig, streakStatsConfig } from "../helper/statsConfig.jsx";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, scale } from "framer-motion";
+import { FiGrid } from "react-icons/fi";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import CountUp from "react-countup";
 import supabase from "../helper/supabaseClient.js";
@@ -29,6 +30,11 @@ export default function Statistics({ username }) {
   const [tooltipsEnabled, setTooltipsEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [dailyQuizActivity, setDailyQuizActivity] = useState([]);
+  const [showStreaksModal, setShowStreaksModal] = useState(false);
+  const [categoryStreaks, setCategoryStreaks] = useState([]);
+  const [loadingCategoryStreaks, setLoadingCategoryStreaks] = useState(false);
+  const [categoryStreaksLoaded, setCategoryStreaksLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     async function fetchProfileStats() {
@@ -111,6 +117,60 @@ export default function Statistics({ username }) {
     fetchDailyQuizActivity();
   }, [profileData]);
 
+  useEffect(() => {
+    if (!showStreaksModal) return;
+    if (!profileData?.id) return;
+    if (categoryStreaksLoaded) return;
+
+
+    const fetchCategoryStreaks = async () => {
+      setLoadingCategoryStreaks(true);
+
+      const { data, error } = await supabase
+        .from('categories')
+        .select(`
+          category_id,
+          category_name,
+          user_category_streaks!left(
+            user_id,
+            current_streak,
+            longest_streak,
+            longest_streak_date
+          )
+        `)
+        .order('category_name', { ascending: true });
+
+      if (error) {
+        console.error("Error fetching category streaks:", error);
+        setCategoryStreaks([]);
+      } else {
+        setCategoryStreaks(
+          data.map(row => {
+            const streak = row.user_category_streaks?.find(s => s.user_id === profileData.id);
+            return {
+              category_id: row.category_id,
+              category_name: row.category_name,
+              current_streak: streak?.current_streak ?? '—',
+              longest_streak: streak?.longest_streak ?? '—',
+              longest_streak_date: streak?.longest_streak_date
+                ? new Date(streak.longest_streak_date).toLocaleDateString()
+                : '—',
+            };
+          })
+        );
+        setCategoryStreaksLoaded(true);
+      }
+
+      setLoadingCategoryStreaks(false);
+    }
+
+    fetchCategoryStreaks();
+  }, [showStreaksModal, profileData?.id, categoryStreaksLoaded]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const secondsToTime = (seconds) => {
     const mins = (seconds ?? 0) / 60;
 
@@ -163,6 +223,13 @@ export default function Statistics({ username }) {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}             
         >
+          <button
+            className="streaks-details-btn"
+            onClick={() => setShowStreaksModal(true)}
+            title="View category streaks"
+          >
+            <FiGrid className="streaks-details-icon" />
+          </button>
           {streakStatsConfig.map(stat => (
             <StatCard
               key={stat.key}
@@ -223,19 +290,74 @@ export default function Statistics({ username }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          style={{ width: "100%", height: 250 }}
         >
-          <ResponsiveContainer width="100%" height="100%" >
-            <LineChart data={dailyQuizActivity} margin={{ top: 10, right: 30, left: 0, bottom: 50 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" angle={-45} textAnchor="end" interval="preserveStartEnd" />
-              <YAxis tickFormatter={(value) => value + " s"}/>
-              <Tooltip formatter={(value) => secondsToTime(value)} />
-              <Line type="monotone" dataKey="totalPlaytime" stroke="#8884d8" strokeWidth={2} dot={{ r: 3 }}/>
-            </LineChart>
-          </ResponsiveContainer>
+          {mounted && (
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={dailyQuizActivity} margin={{ top: 10, right: 30, left: 0, bottom: 50 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" angle={-45} textAnchor="end" interval="preserveStartEnd" />
+                <YAxis tickFormatter={(value) => value + " s"}/>
+                <Tooltip formatter={(value) => secondsToTime(value)} />
+                <Line type="monotone" dataKey="totalPlaytime" stroke="#8884d8" strokeWidth={2} dot={{ r: 3 }}/>
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </motion.div>
       </section>
+
+      <AnimatePresence>
+        {showStreaksModal && (
+          <motion.div
+            className="modal-overlay"
+            onClick={() => setShowStreaksModal(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="modal streaks-modal"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+            >
+              <header>
+                <h4>Category Streaks</h4>
+                <button onClick={() => setShowStreaksModal(false)}>×</button>
+              </header>
+
+              {loadingCategoryStreaks && (
+                <p className="modal-loading">Loading category streaks...</p>
+              )}
+
+              {!loadingCategoryStreaks && categoryStreaks.length > 0 && (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Current Streak</th>
+                      <th>Best Streak</th>
+                      <th>Established On</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {categoryStreaks.map((row) => (
+                      <tr key={row.category_id}>
+                        <td style={{ fontWeight: 600 }}>{row.category_name}</td>
+                        <td>{row.current_streak}</td>
+                        <td>{row.longest_streak}</td>
+                        <td>{row.longest_streak_date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {tooltipsEnabled && <ReactTooltip id="global-tooltip" place="top" delayShow={100} delayHide={100} className="custom-tooltip" />}
     </div>
