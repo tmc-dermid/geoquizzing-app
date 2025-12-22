@@ -88,11 +88,14 @@
 
   .achievement-icon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, 150px);
+    justify-items: start;
+    justify-content: start;
+    align-items: start;
     gap: 20px;
     padding: 28px 22px;
     position: relative;
+    min-height: 235px;
     border-radius: 0 20px 20px 20px;
     background: linear-gradient(180deg,rgba(8, 18, 60, 0.95),rgba(6, 12, 40, 0.95));
     border: 1px solid rgba(0, 160, 255, 0.35);
@@ -128,6 +131,8 @@
 
     .empty-category-info {
       grid-column: 1 / -1;
+      justify-self: center;
+      align-self: center;
       text-align: center;
       padding: 40px 20px;
       font-size: 0.9rem;

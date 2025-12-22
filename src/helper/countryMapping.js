@@ -3,6 +3,7 @@
 export const countryCodeMap = {
   "Brunei": "BN",
   "Caribbean Netherlands": "BQ",
+  "Cocos (Keeling) Islands": "CC",
   "Republic of the Congo": "CG",
   "DR Congo": "CD",
   "Czechia": "CZ",

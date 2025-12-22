@@ -1,146 +1,260 @@
-import { useState, useEffect } from "react";
-import { generalStatsConfig, quizPerformanceConfig, activityStatsConfig } from "../helper/statsConfig.jsx";
-import { motion } from "framer-motion";
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import CountUp from "react-countup";
-import supabase from "../helper/supabaseClient.js";
-import "../styles/Statistics.less";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/AuthContext.jsx';
+import { achievementIconMap, categoryColors, categoryOrder } from '../helper/achievementsConfig';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiEye } from 'react-icons/fi';
+import supabase from '../helper/supabaseClient';
+import '../styles/Achievements.less';
 
-const StatCard = ({ stat, value, tooltipsEnabled }) => {
-  const displayValue = stat.format ? stat.format(value) : <CountUp end={value} duration={1.5} />;
+export default function Achievements({ username }) {
 
-  return (
-    <div
-      className="stats-card"
-      data-tooltip-id={tooltipsEnabled ? "global-tooltip" : undefined}
-      data-tooltip-html={tooltipsEnabled ? (stat.description || "") : undefined}
-    >
-      {stat.icon && <div className="stats-icon">{stat.icon}</div>}
-      <p className="stats-label">{stat.label}</p>
-      <p className="stats-value">{displayValue}</p>
-    </div>
-  );
-};
-
-export default function Statistics({ username }) {
-
-  const [profileData, setProfileData] = useState(null);
-  const [tooltipsEnabled, setTooltipsEnabled] = useState(true);
+  const [achievements, setAchievements] = useState([]);
+  const [ownerId, setOwnerId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    async function fetchProfileStats() {
-      setLoading(true);
+    async function fetchOwnerId() {
+      if (!username) return;
 
-      const { data: profile, error: profileErr } = await supabase
-        .from('user_profile')
-        .select('*')
-        .eq('username', username)
-        .single();
-
-      if (profileErr || !profile) {
-        console.error("Error fetching profile statistics:", profileErr);
-        setProfileData(null);
-        setLoading(false);
+      if (user?.id && username === user.user_metadata?.username) {
+        setOwnerId(user.id);
         return;
       }
 
-      const { data: stats, error: statsErr } = await supabase
-        .from('user_stats')
-        .select('*')
-        .eq('user_id', profile.id)
-        .maybeSingle();
+      const { data: profile, error } = await supabase
+        .from('user_profile')
+        .select('id')
+        .eq('username', username)
+        .single();
 
-      if (statsErr) {
-        console.warn("User has no stats yet, using defaults.");
+      if (!error && profile) {
+        setOwnerId(profile.id);
+      } else {
+        console.error("Error fetching profile:", error);
+      }
+    }
+
+    fetchOwnerId();
+  }, [username, user]);
+
+  useEffect(() => {
+    async function fetchAchievements() {
+      if (!ownerId) return;
+
+      setLoading(true);
+
+      try {
+        const { data: achievementsData, error: achievementsErr } = await supabase
+          .from('user_achievement')
+          .select(`
+            earned_at,
+            achievements (
+              achievement_id,
+              title,
+              description,
+              icon,
+              points,
+              category
+            )  
+          `)
+          .eq('user_id', ownerId)
+          .order('earned_at', { ascending: true });
+
+        if (achievementsErr) {
+          console.error("Error fetching achievements:", achievementsErr);
+          setAchievements([]);
+        } else {
+          const formatted = achievementsData.map((ua) => ({
+            ...ua.achievements,
+            earned_at: ua.earned_at,
+          }))
+          .sort((a, b) => {
+            const catDiff = categoryOrder[a.category] - categoryOrder[b.category];
+
+            if (catDiff !== 0) return catDiff;
+
+            return new Date(b.earned_at) - new Date(a.earned_at);
+          });
+
+          setAchievements(formatted);
+        }
+      } catch (err) {
+        console.error("Unexpected error fetching achievements:", err);
+        setAchievements([]);
       }
 
-      const merged = {
-        ...profile,
-        ...stats,
-      };
-
-      setProfileData(merged);
       setLoading(false);
     }
 
-    fetchProfileStats();
-  }, [username]);
+    fetchAchievements();
+  }, [ownerId]);
 
-  if (loading) return <p className="loading-info">Loading statistics...</p>;
-  if (!profileData) return <p className="loading-info">Profile not found</p>;
+  const formatDate = (date) => new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric", 
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  const isOwner = user?.id && ownerId && user.id === ownerId;
+
+  const filteredAchievements = React.useMemo(() => {
+    if (!selectedCategory) return achievements;
+
+    return achievements.filter((ach) => ach.category === selectedCategory);
+  }, [achievements, selectedCategory]);
+
+  
+
+  if (loading) return <p className='loading-info'>Loading achievements...</p>;
+  if (!achievements.length) return (
+    <div className="achievements-container">
+      <p className="no-achievements">{isOwner ? "You have no achievements yet" : <span><strong>{username}</strong> has no achievements yet</span>}</p>
+    </div>
+  );
+
 
   return (
-    <div className="stats-wrapper">
-      <section className="stats-section">
-        <div className="stats-header">
-          <h3 className="stats-heading">General Stats</h3>
-          <label className="tooltip-toggle">
-            <input type="checkbox" checked={tooltipsEnabled} onChange={() => setTooltipsEnabled(!tooltipsEnabled)} />
-            Show Tooltips
-          </label>
-        </div>
+    <div className='achievements-container'>
+      <h2 className='achievements-heading'>
+        {isOwner ? "Your Achievements" : <span><strong>{username}'s</strong> Achievements</span>}
+      </h2>
 
-        <motion.div
-          className="stats-container"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+      {!loading && (
+        <p className='results-count'>
+          {isOwner
+            ? <>You&apos;ve earned a total of <strong>{achievements.length}</strong> achievement{achievements.length !== 1 ? "s" : ""}.</>
+            : <><strong className='user-name'>{username}</strong> has earned <strong>{achievements.length}</strong> achievement{achievements.length !== 1 ? "s" : ""}.</>
+          }
+        </p>
+      )}
+
+      <div className='achievement-tabs'>
+        {["COMMON", "RARE", "LEGENDARY"].map((cat) => (
+          <button
+            key={cat}
+            className={`tab-button ${selectedCategory === cat ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+        <button
+          className={`tab-button reset ${!selectedCategory ? 'active' : ''}`}
+          onClick={() => setSelectedCategory(null)}
         >
-          {generalStatsConfig.map(stat => (   
-            <StatCard
-              key={stat.key}
-              stat={stat}
-              value={profileData[stat.key]}
-              tooltipsEnabled={tooltipsEnabled}
-            />
-          ))}
-        </motion.div>
-      </section>
+          All
+        </button>
+      </div>
 
-      <section className="stats-section">
-        <h3 className="stats-heading">Quiz Performance</h3>
+      <motion.div className='achievement-icon-grid' layout>
+        <AnimatePresence>
+          {filteredAchievements.length === 0 ? (
+            <motion.div
+              key='empty'
+              className='empty-category-info'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {selectedCategory ? (
+                <>
+                  No achievements in <strong>{selectedCategory}</strong> category yet
+                </>
+              ) : (
+                <>
+                  No achievements to display.
+                </>
+              )}
+            </motion.div>
+          ) : (
+          filteredAchievements.map((ach) => (
+            <motion.div
+              layout
+              key={ach.achievement_id}
+              className='achievement-icon-tile'
+              initial={{ opacity: 0,}}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => setSelectedAchievement(ach)}
+            >
+              <div
+                className='icon-wrapper'
+                style={{ background: categoryColors[ach.category] }}
+              >
+                {achievementIconMap[ach.icon] && React.createElement(achievementIconMap[ach.icon])}
+              </div>
+              <div className='tile-title'>{ach.title}</div>
+              <div className='tile-date'>{formatDate(ach.earned_at)}</div>
 
-        <motion.div
-          className="stats-container"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}          
-        >
-          {quizPerformanceConfig.map(stat => (
-            <StatCard
-              key={stat.key}
-              stat={stat}
-              value={profileData[stat.key]}
-              tooltipsEnabled={tooltipsEnabled}
-            />
-          ))}
-        </motion.div>
-      </section>
+              <motion.div
+                className='tile-overlay'
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className='tile-overlay-label'><FiEye style={{ marginRight: 8 }}/> View Card</div>
+              </motion.div>
+            </motion.div>
+            ))
+          )}
+        </AnimatePresence>
+      </motion.div>
 
-      <section className="stats-section">
-        <h3 className="stats-heading">User Activity</h3>
+      <AnimatePresence>
+        {selectedAchievement && (
+          <motion.div
+            className='achievement-modal-backdrop'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedAchievement(null)}
+          >
+            <motion.div
+              className='achievement-modal-content'
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className='achievement-card'>
+                <div
+                  className='achievement-category'
+                  style={{ background: categoryColors[selectedAchievement.category] }}
+                >
+                  {selectedAchievement.category}
+                </div>
 
-        <motion.div
-          className="stats-container"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}             
-        >
-          {activityStatsConfig.map(stat => (
-            <StatCard
-              key={stat.key}
-              stat={stat}
-              value={profileData[stat.key]}
-              tooltipsEnabled={tooltipsEnabled}
-            />
-          ))}
-        </motion.div>
-      </section>
+                <div className='achievement-icon'>
+                  {achievementIconMap[selectedAchievement.icon]
+                    && React.createElement(achievementIconMap[selectedAchievement.icon])}
+                </div>
 
-      {tooltipsEnabled && <ReactTooltip id="global-tooltip" place="top" delayShow={100} delayHide={100} className="custom-tooltip" />}
+                <div className="achievement-info">
+                  <div className="achievement-title">{selectedAchievement.title}</div>
+                  <div className="achievement-description">{selectedAchievement.description}</div>
+                  <div className="achievement-points">Points: {selectedAchievement.points}</div>
+                </div>
+
+                <div className='achievement-earned-at'>
+                  <strong>Earned at:</strong>
+                  {" "}{formatDate(selectedAchievement.earned_at)}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

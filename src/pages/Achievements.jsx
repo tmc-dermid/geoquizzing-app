@@ -16,6 +16,31 @@ export default function Achievements({ username }) {
 
   const { user } = useContext(AuthContext);
 
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 8,
+      scale: 0.96,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.96,
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   useEffect(() => {
     async function fetchOwnerId() {
       if (!username) return;
@@ -153,37 +178,42 @@ export default function Achievements({ username }) {
         </button>
       </div>
 
-      <motion.div className='achievement-icon-grid' layout>
-        <AnimatePresence>
+      <motion.div
+        className='achievement-icon-grid'
+        layout
+        transition={{ layout: { type: 'spring', stiffness: 200, damping: 26, mass: 0.8 } }}
+      >
+        <AnimatePresence mode='popLayout'>
           {filteredAchievements.length === 0 ? (
             <motion.div
               key='empty'
+              layout
+              layoutId="empty-state"
               className='empty-category-info'
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
               {selectedCategory ? (
                 <>
                   No achievements in <strong>{selectedCategory}</strong> category yet
                 </>
               ) : (
-                <>
-                  No achievements to display.
-                </>
+                <>No achievements to display.</>
               )}
             </motion.div>
           ) : (
           filteredAchievements.map((ach) => (
             <motion.div
-              layout
               key={ach.achievement_id}
+              layout="position"
+              layoutId={ach.achievement_id}
               className='achievement-icon-tile'
-              initial={{ opacity: 0,}}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               whileHover={{ scale: 1.05 }}
               onClick={() => setSelectedAchievement(ach)}
             >
@@ -193,6 +223,7 @@ export default function Achievements({ username }) {
               >
                 {achievementIconMap[ach.icon] && React.createElement(achievementIconMap[ach.icon])}
               </div>
+
               <div className='tile-title'>{ach.title}</div>
               <div className='tile-date'>{formatDate(ach.earned_at)}</div>
 
@@ -209,7 +240,7 @@ export default function Achievements({ username }) {
           )}
         </AnimatePresence>
       </motion.div>
-
+      
       <AnimatePresence>
         {selectedAchievement && (
           <motion.div
