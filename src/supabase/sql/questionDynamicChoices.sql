@@ -9,6 +9,8 @@ RETURNS TABLE (
   choice_text TEXT,
   is_correct BOOLEAN
 )
+SECURITY DEFINER
+SET search_path = public
 AS $$
 DECLARE
   v_category_name TEXT;

@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION update_activity_session(p_session_id UUID)
 RETURNS VOID
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   UPDATE activity_sessions

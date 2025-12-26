@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION public.process_question_streak(p_user_id UUID, p_question_id INT, p_is_correct BOOLEAN)
 RETURNS VOID
 SECURITY DEFINER
+SET search_path = public
 AS $$
 DECLARE
   v_category_id INT;

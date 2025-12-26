@@ -6,8 +6,8 @@ CREATE OR REPLACE FUNCTION public.increment_quiz_session_totals(
   p_mark_completed BOOLEAN
 )
 RETURNS VOID
-LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   UPDATE quiz_sessions
@@ -19,6 +19,4 @@ BEGIN
     status = CASE WHEN p_mark_completed THEN 'completed' ELSE status END
   WHERE session_id = p_session_id;
 END;
-$$;
-
-
+$$ LANGUAGE plpgsql;

@@ -5,7 +5,10 @@ CREATE OR REPLACE FUNCTION create_quiz_session(
   p_num_questions INT,
   p_with_dependencies BOOLEAN
 )
-RETURNS UUID AS $$
+RETURNS UUID
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
   new_session_id UUID;
 BEGIN
@@ -30,4 +33,4 @@ BEGIN
   RETURN new_session_id;
 END;
 
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql;

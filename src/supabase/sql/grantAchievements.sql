@@ -7,7 +7,7 @@ RETURNS TABLE (
   points INT
 )
 SECURITY DEFINER
-LANGUAGE plpgsql
+SET search_path = public
 AS $$
 DECLARE
   new_ach RECORD;
@@ -105,4 +105,4 @@ BEGIN
   END IF;
 
 END;
-$$;
+$$ LANGUAGE plpgsql;

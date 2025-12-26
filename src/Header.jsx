@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { PiSignOutBold, PiUserBold, PiChartBarBold, PiHeartBold, PiClockBold, PiTrophyBold } from 'react-icons/pi';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from './context/useAuth.js';
 import logo from './assets/logo.png';
 
@@ -70,45 +71,53 @@ export default function Header() {
               />
             </div>
 
-            {dropdownOpen && (
-              <div className='dropdown'>
-                <div className='user-info'>
-                  <img
-                    src={profile.avatar_url}
-                    alt='Avatar'
-                    title={profile.username}
-                    className='avatar'
-                  />
-                  <span className='username'>{profile.username}</span>
-                </div>
-                <hr/>
-                <NavLink to='/profile' className='dropdown-link'>
-                  <PiUserBold className='icon' />
-                  Profile
-                </NavLink>
-                <NavLink to ='/profile?tab=statistics' className='dropdown-link'>
-                  <PiChartBarBold className='icon' />
-                  Statistics
-                </NavLink>
-                <NavLink to ='/profile?tab=achievements' className='dropdown-link'>
-                  <PiTrophyBold className='icon' />
-                  Achievements
-                </NavLink>
-                <NavLink to='/profile?tab=favorites' className='dropdown-link'>
-                  <PiHeartBold className='icon' />
-                  Favorites
-                </NavLink>
-                <NavLink to ='/profile?tab=history' className='dropdown-link'>
-                  <PiClockBold className='icon' />
-                  History
-                </NavLink>
-                <hr />
-                <button onClick={handleSignOut}>
-                  <PiSignOutBold className='signout-icon'/>
-                  Sign Out
-                </button>
-              </div>
-            )}
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  className='dropdown'
+                  initial={{ opacity: 0, scale: 0.98, y: -5 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.98, y: -5 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                >
+                  <div className='user-info'>
+                    <img
+                      src={profile.avatar_url}
+                      alt='Avatar'
+                      title={profile.username}
+                      className='avatar'
+                    />
+                    <span className='username'>{profile.username}</span>
+                  </div>
+                  <hr/>
+                  <NavLink to='/profile' className='dropdown-link'>
+                    <PiUserBold className='icon' />
+                    Profile
+                  </NavLink>
+                  <NavLink to ='/profile?tab=statistics' className='dropdown-link'>
+                    <PiChartBarBold className='icon' />
+                    Statistics
+                  </NavLink>
+                  <NavLink to ='/profile?tab=achievements' className='dropdown-link'>
+                    <PiTrophyBold className='icon' />
+                    Achievements
+                  </NavLink>
+                  <NavLink to='/profile?tab=favorites' className='dropdown-link'>
+                    <PiHeartBold className='icon' />
+                    Favorites
+                  </NavLink>
+                  <NavLink to ='/profile?tab=history' className='dropdown-link'>
+                    <PiClockBold className='icon' />
+                    History
+                  </NavLink>
+                  <hr />
+                  <button onClick={handleSignOut}>
+                    <PiSignOutBold className='signout-icon'/>
+                    Sign Out
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </li>
         )}
       </ul>

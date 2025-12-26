@@ -5,6 +5,7 @@ RETURNS TABLE (
   questions_answered BIGINT
 )
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   RETURN QUERY

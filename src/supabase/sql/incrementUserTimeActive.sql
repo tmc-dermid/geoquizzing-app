@@ -1,5 +1,7 @@
 CREATE OR REPLACE FUNCTION increment_user_time_active()
 RETURNS TRIGGER
+SECURITY DEFINER
+SET search_path = public
 AS $$
 DECLARE
   delta BIGINT;
@@ -42,5 +44,3 @@ CREATE TRIGGER trg_increment_user_time_active
 AFTER INSERT OR UPDATE ON activity_sessions
 FOR EACH ROW
 EXECUTE FUNCTION increment_user_time_active();
-
-

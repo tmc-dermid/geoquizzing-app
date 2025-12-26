@@ -225,25 +225,11 @@
 -- );
 
 
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.user_profile (id, username, avatar_url)
-  VALUES (new.id, new.raw_user_meta_data->>'username', '/default_avatar.svg');
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE TRIGGER on_auth_user_created
-AFTER INSERT ON auth.users
-FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
-
 SELECT
   cs2.country_id,
   c.country_name,
   ST_Area(cs2.geom::geography) / 1000000 AS area,
-  COUNT(cs2.*) OVER() AS neighbours
+  COUNT(cs2.*) OVER() AS neighbors
 FROM country_shapes cs1
 JOIN country_shapes cs2
   ON ST_Intersects(cs1.geom, cs2.geom)
@@ -321,7 +307,7 @@ WHERE region IS NULL;
 -- Count of countries and territories based on the continent.
 -- Refreshes automatically once a new record is inserted into the 'countries' table.
 
-CREATE OR REPLACE VIEW region_stats AS
+CREATE OR REPLACE VIEW region_stats WITH (security_invoker = on) AS
 WITH continent_counts AS (
   SELECT
     con.continent_name AS region,
@@ -341,32 +327,3 @@ world_counts AS (
 SELECT * FROM continent_counts
 UNION ALL
 SELECT * FROM world_counts;
-
-
-CREATE OR REPLACE FUNCTION public.get_subcategory_full(slug_input TEXT)
-RETURNS TABLE (
-  subcategory_id INT,
-  category_id INT,
-  subcategory_name TEXT,
-  region TEXT,
-  subcategory_img TEXT,
-  subcategory_img_source TEXT,
-  slug TEXT,
-  countries_count INT,
-  territories_count INT
-) 
-AS $$
-  SELECT
-    s.subcategory_id,
-    s.category_id,
-    s.subcategory_name,
-    s.region,
-    s.subcategory_img,
-    s.subcategory_img_source,
-    s.slug,
-    COALESCE(r.countries_count, 0) AS countries_count,
-    COALESCE(r.territories_count, 0) AS territories_count
-  FROM subcategories s
-  LEFT JOIN public.region_stats r ON r.region = s.region
-  WHERE s.slug = slug_input;
-$$ LANGUAGE sql STABLE;

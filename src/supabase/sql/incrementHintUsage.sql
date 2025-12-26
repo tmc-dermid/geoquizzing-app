@@ -4,6 +4,7 @@ CREATE OR REPLACE FUNCTION increment_hint_usage(
 )
 RETURNS void
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   UPDATE quiz_sessions
