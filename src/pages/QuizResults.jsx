@@ -6,7 +6,7 @@ import { FaRegLightbulb } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAchievementStore } from '../helper/achievementStore.js';
 import { addAchievementToast } from '../helper/AchievementToastContainer.jsx';
-import CountryShapeSvg from './CountryShapeSvg.jsx';
+import CountryShapeSvg from '../helper/CountryShapeSvg.jsx';
 import CountUp from 'react-countup';
 import supabase from '../helper/supabaseClient.js';
 import '../styles/QuizResults.less';

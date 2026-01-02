@@ -10,17 +10,6 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function generateToken(length = 8) {
-  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let token = '';
-
-  for (let i = 0; i < length; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  
-  return token;
-}
-
 function generateSlug(name) {
 
   let slugName = name.toLowerCase().trim().replace(/[\s_]+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-').replace(/^-+|-+$/g, '');
@@ -40,20 +29,19 @@ async function updateSubcategories() {
 
   for (const quiz of quizzes) {
 
-    if (quiz.token && quiz.slug) continue;
+    if (quiz.slug) continue;
 
-    const token = generateToken();
     const slug = generateSlug(quiz.subcategory_name);
 
     const { error: updateErr } = await supabase
       .from("subcategories")
-      .update({ token, slug })
+      .update({ slug })
       .eq('subcategory_id', quiz.subcategory_id);
 
     if (updateErr) {
       console.error(`Error updating subcategory ${quiz.subcategory_id}:`, updateErr);
     } else {
-      console.log(`Updated subcategory ${quiz.subcategory_id}: token=${token}, slug=${slug}`);
+      console.log(`Updated subcategory ${quiz.subcategory_id}: slug=${slug}`);
     }
   }
 }

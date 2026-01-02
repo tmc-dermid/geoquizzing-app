@@ -8,7 +8,7 @@ import Statistics from './Statistics.jsx';
 import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
-import LiveUserStatus from "./LiveUserStatus.jsx";
+import LiveUserStatus from "../helper/LiveUserStatus.jsx";
 import { countryCodeMap } from '../helper/countryMapping.js';
 import '../styles/Profile.less';
 

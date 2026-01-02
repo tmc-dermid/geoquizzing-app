@@ -8,7 +8,7 @@ import QuizHistory from './QuizHistory.jsx';
 import Favorites from './Favorites.jsx';
 import Achievements from './Achievements.jsx';
 import supabase from '../helper/supabaseClient.js';
-import LiveUserStatus from "./LiveUserStatus.jsx";
+import LiveUserStatus from "../helper/LiveUserStatus.jsx";
 import '../styles/Profile.less';
 
 
